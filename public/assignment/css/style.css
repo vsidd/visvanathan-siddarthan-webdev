@@ -4,4 +4,23 @@ input.form-control {
 
 body {
     padding-top: 36px;
+    padding-bottom: 36px;
+}
+
+.navbar-default{
+    background-color: #1E90FF;
+}
+
+.navbar-default .navbar-brand{
+    color: white;
+}
+
+.glyphiconOkProperties{
+    margin-right: 1em;
+    color: white;
+}
+
+.glyphiconUserProperties{
+    color: white;
+    margin-right: 1em;
 }
