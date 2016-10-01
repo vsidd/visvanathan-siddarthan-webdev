@@ -2,9 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
+
+<nav class="navbar navbar-default navbar-fixed-top pagesbgcolor">
+    <div class="container containerRightPadding">
+        <div class="navbar-header">
+            <p class="navbar-text pull-left">
+                <a href="widget-list.html" class="navbar-link">
+                  <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties pagesbgcolor">
+                  </span>
+                </a>
+            </p>
+            <a class="navbar-brand" href="#">Widget Edit</a>
+            <p class="navbar-text pull-right">
+                <a href="widget-list.html" class="navbar-link">
+                  <span class="glyphicon glyphicon-ok glyphiconOkProperties pagesbgcolor">
+                  </span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+            <label for="widgettext">Text</label>
+            <input type="text" class="form-control" id="widgettext" value="The United States presidential election of 2016, scheduled for Tuesday, November 8, 2016, will be the 58th quadrennial U.S. presidential election">
+        </div>
+        <div class="form-group">
+            <label for="widgeturl">URL</label>
+            <input type="url" class="form-control" id="widgeturl" value="https://i.kinja-img.com/gawker-media/image/upload/s--Lfi2HIYw--/c_scale,fl_progressive,q_80,w_800/n8kpb02cniycamlnltma.jpg">
+        </div>
+        <div class="form-group">
+            <label for="widgetwidth">Width</label>
+            <input type="text" class="form-control" id="widgetwidth" value="100%">
+        </div>
+        <div class="form-group">
+            <label for="widgetupload">Upload</label>
+            <input type="file" class="form-control" id="widgetupload">
+        </div>
+        <a class="btn btn-primary  btn-block btn-lg" href="#">Upload Image</a>
+        <a class="btn btn-danger  btn-block btn-lg" href="widget-list.html">Delete</a>
+    </form>
+
+</div>
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom pagesbgcolor">
+    <div class="container-fluid">
+
+        <p class="navbar-text pull-right">
+            <a href="profile.html" class="navbar-link">
+                    <span class="glyphicon glyphicon-user glyphiconUserProperties pagesbgcolor">
+          </span>
+            </a>
+        </p>
+    </div>
+
+</nav>
 
 </body>
 </html>
