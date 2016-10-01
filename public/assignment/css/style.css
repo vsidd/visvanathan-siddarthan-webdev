@@ -4,9 +4,12 @@ input.form-control {
 
 body {
     padding-top: 60px;
-    padding-bottom: 36px;
+    padding-bottom: 56px;
 }
 
+.navbar-header{
+    width:100%;
+}
 .navbar-default{
     background-color: #1E90FF;
 }
@@ -16,21 +19,53 @@ body {
 }
 
 .glyphiconOkProperties{
-    margin-right: 1em;
+    /*margin-right: 1em;*/
     color: white;
 }
 
 .glyphiconUserProperties{
     color: white;
-    margin-right: 1em;
+    /*margin-right: 1em;*/
 }
 
 .glyphiconPlusProperties{
-    margin-right: 1em;
+    /*margin-right: 1em;*/
     color: white;
 }
 
 .glyphiconBackProperties{
-    margin-left: 1em;
+    margin-left: 5px;
     color: white;
+}
+
+.blueColorText {
+    color: #2cacff;
+}
+
+.containerRightPadding{
+    padding-right: 0px;
+}
+
+.navbar-default.pagesbgcolor{
+    background-color: #f8f8f8;
+}
+
+.navbar-default.pagesbgcolor .navbar-brand {
+    color: #777;
+}
+
+.glyphiconBackProperties.pagesbgcolor{
+    color: black;
+}
+
+.glyphiconPlusProperties.pagesbgcolor{
+    color: black;
+}
+
+.glyphiconUserProperties.pagesbgcolor{
+    color: #1E90FF;
+}
+
+.glyphiconOkProperties.pagesbgcolor{
+    color: black;
 }
