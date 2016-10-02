@@ -90,7 +90,9 @@ body {
 
 .wrapper .glyphicon {
     /*position: absolute;*/
-    float: right !important;
+    /*right: -15px;*/
+    /*align-self: auto;*/
+    /*padding-left: -15px;*/
 }
 
 .box1{
