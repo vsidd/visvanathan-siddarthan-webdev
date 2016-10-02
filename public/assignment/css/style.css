@@ -72,8 +72,8 @@ body {
 }
 
 .v-divider{
-    margin-left:5px;
-    margin-right:5px;
+    /*margin-left:5px;*/
+    /*margin-right:5px;*/
     width:1px;
     height:100em;
     border-left:1px solid gray;
@@ -88,11 +88,14 @@ body {
     position: relative;
 }
 
-.wrapper .glyphicon {
-    /*position: absolute;*/
+.glyphiconOverlay {
+    position: absolute;
+    top:0;
+    right:0;
     /*right: -15px;*/
     /*align-self: auto;*/
     /*padding-left: -15px;*/
+    background-color: white;
 }
 
 .box1{
