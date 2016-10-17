@@ -1,26 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Web Page Maker</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/style.css" rel="stylesheet"/>
-</head>
-<body>
 
 <nav class="navbar navbar-default navbar-fixed-top pagesbgcolor">
     <div class="container containerRightPadding">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="widget-list.html" class="navbar-link">
+                <a href="#/user/:uid/website/:wid/page/:pid/widget" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties pagesbgcolor">
                   </span>
                 </a>
             </p>
             <a class="navbar-brand" href="#">Widget Edit</a>
             <p class="navbar-text pull-right">
-                <a href="widget-list.html" class="navbar-link">
+                <a href="#/user/:uid/website/:wid/page/:pid/widget" class="navbar-link">
                   <span class="glyphicon glyphicon-ok glyphiconOkProperties pagesbgcolor">
                   </span>
                 </a>
@@ -42,13 +32,18 @@
         </div>
         <div class="form-group">
             <label for="widgeturl">URL</label>
-            <input type="url" class="form-control" id="widgeturl" value="https://www.youtube.com/watch?v=WAe-giSW3Zw">
+            <input type="url" class="form-control" id="widgeturl" value="https://i.kinja-img.com/gawker-media/image/upload/s--Lfi2HIYw--/c_scale,fl_progressive,q_80,w_800/n8kpb02cniycamlnltma.jpg">
         </div>
         <div class="form-group">
             <label for="widgetwidth">Width</label>
-            <input type="text" class="form-control" id="widgetwidth" placeholder="100%">
+            <input type="text" class="form-control" id="widgetwidth" value="100%">
         </div>
-        <a class="btn btn-danger  btn-block btn-lg" href="widget-list.html">Delete</a>
+        <div class="form-group">
+            <label for="widgetupload">Upload</label>
+            <input type="file" class="form-control" id="widgetupload">
+        </div>
+        <a class="btn btn-primary  btn-block btn-lg" href="#">Upload Image</a>
+        <a class="btn btn-danger  btn-block btn-lg" href="#/user/:uid/website/:wid/page/:pid/widget">Delete</a>
     </form>
 
 </div>
@@ -58,7 +53,7 @@
     <div class="container">
 
         <p class="navbar-text pull-right">
-            <a href="profile.html" class="navbar-link">
+            <a href="#/user/:uid" class="navbar-link">
                     <span class="glyphicon glyphicon-user glyphiconUserProperties pagesbgcolor">
           </span>
             </a>
@@ -66,6 +61,3 @@
     </div>
 
 </nav>
-
-</body>
-</html>

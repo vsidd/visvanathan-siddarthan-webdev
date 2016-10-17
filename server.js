@@ -14,3 +14,5 @@ var ipaddress = process.env.IP;
 var port      = process.env.PORT || 3000;
 
 app.listen(port, ipaddress);
+
+console.log("server started");

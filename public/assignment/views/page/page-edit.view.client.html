@@ -1,26 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Web Page Maker</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/style.css" rel="stylesheet"/>
-</head>
-<body>
 
 <nav class="navbar navbar-default navbar-fixed-top pagesbgcolor">
     <div class="container containerRightPadding">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="page-list.html" class="navbar-link">
+                <a href="#/user/:uid/website/:wid/page" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties pagesbgcolor">
                   </span>
                 </a>
             </p>
-            <a class="navbar-brand" href="#">New Page</a>
+            <a class="navbar-brand" href="#">Edit Page</a>
             <p class="navbar-text pull-right">
-                <a href="page-list.html" class="navbar-link">
+                <a href="#/user/:uid/website/:wid/page" class="navbar-link">
                   <span class="glyphicon glyphicon-ok glyphiconOkProperties pagesbgcolor">
                   </span>
                 </a>
@@ -34,14 +24,14 @@
     <form>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Page Name">
+            <input type="text" class="form-control" id="name" value="Blog Post">
         </div>
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" id="title" placeholder="Page Title">
         </div>
     </form>
-
+    <a class="btn btn-danger  btn-block btn-lg" href="#/user/:uid/website/:wid/page">Delete</a>
 </div>
 
 
@@ -49,7 +39,7 @@
     <div class="container">
 
         <p class="navbar-text pull-right">
-            <a href="profile.html" class="navbar-link">
+            <a href="#/user/:uid" class="navbar-link">
                     <span class="glyphicon glyphicon-user glyphiconUserProperties pagesbgcolor">
           </span>
             </a>
@@ -58,5 +48,3 @@
 
 </nav>
 
-</body>
-</html>

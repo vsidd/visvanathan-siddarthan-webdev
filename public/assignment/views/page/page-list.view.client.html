@@ -1,26 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Web Page Maker</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/style.css" rel="stylesheet"/>
-</head>
-<body>
 
 <nav class="navbar navbar-default navbar-fixed-top pagesbgcolor">
     <div class="container containerRightPadding">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="website-list.html" class="navbar-link">
+                <a href="#/user/:uid/website" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties pagesbgcolor">
                   </span>
                 </a>
             </p>
             <a class="navbar-brand" href="#">Pages</a>
             <p class="navbar-text pull-right">
-                <a href="page-new.html" class="navbar-link">
+                <a href="#/user/:uid/website/:wid/page/new" class="navbar-link">
                   <span class="glyphicon glyphicon-plus glyphiconPlusProperties pagesbgcolor">
                   </span>
                 </a>
@@ -31,40 +21,40 @@
 
 <div class="container">
     <p>
-        <a href="widget-list.html" class="blueColorText nounderline">Blog Post</a>
-        <a href="page-edit.html">
+        <a href="#/user/:uid/website/:wid/page/:pid/widget" class="blueColorText nounderline">Blog Post</a>
+        <a href="#/user/:uid/website/:wid/page/:pid">
         <span class="glyphicon glyphicon-cog pull-right">
                       </span>
         </a>
     </p>
 
     <p>
-        <a href="widget-list.html" class="blueColorText nounderline">Blogs</a>
-        <a href="page-edit.html">
+        <a href="#/user/:uid/website/:wid/page/:pid/widget" class="blueColorText nounderline">Blogs</a>
+        <a href="#/user/:uid/website/:wid/page/:pid">
         <span class="glyphicon glyphicon-cog pull-right">
                       </span>
         </a>
     </p>
 
     <p>
-        <a href="widget-list.html" class="blueColorText nounderline">Home</a>
-        <a href="page-edit.html">
+        <a href="#/user/:uid/website/:wid/page/:pid/widget" class="blueColorText nounderline">Home</a>
+        <a href="#/user/:uid/website/:wid/page/:pid">
         <span class="glyphicon glyphicon-cog pull-right">
                       </span>
         </a>
     </p>
 
     <p>
-        <a href="widget-list.html" class="blueColorText nounderline">About</a>
-        <a href="page-edit.html">
+        <a href="#/user/:uid/website/:wid/page/:pid/widget" class="blueColorText nounderline">About</a>
+        <a href="#/user/:uid/website/:wid/page/:pid">
         <span class="glyphicon glyphicon-cog pull-right">
                       </span>
         </a>
     </p>
 
     <p>
-        <a href="widget-list.html" class="blueColorText nounderline">Contact Us</a>
-        <a href="page-edit.html">
+        <a href="#/user/:uid/website/:wid/page/:pid/widget" class="blueColorText nounderline">Contact Us</a>
+        <a href="#/user/:uid/website/:wid/page/:pid">
         <span class="glyphicon glyphicon-cog pull-right">
                       </span>
         </a>
@@ -76,7 +66,7 @@
     <div class="container">
 
         <p class="navbar-text pull-right">
-            <a href="profile.html" class="navbar-link">
+            <a href="#/user/:uid" class="navbar-link">
                     <span class="glyphicon glyphicon-user glyphiconUserProperties pagesbgcolor">
           </span>
             </a>
@@ -84,6 +74,3 @@
     </div>
 
 </nav>
-
-</body>
-</html>
