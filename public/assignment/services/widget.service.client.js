@@ -21,31 +21,56 @@
         ];
 
         var api = {
-            "createWidget" : "createWidget",
-            "findWidgetsByPageId" : "findWidgetsByPageId",
-            "findWidgetById" : "findWidgetById",
-            "updateWidget" : "updateWidget",
-            "deleteWidget" : "deleteWidget"
+            "createWidget" : createWidget,
+            "findWidgetsByPageId" : findWidgetsByPageId,
+            "findWidgetById" : findWidgetById,
+            "updateWidget" : updateWidget,
+            "deleteWidget" : deleteWidget
         };
 
-        function createWidget() {
-            
+        function createWidget(pageId, widget) {
+            widget.pageId = pageId;
+            widgets.push(widget);
         }
         
-        function findWidgetsByPageId() {
-            
+        function findWidgetsByPageId(pageId) {
+            for(var wd in widgets){
+                widget = widgets[wd];
+                if(widget.pageId === pageId){
+                    return widget;
+                }
+            }
+            return null;
         }
         
-        function findWidgetById() {
-            
+        function findWidgetById(widgetId) {
+            for(var wd in widgets){
+                widget = widgets[wd];
+                if(widget._id === widgetId){
+                    return widget;
+                }
+            }
+            return null;
         }
         
-        function updateWidget() {
-            
+        function updateWidget(widgetId, widget) {
+            for(var wd in widgets) {
+                localWidget = widgets[wd];
+                if (localWidget._id === widgetId) {
+                    widgets[wd] = widget;
+                    break;
+                }
+            }
         }
         
-        function deleteWidget() {
-            
+        function deleteWidget(widgetId) {
+            for(var wd in widgets){
+                widget = widgets[wd];
+                if(widget._id === widgetId){
+                    widgets.splice(wd, 1);
+                    break;
+                }
+            }
         }
     }
 })();

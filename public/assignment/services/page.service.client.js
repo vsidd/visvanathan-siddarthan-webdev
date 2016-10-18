@@ -14,31 +14,56 @@
         ];
 
         var api = {
-            "createPage" : "createPage",
-            "findPageByWebsiteId" : "findPageByWebsiteId",
-            "findPageById" : "findPageById",
-            "updatePage" : "updatePage",
-            "deletePage" : "deletePage"
+            "createPage" : createPage,
+            "findPageByWebsiteId" : findPageByWebsiteId,
+            "findPageById" : findPageById,
+            "updatePage" : updatePage,
+            "deletePage" : deletePage
         };
         
-        function createPage() {
-            
+        function createPage(websiteId, page) {
+            page.websiteId = websiteId;
+            pages.push(page);
         }
         
-        function findPageByWebsiteId() {
-            
+        function findPageByWebsiteId(websiteId) {
+            for(var p in pages){
+                page = pages[p];
+                if(page.websiteId === websiteId){
+                    return page;
+                }
+            }
+            return null;
         }
         
-        function findPageById() {
-            
+        function findPageById(pageId) {
+            for(var p in pages){
+                page = pages[p];
+                if(page._id === pageId){
+                    return page;
+                }
+            }
+            return null;
         }
         
-        function updatePage() {
-            
+        function updatePage(pageId, page) {
+            for(var p in pages){
+                localPage = pages[p];
+                if(localPage._id === pageId){
+                    pages[p] = page;
+                    break;
+                }
+            }
         }
         
-        function deletePage() {
-            
+        function deletePage(pageId) {
+            for(var p in pages){
+                page = pages[p];
+                if(page._id === pageId){
+                    pages.splice(p, 1);
+                    break;
+                }
+            }
         }
     }
 })();

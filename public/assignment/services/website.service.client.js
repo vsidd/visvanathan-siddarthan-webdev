@@ -17,31 +17,56 @@
         ];
 
         var api = {
-            "createWebsite" : "createWebsite",
-            "findWebsitesByUser" : "findWebsitesByUser",
-            "findWebsiteById" : "findWebsiteById",
-            "updateWebsite" : "updateWebsite",
-            "deleteWebsite" : "deleteWebsite"
+            "createWebsite" : createWebsite,
+            "findWebsitesByUser" : findWebsitesByUser,
+            "findWebsiteById" : findWebsiteById,
+            "updateWebsite" : updateWebsite,
+            "deleteWebsite" : deleteWebsite
         }
         
-        function createWebsite() {
-            
+        function createWebsite(userId, website) {
+            website.developerId = userId;
+            websites.push(website);
         }
         
-        function findWebsitesByUser(){
-            
+        function findWebsitesByUser(userId){
+            for(var w in websites){
+                website = websites[w];
+                if(website.developerId === userId){
+                    return website;
+                }
+            }
+            return null;
         }
         
-        function findWebsiteById(){
-            
+        function findWebsiteById(websiteId){
+            for(var w in websites){
+                website = websites[w];
+                if(website._id === websiteId){
+                    return website;
+                }
+            }
+            return null;
         }
         
-        function updateWebsite(){
-            
+        function updateWebsite(websiteId, website){
+            for(var w in websites){
+                localWebsite = websites[w];
+                if(localWebsite._id === websiteId){
+                    websites[w] = website;
+                    break;
+                }
+            }
         }
         
-        function deleteWebsite() {
-            
+        function deleteWebsite(websiteId) {
+            for(var w in websites){
+                website = websites[w];
+                if(website._id === websiteId){
+                    websites.splice(w, 1);
+                    break;
+                }
+            }
         }
     }
 })();
