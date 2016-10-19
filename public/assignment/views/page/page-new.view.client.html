@@ -3,14 +3,14 @@
     <div class="container containerRightPadding">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="#/user/:uid/website/:wid/page" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties pagesbgcolor">
                   </span>
                 </a>
             </p>
-            <a class="navbar-brand" href="#">New Page</a>
+            <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new">New Page</a>
             <p class="navbar-text pull-right">
-                <a href="#/user/:uid/website/:wid/page" class="navbar-link">
+                <a href ng-click="model.createNewPage(pageName, pageTitle)" class="navbar-link">
                   <span class="glyphicon glyphicon-ok glyphiconOkProperties pagesbgcolor">
                   </span>
                 </a>
@@ -24,11 +24,11 @@
     <form>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Page Name">
+            <input ng-model="pageName" type="text" class="form-control" id="name" placeholder="Page Name">
         </div>
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Page Title">
+            <input ng-model="pageTitle" type="text" class="form-control" id="title" placeholder="Page Title">
         </div>
     </form>
 
@@ -39,7 +39,7 @@
     <div class="container">
 
         <p class="navbar-text pull-right">
-            <a href="#/user/:uid" class="navbar-link">
+            <a href="#/user/{{model.userId}}" class="navbar-link">
                     <span class="glyphicon glyphicon-user glyphiconUserProperties pagesbgcolor">
           </span>
             </a>

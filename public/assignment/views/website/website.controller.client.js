@@ -8,6 +8,7 @@
         .controller("NewWebsiteController", NewWebsiteController)
         .controller("EditWebsiteController", EditWebsiteController);
     var idGen = 500;
+
     function WebsiteListController($routeParams, UserService, WebsiteService) {
         var vm = this;
         var userId = $routeParams.uid;
@@ -15,9 +16,7 @@
         if(user != null) {
             vm.user = user;
         }
-
         vm.websites = WebsiteService.findWebsitesByUser(userId);
-
     }
 
     function NewWebsiteController($location, $routeParams, UserService, WebsiteService) {

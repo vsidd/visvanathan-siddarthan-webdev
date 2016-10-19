@@ -3,14 +3,14 @@
     <div class="container containerRightPadding">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="#/user/:uid/website/:wid/page" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties pagesbgcolor">
                   </span>
                 </a>
             </p>
-            <a class="navbar-brand" href="#">Edit Page</a>
+            <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}">Edit Page</a>
             <p class="navbar-text pull-right">
-                <a href="#/user/:uid/website/:wid/page" class="navbar-link">
+                <a href ng-click="model.updatePage(model.page.name, model.page.title)" class="navbar-link">
                   <span class="glyphicon glyphicon-ok glyphiconOkProperties pagesbgcolor">
                   </span>
                 </a>
@@ -21,17 +21,20 @@
 
 
 <div class="container">
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
     <form>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" value="Blog Post">
+            <input ng-model="model.page.name" type="text" class="form-control" id="name" placeholder="Name">
         </div>
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Page Title">
+            <input ng-model="model.page.title" type="text" class="form-control" id="title" placeholder="Page Title">
         </div>
     </form>
-    <a class="btn btn-danger  btn-block btn-lg" href="#/user/:uid/website/:wid/page">Delete</a>
+    <a ng-click="model.deletePage(model.pageId)" class="btn btn-danger  btn-block btn-lg">Delete</a>
 </div>
 
 
@@ -39,7 +42,7 @@
     <div class="container">
 
         <p class="navbar-text pull-right">
-            <a href="#/user/:uid" class="navbar-link">
+            <a href="#/user/{{model.userId}}" class="navbar-link">
                     <span class="glyphicon glyphicon-user glyphiconUserProperties pagesbgcolor">
           </span>
             </a>
