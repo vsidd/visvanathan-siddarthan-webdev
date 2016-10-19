@@ -3,14 +3,14 @@
     <div class="container containerRightPadding">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="#/user/:uid" class="navbar-link nounderline">
+                <a href="#/user/{{model.user._id}}/" class="navbar-link nounderline">
                   <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties">
                   </span>
                 </a>
             </p>
-            <a class="navbar-brand" href="#">Websites</a>
+            <a class="navbar-brand" href="#/user/{{model.user._id}}/website">Websites</a>
             <p class="navbar-text pull-right">
-                <a href="#/user/:uid/website/new" class="navbar-link">
+                <a href="#/user/{{model.user._id}}/website/new" class="navbar-link">
                   <span class="glyphicon glyphicon-plus glyphiconPlusProperties">
                   </span>
                 </a>
@@ -20,37 +20,16 @@
 </nav>
 
 <div class="container">
-    <p>
-        <a href="#/user/:uid/website/:wid/page" class="blueColorText nounderline">Address Book App</a>
-        <a href="#/user/:uid/website/:wid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-        </a>
-    </p>
+    <ul class="list-group" style="border: none">
+        <li ng-repeat="website in model.websites" class="list-group-item borderless">
+            <a href="#/user/{{website.developerId}}/website/{{website._id}}/page" class="blueColorText nounderline">{{website.name}}</a>
+            <a href="#/user/{{website.developerId}}/website/{{website._id}}">
+                <span class="glyphicon glyphicon-cog pull-right">
+                </span>
+            </a>
+        </li>
+    </ul>
 
-    <p>
-        <a href="#/user/:uid/website/:wid/page" class="blueColorText nounderline" >Blogger</a>
-        <a href="#/user/:uid/website/:wid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-        </a>
-    </p>
-
-    <p>
-        <a href="#/user/:uid/website/:wid/page" class="blueColorText nounderline">Blogging App</a>
-        <a href="#/user/:uid/website/:wid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-        </a>
-    </p>
-
-    <p>
-        <a href="#/user/:uid/website/:wid/page" class="blueColorText nounderline">Script Testing App</a>
-        <a href="#/user/:uid/website/:wid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-        </a>
-    </p>
 </div>
 
 
@@ -58,7 +37,7 @@
     <div class="container">
 
         <p class="navbar-text pull-right">
-            <a href="#/user/:uid" class="navbar-link">
+            <a href="#/user/{{model.user._id}}/" class="navbar-link">
                     <span class="glyphicon glyphicon-user glyphiconUserProperties">
           </span>
             </a>

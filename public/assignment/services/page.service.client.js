@@ -20,20 +20,22 @@
             "updatePage" : updatePage,
             "deletePage" : deletePage
         };
-        
+        return api;
+
         function createPage(websiteId, page) {
             page.websiteId = websiteId;
             pages.push(page);
         }
         
         function findPageByWebsiteId(websiteId) {
+            var pagesForWebsite = [];
             for(var p in pages){
                 page = pages[p];
                 if(page.websiteId === websiteId){
-                    return page;
+                    pagesForWebsite.push(page);
                 }
             }
-            return null;
+            return pagesForWebsite;
         }
         
         function findPageById(pageId) {

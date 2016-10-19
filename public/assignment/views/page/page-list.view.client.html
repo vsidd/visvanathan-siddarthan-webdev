@@ -3,14 +3,14 @@
     <div class="container containerRightPadding">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="#/user/:uid/website" class="navbar-link">
+                <a href="#/user/{{model.user._id}}/website" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties pagesbgcolor">
                   </span>
                 </a>
             </p>
-            <a class="navbar-brand" href="#">Pages</a>
+            <a class="navbar-brand" href="#/user/{{model.user._id}}/website/{{model.website._id}}/page">Pages</a>
             <p class="navbar-text pull-right">
-                <a href="#/user/:uid/website/:wid/page/new" class="navbar-link">
+                <a href="#/user/{{model.user._id}}/website/{{model.website._id}}/page/new" class="navbar-link">
                   <span class="glyphicon glyphicon-plus glyphiconPlusProperties pagesbgcolor">
                   </span>
                 </a>
@@ -20,45 +20,16 @@
 </nav>
 
 <div class="container">
-    <p>
-        <a href="#/user/:uid/website/:wid/page/:pid/widget" class="blueColorText nounderline">Blog Post</a>
-        <a href="#/user/:uid/website/:wid/page/:pid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-        </a>
-    </p>
+    <ul class="list-group">
+        <li ng-repeat="page in model.pages" class="list-group-item borderless">
+            <a href="#/user/{{model.user._id}}/website/{{model.website._id}}/page/{{page._id}}/widget" class="blueColorText nounderline">{{page.name}}</a>
+            <a href="#/user/{{model.user._id}}/website/{{model.website._id}}/page/{{page._id}}">
+                <span class="glyphicon glyphicon-cog pull-right">
+                </span>
+            </a>
+        </li>
+    </ul>
 
-    <p>
-        <a href="#/user/:uid/website/:wid/page/:pid/widget" class="blueColorText nounderline">Blogs</a>
-        <a href="#/user/:uid/website/:wid/page/:pid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-        </a>
-    </p>
-
-    <p>
-        <a href="#/user/:uid/website/:wid/page/:pid/widget" class="blueColorText nounderline">Home</a>
-        <a href="#/user/:uid/website/:wid/page/:pid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-        </a>
-    </p>
-
-    <p>
-        <a href="#/user/:uid/website/:wid/page/:pid/widget" class="blueColorText nounderline">About</a>
-        <a href="#/user/:uid/website/:wid/page/:pid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-        </a>
-    </p>
-
-    <p>
-        <a href="#/user/:uid/website/:wid/page/:pid/widget" class="blueColorText nounderline">Contact Us</a>
-        <a href="#/user/:uid/website/:wid/page/:pid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-        </a>
-    </p>
 </div>
 
 
@@ -66,9 +37,9 @@
     <div class="container">
 
         <p class="navbar-text pull-right">
-            <a href="#/user/:uid" class="navbar-link">
-                    <span class="glyphicon glyphicon-user glyphiconUserProperties pagesbgcolor">
-          </span>
+            <a href="#/user/{{model.user._id}}" class="navbar-link">
+                <span class="glyphicon glyphicon-user glyphiconUserProperties pagesbgcolor">
+                </span>
             </a>
         </p>
     </div>

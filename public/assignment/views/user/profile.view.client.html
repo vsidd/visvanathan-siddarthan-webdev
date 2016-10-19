@@ -2,9 +2,9 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container containerRightPadding">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Profile</a>
+            <a class="navbar-brand" href="#/user/{{model.user._id}}/">Profile</a>
             <p class="navbar-text pull-right">
-                <a href="#" class="navbar-link">
+                <a href ng-click="model.updateUser(model.user.username, model.user.email, model.user.firstName, model.user.lastName)" class="navbar-link">
                   <span class="glyphicon glyphicon-ok glyphiconOkProperties">
                   </span>
                 </a>
@@ -18,23 +18,23 @@
     <form>
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" value="siddarth">
+            <input ng-model="model.user.username" type="text" class="form-control" id="username" placeholder="Username">
         </div>
         <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" value="siddarth@ccs.neu.edu">
+            <input ng-model="model.user.email" type="email" class="form-control" id="email" placeholder="sample@domain.com">
         </div>
         <div class="form-group">
             <label for="first-name">First Name</label>
-            <input type="text" class="form-control" id="first-name" value="Siddarthan">
+            <input ng-model="model.user.firstName" type="text" class="form-control" id="first-name" placeholder="First name">
         </div>
         <div class="form-group">
             <label for="last-name">Last Name</label>
-            <input type="text" class="form-control" id="last-name" value="Visvanathan">
+            <input ng-model="model.user.lastName" type="text" class="form-control" id="last-name" placeholder="Last name">
         </div>
     </form>
 
-    <a class="btn btn-primary btn-block" href="#/user/:uid/website">Websites</a>
+    <a class="btn btn-primary btn-block" href="#/user/{{model.user._id}}/website">Websites</a>
     <a class="btn btn-danger  btn-block" href="#/login">Logout</a>
 </div>
 
@@ -42,7 +42,7 @@
     <div class="container">
 
             <p class="navbar-text pull-right">
-                <a href="#" class="navbar-link">
+                <a href="#/user/{{model.user._id}}/" class="navbar-link">
                     <span class="glyphicon glyphicon-user glyphiconUserProperties">
           </span>
                 </a>

@@ -4,16 +4,16 @@
         <div class="container-fluid containerRightPadding col-sm-4 hidden-xs">
             <div class="navbar-header">
                 <p class="navbar-text pull-left">
-                    <a href="#/user/:uid/website" class="navbar-link nounderline">
-                  <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties">
-                  </span>
+                    <a href="#/user/{{model.user._id}}/website" class="navbar-link nounderline">
+                      <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties">
+                      </span>
                     </a>
                 </p>
-                <a class="navbar-brand" href="#">Websites</a>
+                <a class="navbar-brand" href="#/user/{{model.user._id}}/website">Websites</a>
                 <p class="navbar-text pull-right">
-                    <a href="#/user/:uid/website/new" class="navbar-link">
-                  <span class="glyphicon glyphicon-plus glyphiconPlusProperties">
-                  </span>
+                    <a href="#/user/{{model.user._id}}/website/new" class="navbar-link">
+                      <span class="glyphicon glyphicon-plus glyphiconPlusProperties">
+                      </span>
                     </a>
                 </p>
             </div>
@@ -22,16 +22,17 @@
         <div class="container-fluid containerRightPadding col-sm-8">
             <div class="navbar-header">
                 <p class="navbar-text pull-left">
-                    <a href="#/user/:uid/website" class="navbar-link">
-                  <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties visible-xs">
-                  </span>
+                    <a href="#/user/{{model.user._id}}/website" class="navbar-link">
+                      <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties visible-xs">
+                      </span>
                     </a>
                 </p>
-                <a class="navbar-brand" href="#">Edit Website</a>
+                <a class="navbar-brand" href="#/user/{{model.user._id}}/website/{{model.website._id}}">Edit Website</a> <!--============================================-->
                 <p class="navbar-text pull-right">
-                    <a href="#/user/:uid/website" class="navbar-link">
-                  <span class="glyphicon glyphicon-ok glyphiconOkProperties">
-                  </span>
+                    <a href ng-click="model.updateWebsite(model.website.name, model.website.description)"
+                       class="navbar-link">
+                      <span class="glyphicon glyphicon-ok glyphiconOkProperties">
+                      </span>
                     </a>
                 </p>
             </div>
@@ -42,53 +43,34 @@
 
 <div class="row container-fluid">
     <div class="col-sm-4 hidden-xs ">
-        <p>
-            <a href="#/user/:uid/website/:wid/page" class="blueColorText nounderline">Address Book App</a>
-            <a href="#/user/:uid/website/:wid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-            </a>
-        </p>
-
-        <p>
-            <a href="#/user/:uid/website/:wid/page" class="blueColorText nounderline">Blogger</a>
-            <a href="#/user/:uid/website/:wid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-            </a>
-        </p>
-
-        <p>
-            <a href="#/user/:uid/website/:wid/page" class="blueColorText nounderline">Blogging App</a>
-            <a href="#/user/:uid/website/:wid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-            </a>
-        </p>
-
-        <p>
-            <a href="#/user/:uid/website/:wid/page" class="blueColorText nounderline">Script Testing App</a>
-            <a href="#/user/:uid/website/:wid">
-        <span class="glyphicon glyphicon-cog pull-right">
-                      </span>
-            </a>
-        </p>
+        <ul class="list-group">
+            <li ng-repeat="website in model.websites" class="list-group-item borderless">
+                <a href="#/user/{{website.developerId}}/website/{{website._id}}/page" class="blueColorText nounderline">{{website.name}}</a>
+                <a href="#/user/{{website.developerId}}/website/{{website._id}}">
+                    <span class="glyphicon glyphicon-cog pull-right">
+                    </span>
+                </a>
+            </li>
+        </ul>
     </div>
 
     <div class="col-sm-1 v-divider hidden-xs"></div>
     <div class="col-sm-7">
+        <div ng-show="model.error" class="alert alert-danger" role="alert">
+            {{model.error}}
+        </div>
         <form>
             <div class="form-group">
                 <label for="websitename">Website Name</label>
-                <input type="text" class="form-control" id="websitename" value="Address Book App">
+                <input ng-model="model.website.name" type="text" class="form-control" id="websitename" placeholder="Name">
             </div>
             <div class="form-group">
                 <label for="websitedescription">Website Description</label>
-                <textarea class="form-control" rows="5" id="websitedescription">A telephone directory, also known as a telephone book, telephone address book, phone book, or the white/yellow pages, is a listing of telephone subscribers in a geographical area or subscribers to services provided by the organization that publishes the directory. Its purpose is to allow the telephone number of a subscriber identified by name and address to be found.
+                <textarea ng-model="model.website.description" class="form-control" rows="5" id="websitedescription" placeholder="Description">
             </textarea>
             </div>
         </form>
-        <a class="btn btn-danger  btn-block btn-lg" href="#/user/:uid/website">Delete</a>
+        <a ng-click="model.deleteWebsite(model.website._id)" class="btn btn-danger  btn-block btn-lg">Delete</a>
     </div>
 
 
@@ -98,7 +80,7 @@
         <div class="container-fluid">
 
             <p class="navbar-text pull-right">
-                <a href="#/user/:uid" class="navbar-link">
+                <a href="#/user/{{model.user._id}}" class="navbar-link">
                     <span class="glyphicon glyphicon-user glyphiconUserProperties">
           </span>
                 </a>

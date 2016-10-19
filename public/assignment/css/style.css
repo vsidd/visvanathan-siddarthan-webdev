@@ -107,3 +107,7 @@ body {
 .resetGlyphiconFontSize{
     font-size: 24px;
 }
+
+.borderless{
+    border: none;
+}
