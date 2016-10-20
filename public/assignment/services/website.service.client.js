@@ -34,9 +34,9 @@
         function findWebsitesByUser(userId){
             var websitesForDeveloper = [];
             for(var w in websites){
-                website = websites[w];
+                var website = new Object(websites[w]);
                 if(website.developerId === userId){
-                    websitesForDeveloper.push(website);
+                    websitesForDeveloper.push(JSON.parse(JSON.stringify(website)));
                 }
             }
             return websitesForDeveloper;
@@ -44,15 +44,16 @@
         
         function findWebsiteById(websiteId){
             for(var w in websites){
-                website = websites[w];
+                var website = new Object(websites[w]);
                 if(website._id === websiteId){
-                    return website;
+                    return JSON.parse(JSON.stringify(website));
                 }
             }
             return null;
         }
         
         function updateWebsite(websiteId, website){
+            var localWebsite = {};
             for(var w in websites){
                 localWebsite = websites[w];
                 if(localWebsite._id === websiteId){
@@ -63,6 +64,7 @@
         }
         
         function deleteWebsite(websiteId) {
+            var website = {};
             for(var w in websites){
                 website = websites[w];
                 if(website._id === websiteId){

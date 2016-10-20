@@ -1,16 +1,15 @@
-
 <nav class="navbar navbar-default navbar-fixed-top pagesbgcolor">
     <div class="container containerRightPadding">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties pagesbgcolor">
                   </span>
                 </a>
             </p>
             <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}">Widget Edit</a>
             <p class="navbar-text pull-right">
-                <a href ng-click="model.updateHeading(model.widget.name, model.widget.text, model.widget.size)" class="navbar-link">
+                <a href ng-click="model.updateHTML(model.widget.text)" class="navbar-link">
                   <span class="glyphicon glyphicon-ok glyphiconOkProperties pagesbgcolor">
                   </span>
                 </a>
@@ -19,28 +18,21 @@
     </div>
 </nav>
 
-
 <div class="container">
     <div ng-show="model.error" class="alert alert-danger" role="alert">
         {{model.error}}
     </div>
     <form>
         <div class="form-group">
-            <label for="name">Name</label>
-            <input ng-model="model.widget.name" type="text" class="form-control" id="name" placeholder="Name">
+            <label for="html">HTML</label>
+            <input id="html"
+                   ng-model="model.widget.text"
+                   type="text" class="form-control"
+                   placeholder="HTML">
         </div>
-        <div class="form-group">
-            <label for="widgettext">Text</label>
-            <input ng-model="model.widget.text" type="text" class="form-control" id="widgettext" value="The United States presidential election of 2016, scheduled for Tuesday, November 8, 2016, will be the 58th quadrennial U.S. presidential election">
-        </div>
-        <div class="form-group">
-            <label for="widgetsize">Size</label>
-            <input ng-model="model.widget.size" type="number" class="form-control" id="widgetsize" min="1" max="6" placeholder="1">
-        </div>
-        <a class="btn btn-danger  btn-block btn-lg" ng-click="model.deleteHeading(model.widgetId)">Delete</a>
+        <a class="btn btn-danger  btn-block btn-lg" ng-click="model.deleteHTML(model.widgetId)">Delete</a>
     </form>
 </div>
-
 
 <nav class="navbar navbar-default navbar-fixed-bottom pagesbgcolor">
     <div class="container">
@@ -54,3 +46,4 @@
     </div>
 
 </nav>
+

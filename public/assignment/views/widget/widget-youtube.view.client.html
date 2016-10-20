@@ -3,14 +3,14 @@
     <div class="container containerRightPadding">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="#/user/:uid/website/:wid/page/:pid/widget" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties pagesbgcolor">
                   </span>
                 </a>
             </p>
-            <a class="navbar-brand" href="#">Widget Edit</a>
+            <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}">Widget Edit</a>
             <p class="navbar-text pull-right">
-                <a href="#/user/:uid/website/:wid/page/:pid/widget" class="navbar-link">
+                <a href ng-click="model.updateYoutube(model.widget.name, model.widget.text, model.widget.url, model.widget.width)" class="navbar-link">
                   <span class="glyphicon glyphicon-ok glyphiconOkProperties pagesbgcolor">
                   </span>
                 </a>
@@ -21,24 +21,27 @@
 
 
 <div class="container">
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
     <form>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Name">
+            <input ng-model="model.widget.name" type="text" class="form-control" id="name" placeholder="Name">
         </div>
         <div class="form-group">
             <label for="widgettext">Text</label>
-            <input type="text" class="form-control" id="widgettext" placeholder="Text">
+            <input ng-model="model.widget.text" type="text" class="form-control" id="widgettext" placeholder="Text">
         </div>
         <div class="form-group">
             <label for="widgeturl">URL</label>
-            <input type="url" class="form-control" id="widgeturl" value="https://www.youtube.com/watch?v=WAe-giSW3Zw">
+            <input ng-model="model.widget.url" type="url" class="form-control" id="widgeturl" placeholder="Youtube URL">
         </div>
         <div class="form-group">
             <label for="widgetwidth">Width</label>
-            <input type="text" class="form-control" id="widgetwidth" placeholder="100%">
+            <input ng-model="model.widget.width" type="text" class="form-control" id="widgetwidth" placeholder="100%">
         </div>
-        <a class="btn btn-danger  btn-block btn-lg" href="#/user/:uid/website/:wid/page/:pid/widget">Delete</a>
+        <a class="btn btn-danger  btn-block btn-lg" ng-click="model.deleteYoutube(model.widgetId)">Delete</a>
     </form>
 
 </div>
@@ -48,7 +51,7 @@
     <div class="container">
 
         <p class="navbar-text pull-right">
-            <a href="#/user/:uid" class="navbar-link">
+            <a href="#/user/{{model.userId}}" class="navbar-link">
                     <span class="glyphicon glyphicon-user glyphiconUserProperties pagesbgcolor">
           </span>
             </a>

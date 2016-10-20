@@ -32,7 +32,7 @@
             for(var u in users){
                 user = users[u];
                 if(user._id === userId){
-                    return user;
+                    return JSON.parse(JSON.stringify(user));
                 }
             }
             return null;
@@ -42,7 +42,7 @@
             for(var u in users){
                 user = users[u];
                 if(user.username === username){
-                    return user;
+                    return JSON.parse(JSON.stringify(user));
                 }
             }
             return null;
@@ -53,7 +53,7 @@
                 user = users[u];
                 if(user.username === username &&
                     user.password === password){
-                    return user;
+                    return JSON.parse(JSON.stringify(user));
                 }
             }
             return null;

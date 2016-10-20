@@ -32,7 +32,7 @@
             for(var p in pages){
                 page = pages[p];
                 if(page.websiteId === websiteId){
-                    pagesForWebsite.push(page);
+                    pagesForWebsite.push(JSON.parse(JSON.stringify(page)));
                 }
             }
             return pagesForWebsite;
@@ -42,7 +42,7 @@
             for(var p in pages){
                 page = pages[p];
                 if(page._id === pageId){
-                    return page;
+                    return JSON.parse(JSON.stringify(page));
                 }
             }
             return null;

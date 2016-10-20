@@ -3,14 +3,14 @@
     <div class="container containerRightPadding">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="#/user/:uid/website/:wid/page" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties pagesbgcolor">
                   </span>
                 </a>
             </p>
-            <a class="navbar-brand" href="#">Widgets</a>
+            <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">Widgets</a>
             <p class="navbar-text pull-right">
-                <a href="#/user/:uid/website/:wid/page/:pid/widget/new" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="navbar-link">
                   <span class="glyphicon glyphicon-plus glyphiconPlusProperties pagesbgcolor">
                   </span>
                 </a>
@@ -21,95 +21,39 @@
 
 
 <div class="container">
-
-    <div class="wrapper">
-        <h1>
-            <b>Gizmodo</b>
-        </h1>
-
+    <div class="wrapper" ng-switch="widget.widgetType" ng-repeat="widget in model.widgets">
         <div class="glyphiconOverlay">
-            <a href="#/widget-heading" class="nounderline"> <span class="glyphicon glyphicon-cog resetGlyphiconFontSize">
-                    </span> </a>
-            <span class="glyphicon glyphicon-align-justify  resetGlyphiconFontSize">
-                      </span>
+                <span class="glyphicon glyphicon-align-justify pull-right resetGlyphiconFontSize">
+                </span>
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+                <span class="glyphicon glyphicon-cog pull-right resetGlyphiconFontSize">
+                </span>
+            </a>
+        </div>
+        <div ng-switch="widget.size" ng-switch-when="HEADING">
+            <h1 ng-switch-when="1">{{widget.text}}</h1>
+            <h2 ng-switch-when="2">{{widget.text}}</h2>
+            <h3 ng-switch-when="3">{{widget.text}}</h3>
+            <h4 ng-switch-when="4">{{widget.text}}</h4>
+            <h5 ng-switch-when="5">{{widget.text}}</h5>
+            <h6 ng-switch-when="6">{{widget.text}}</h6>
+        </div>
+
+        <div ng-switch-when="YOUTUBE">
+            <iframe width="{{widget.width}}" height="500"
+                    ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}"
+                    frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div ng-switch-when="IMAGE">
+            <img width="{{widget.width}}" ng-src="{{model.checkSafeImageUrl(widget.url)}}"  class="img-responsive">
+        </div>
+
+        <div ng-switch-when="HTML" ng-bind-html="model.checkSafeHtml(widget.text)">
+
         </div>
     </div>
-
-    <div class="wrapper">
-        <h3>
-            <b>Bees Placed on Endangered Species List for the First Time in the US</b>
-        </h3>
-
-        <div class="glyphiconOverlay">
-            <a href="#/widget-heading" class="nounderline"> <span class="glyphicon glyphicon-cog resetGlyphiconFontSize">
-                    </span> </a>
-            <span class="glyphicon glyphicon-align-justify  resetGlyphiconFontSize">
-                      </span>
-        </div>
-    </div>
-
-
-    <div class="wrapper">
-        <img src="https://i.kinja-img.com/gawker-media/image/upload/s--acot-4Vt--/c_scale,fl_progressive,q_80,w_800/dbkwnhkds6uepxmzcuzs.jpg"  class="img-responsive">
-
-        <div class="glyphiconOverlay">
-            <a href="#/widget-image" class="nounderline"> <span class="glyphicon glyphicon-cog resetGlyphiconFontSize">
-                    </span> </a>
-            <span class="glyphicon glyphicon-align-justify  resetGlyphiconFontSize">
-                      </span>
-        </div>
-    </div>
-
-    <div class="wrapper">
-        <p></p>
-        <p>Bees are dying fast and that’s not good for people who like plants and food. Yesterday, the U.S. Fish and Wildlife Service determined that members of seven yellow-faced bees from the Hylaeus species require federal protection. If you’re in Hawaii where this brand of bee resides, you might want to think twice before swatting.</p>
-        <div class="glyphiconOverlay">
-            <a href="#/widget-heading" class="nounderline"> <span class="glyphicon glyphicon-cog resetGlyphiconFontSize">
-                    </span> </a>
-            <span class="glyphicon glyphicon-align-justify  resetGlyphiconFontSize">
-                      </span>
-        </div>
-    </div>
-
-    <div class="wrapper">
-        <h3>
-            <b>Justice League Official Comic-Con Trailer (2017) - Ben Affleck Movie</b>
-        </h3>
-
-        <div class="glyphiconOverlay">
-            <a href="#/widget-heading" class="nounderline"> <span class="glyphicon glyphicon-cog resetGlyphiconFontSize">
-                    </span> </a>
-            <span class="glyphicon glyphicon-align-justify  resetGlyphiconFontSize">
-                      </span>
-        </div>
-    </div>
-
-    <div class="wrapper">
-        <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="//www.youtube.com/embed/fIHH5-HVS9o"></iframe>
-        </div>
-
-        <div class="glyphiconOverlay">
-            <a href="#/widget-youtube" class="nounderline"> <span class="glyphicon glyphicon-cog resetGlyphiconFontSize">
-                    </span> </a>
-            <span class="glyphicon glyphicon-align-justify  resetGlyphiconFontSize">
-                      </span>
-        </div>
-    </div>
-
-    <div class="wrapper">
-        <p></p>
-        <p>Fueled by his restored faith in humanity and inspired by Superman's selfless act, Bruce Wayne enlists the help of his newfound ally, Diana Prince, to face an even greater enemy.</p>
-        <div class="glyphiconOverlay">
-            <a href="#/widget-heading" class="nounderline"> <span class="glyphicon glyphicon-cog resetGlyphiconFontSize">
-                    </span> </a>
-            <span class="glyphicon glyphicon-align-justify  resetGlyphiconFontSize">
-                      </span>
-        </div>
-    </div>
-
 </div>
-
 
 
 
@@ -117,7 +61,7 @@
     <div class="container">
 
         <p class="navbar-text pull-right">
-            <a href="#/user/:uid" class="navbar-link">
+            <a href="#/user/{{model.userId}}" class="navbar-link">
                     <span class="glyphicon glyphicon-user glyphiconUserProperties pagesbgcolor">
           </span>
             </a>

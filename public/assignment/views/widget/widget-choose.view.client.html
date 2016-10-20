@@ -3,57 +3,59 @@
     <div class="container containerRightPadding">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="#/user/:uid/website/:wid/page/:pid/widget" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties pagesbgcolor">
                   </span>
                 </a>
             </p>
-            <a class="navbar-brand" href="#">Choose Widget</a>
+            <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">Choose Widget</a>
 
         </div>
     </div>
 </nav>
 
 <div class="container">
-    <p>
-        <a href="#/widget-heading" class="blueColorText nounderline">Header</a>
-    </p>
+    <ul class="list-group">
+        <li class="list-group-item borderless">
+            <a href ng-click="model.createHeader()" class="blueColorText nounderline">Header</a>
+        </li>
 
-    <p>
-        <a href="#" class="blueColorText nounderline">Label</a>
-    </p>
+        <li class="list-group-item borderless">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="blueColorText nounderline">Label</a>
+        </li>
 
-    <p>
-        <a href="#" class="blueColorText nounderline">HTML</a>
-    </p>
+        <li class="list-group-item borderless">
+            <a href ng-click="model.createHtml()" class="blueColorText nounderline">HTML</a>
+        </li>
 
-    <p>
-        <a href="#" class="blueColorText nounderline">Text Input</a>
-    </p>
+        <li class="list-group-item borderless">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="blueColorText nounderline">Text Input</a>
+        </li>
 
-    <p>
-        <a href="#" class="blueColorText nounderline">Link</a>
-    </p>
+        <li class="list-group-item borderless">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="blueColorText nounderline">Link</a>
+        </li>
 
-    <p>
-        <a href="#" class="blueColorText nounderline">Button</a>
-    </p>
+        <li class="list-group-item borderless">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="blueColorText nounderline">Button</a>
+        </li>
 
-    <p>
-        <a href="#/widget-image" class="blueColorText nounderline">Image</a>
-    </p>
+        <li class="list-group-item borderless">
+            <a href ng-click="model.createImage()" class="blueColorText nounderline">Image</a>
+        </li>
 
-    <p>
-        <a href="#/widget-youtube" class="blueColorText nounderline">YouTube</a>
-    </p>
+        <li class="list-group-item borderless">
+            <a href ng-click="model.createYoutube()" class="blueColorText nounderline">YouTube</a>
+        </li>
 
-    <p>
-        <a href="#" class="blueColorText nounderline">Data Table</a>
-    </p>
+        <li class="list-group-item borderless">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="blueColorText nounderline">Data Table</a>
+        </li>
 
-    <p>
-        <a href="#" class="blueColorText nounderline">Repeater</a>
-    </p>
+        <li class="list-group-item borderless">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="blueColorText nounderline">Repeater</a>
+        </li>
+    </ul>
 </div>
 
 
@@ -61,7 +63,7 @@
     <div class="container">
 
         <p class="navbar-text pull-right">
-            <a href="#/user/:uid" class="navbar-link">
+            <a href="#/user/{{model.userId}}" class="navbar-link">
                     <span class="glyphicon glyphicon-user glyphiconUserProperties pagesbgcolor">
           </span>
             </a>
