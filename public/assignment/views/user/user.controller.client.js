@@ -7,18 +7,23 @@
         .controller("LoginController", LoginController)
         .controller("RegisterController", RegisterController)
         .controller("ProfileController", ProfileController);
-    var idGen = 788;
 
     function LoginController($location, UserService) {
         var vm = this;
         vm.login = login;
         function login(username, password) {
-            var user = UserService.findUserByCredentials(username,password);
-            if(user === null){
-                vm.error = "No such user";
-            }else {
-                $location.url("/user/" + user._id);
-            }
+            UserService
+                .findUserByCredentials(username,password)
+                .success(function(user) {
+                    if(user === '0'){
+                        vm.error = "No such user";
+                    }else {
+                        $location.url("/user/" + user._id);
+                    }
+                })
+                .error(function(serverError) {
+                    vm.error = "server returned error";
+                });
         }
     }
 
@@ -33,13 +38,18 @@
             }else if(password !== verifyPassword) {
                 vm.error = "Entered password do not match with each other"
             }else {
-                idGen = idGen + 1;
-                var newId = idGen.toString();
                 var user = {
-                    _id: newId, username: username, password: password, firstName: "", lastName: ""
+                    _id: "", username: username, password: password, firstName: "", lastName: ""
                 };
-                UserService.createUser(user);
-                $location.url("/user/" + newId);
+                UserService
+                    .createUser(user)
+                    .success(function (user) {
+                        $location.url("/user/" + user._id);
+                    })
+                    .error(function (serverError) {
+                        vm.error = "server returned error";
+                    });
+
             }
         }
     }
@@ -47,11 +57,19 @@
     function ProfileController($routeParams, UserService) {
         var vm = this;
         var userId = $routeParams.uid;
-        var user = UserService.findUserById(userId);
-        if(user != null) {
-            vm.user = user;
+        function init() {
+            UserService
+                .findUserById(userId)
+                .success(function (user) {
+                    if(user != '0') {
+                        vm.user = user;
+                    }
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
         }
-        
+        init();
         vm.updateUser = updateUser;
         
         function updateUser(username, email, firstname, lastname) {
@@ -59,7 +77,14 @@
             vm.user.email = email;
             vm.user.firstName = firstname;
             vm.user.lastName = lastname;
-            UserService.updateUser(userId, vm.user);
+            UserService
+                .updateUser(userId, vm.user)
+                .success(function (successFromServer) {
+
+                })
+                .error(function (errorFromServer) {
+                    vm.error = "server returned error";
+                });
         }
     }
 })();

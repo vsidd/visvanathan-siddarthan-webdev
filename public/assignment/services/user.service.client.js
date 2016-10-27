@@ -6,13 +6,7 @@
         .module("WebAppMaker")
         .factory("UserService", UserService);
 
-    function UserService() {
-        var users = [
-            {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder", email: ""  },
-            {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley", email: ""  },
-            {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia", email: ""  },
-            {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi", email: "" }
-        ];
+    function UserService($http) {
         var api = {
             "createUser" : createUser,
             "findUserById" : findUserById,
@@ -25,58 +19,33 @@
         return api;
 
         function createUser(user) {
-            users.push(user);
+            var url = "/api/user";
+            return $http.post(url, user);
         }
 
         function findUserById(userId){
-            for(var u in users){
-                user = users[u];
-                if(user._id === userId){
-                    return JSON.parse(JSON.stringify(user));
-                }
-            }
-            return null;
+            var url = "/api/user/"+userId;
+            return $http.get(url);
         }
 
         function findUserByUserName(username){
-            for(var u in users){
-                user = users[u];
-                if(user.username === username){
-                    return JSON.parse(JSON.stringify(user));
-                }
-            }
-            return null;
+           var url = "/api/user/username="+username;
+            return $http.get(url);
         }
 
         function findUserByCredentials(username, password) {
-            for(var u in users){
-                user = users[u];
-                if(user.username === username &&
-                    user.password === password){
-                    return JSON.parse(JSON.stringify(user));
-                }
-            }
-            return null;
+            var url = '/api/user?username='+username+'&password='+password;
+            return $http.get(url);
         }
 
         function updateUser(userId, user) {
-            for(var u in users){
-                localUser = users[u];
-                if(localUser._id === userId){
-                    users[u] = user;
-                    break;
-                }
-            }
+            var url = "/api/user/"+userId;
+            return $http.put(url, user);
         }
 
         function deleteUser(userId) {
-            for(var u in users){
-                user = users[u];
-                if(user._id === userId){
-                    users.splice(u, 1);
-                    break;
-                }
-            }
+            var url = "/api/user/"+userId;
+            return $http.delete(url);
         }
     }
 })();

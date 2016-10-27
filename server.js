@@ -15,4 +15,7 @@ var port      = process.env.PORT || 3000;
 
 app.listen(port, ipaddress);
 
+require("./assignment/app.js")(app);
+
+
 console.log("server started");
