@@ -7,7 +7,6 @@
         .controller("WebsiteListController", WebsiteListController)
         .controller("NewWebsiteController", NewWebsiteController)
         .controller("EditWebsiteController", EditWebsiteController);
-    // var idGen = 500;
 
     function WebsiteListController($routeParams, UserService, WebsiteService) {
         var vm = this;

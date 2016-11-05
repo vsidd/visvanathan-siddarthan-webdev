@@ -54,7 +54,7 @@
         }
     }
 
-    function ProfileController($routeParams, UserService) {
+    function ProfileController($routeParams, UserService, $location) {
         var vm = this;
         var userId = $routeParams.uid;
         function init() {
@@ -71,7 +71,8 @@
         }
         init();
         vm.updateUser = updateUser;
-        
+        vm.unregisterUser = unregisterUser;
+
         function updateUser(username, email, firstname, lastname) {
             vm.user.username = username;
             vm.user.email = email;
@@ -84,6 +85,17 @@
                 })
                 .error(function (errorFromServer) {
                     vm.error = "server returned error";
+                });
+        }
+
+        function unregisterUser() {
+            UserService
+                .deleteUser(userId)
+                .success(function(successFromServer){
+                    $location.url("/login");
+                })
+                .error(function(){
+
                 });
         }
     }

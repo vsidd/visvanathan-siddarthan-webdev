@@ -7,7 +7,6 @@
         .controller("WidgetListController", WidgetListController)
         .controller("NewWidgetController", NewWidgetController)
         .controller("EditWidgetController", EditWidgetController);
-    var idGen = 900;
 
     function WidgetListController($routeParams, WidgetService, $sce) {
         var vm = this;
@@ -20,10 +19,15 @@
         vm.checkSafeYouTubeUrl = checkSafeYouTubeUrl;
         vm.checkSafeImageUrl = checkSafeImageUrl;
 
-        var widgets = WidgetService.findWidgetsByPageId(vm.pageId);
-        if(widgets != null){
-            vm.widgets = widgets;
-        }
+        WidgetService
+            .findWidgetsByPageId(vm.pageId)
+            .success(function (widgets) {
+                    vm.widgets = widgets;
+            })
+            .error(function (serverError) {
+                vm.error = "server returned error";
+            });
+
 
         function checkSafeHtml(html) {
             return $sce.trustAsHtml(html);
@@ -54,37 +58,53 @@
         vm.createYoutube = createYoutube;
 
         function createHeader() {
-            idGen = idGen + 1;
-            var newId = idGen.toString();
-            var header = { "_id": newId, "widgetType": "HEADING", "pageId": vm.pageId, "size": 4, "text": "This is a new HEADER Widget"};
-            WidgetService.createWidget(vm.pageId, header);
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+            var header = { "_id": "", "widgetType": "HEADING", "pageId": vm.pageId, "size": 4, "text": "This is a new HEADER Widget"};
+            WidgetService
+                .createWidget(vm.pageId, header)
+                .success(function (widget) {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
         }
 
         function createHtml() {
-            idGen = idGen + 1;
-            var newId = idGen.toString();
-            var html = { "_id": newId, "widgetType": "HTML", "pageId": vm.pageId, "text": "<p>This is a new HTML Widget</p>"};
-            WidgetService.createWidget(vm.pageId, html);
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+            var html = { "_id": "", "widgetType": "HTML", "pageId": vm.pageId, "text": "<p>This is a new HTML Widget</p>"};
+            WidgetService
+                .createWidget(vm.pageId, html)
+                .success(function (widget) {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
         }
 
         function createImage() {
-            idGen = idGen + 1;
-            var newId = idGen.toString();
-            var image = { "_id": newId, "widgetType": "IMAGE", "pageId": vm.pageId, "width": "100%",
+            var image = { "_id": "", "widgetType": "IMAGE", "pageId": vm.pageId, "width": "100%",
                 "url": "http://lorempixel.com/400/200/", "name":"", "text":""};
-            WidgetService.createWidget(vm.pageId, image);
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+            WidgetService
+                .createWidget(vm.pageId, image)
+                .success(function (widget) {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
         }
 
         function createYoutube() {
-            idGen = idGen + 1;
-            var newId = idGen.toString();
-            var youtube = { "_id": newId, "widgetType": "YOUTUBE", "pageId": vm.pageId, "width": "100%",
+            var youtube = { "_id": "", "widgetType": "YOUTUBE", "pageId": vm.pageId, "width": "100%",
                 "url": "https://youtu.be/AM2Ivdi9c4E" };
-            WidgetService.createWidget(vm.pageId, youtube);
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+            WidgetService
+                .createWidget(vm.pageId, youtube)
+                .success(function (widget) {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
         }
     }
 
@@ -95,10 +115,17 @@
         vm.pageId = $routeParams.pid;
         vm.widgetId = $routeParams.wgid;
 
-        var widget = WidgetService.findWidgetById(vm.widgetId);
-        if(widget != null){
-            vm.widget = widget;
-        }
+        WidgetService
+            .findWidgetById(vm.widgetId)
+            .success(function (widget) {
+                if(widget != '0'){
+                    vm.widget = widget;
+                }
+            })
+            .error(function (serverError) {
+                vm.error = "server returned error";
+            });
+
 
         vm.updateHTML = updateHTML;
         vm.updateImage = updateImage;
@@ -116,8 +143,15 @@
                 vm.error = "Text field cannot be empty";
             } else {
                 vm.widget.text = text;
-                WidgetService.updateWidget(vm.widgetId, vm.widget);
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                WidgetService
+                    .updateWidget(vm.widgetId, vm.widget)
+                    .success(function (successMsgFromServer) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                    })
+                    .error(function (serverError) {
+                        vm.error = "server returned error";
+                    });
+
             }
         }
 
@@ -130,15 +164,27 @@
                 vm.widget.name = name;
                 vm.widget.text = text;
                 vm.widget.url = url;
-                widget.width = width;
-                WidgetService.updateWidget(vm.widgetId, vm.widget);
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                vm.widget.width = width;
+                WidgetService
+                    .updateWidget(vm.widgetId, vm.widget)
+                    .success(function (successMsgFromServer) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                    })
+                    .error(function (serverError) {
+                        vm.error = "server returned error";
+                    });
             }
         }
 
         function deleteImage(localWidgetId) {
-            WidgetService.deleteWidget(localWidgetId);
-            $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/");
+            WidgetService
+                .deleteWidget(localWidgetId)
+                .success(function (successMsgFromServer) {
+                    $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/");
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
         }
 
         function updateYoutube(name, text, url, width) {
@@ -151,14 +197,26 @@
                 vm.widget.text = text;
                 vm.widget.url = url;
                 widget.width = width;
-                WidgetService.updateWidget(vm.widgetId, vm.widget);
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                WidgetService
+                    .updateWidget(vm.widgetId, vm.widget)
+                    .success(function (successMsgFromServer) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                    })
+                    .error(function (serverError) {
+                        vm.error = "server returned error";
+                    });
             }
         }
 
         function deleteYoutube(localWidgetId) {
-            WidgetService.deleteWidget(localWidgetId);
-            $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/");
+            WidgetService
+                .deleteWidget(localWidgetId)
+                .success(function (successMsgFromServer) {
+                    $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/");
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
         }
 
         function updateHeading(name, text, size) {
@@ -170,19 +228,37 @@
                 vm.widget.name = name;
                 vm.widget.text = text;
                 vm.widget.size = size;
-                WidgetService.updateWidget(vm.widgetId, vm.widget);
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                WidgetService
+                    .updateWidget(vm.widgetId, vm.widget)
+                    .success(function (successMsgFromServer) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                    })
+                    .error(function (serverError) {
+                        vm.error = "server returned error";
+                    });
             }
         }
 
         function deleteHeading(localWidgetId) {
-            WidgetService.deleteWidget(localWidgetId);
-            $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/");
+            WidgetService
+                .deleteWidget(localWidgetId)
+                .success(function (successMsgFromServer) {
+                    $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/");
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
         }
 
         function deleteHTML(localWidgetId) {
-            WidgetService.deleteWidget(localWidgetId);
-            $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/");
+            WidgetService
+                .deleteWidget(localWidgetId)
+                .success(function (successMsgFromServer) {
+                    $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/");
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
         }
     }
 })();

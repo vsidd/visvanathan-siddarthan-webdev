@@ -6,24 +6,21 @@
         .module("WebAppMaker")
         .controller("PageListController", PageListController)
         .controller("NewPageController", NewPageController)
-        .controller("EditPageController", EditPageController)
-    var idGen = 600;
+        .controller("EditPageController", EditPageController);
 
     function PageListController($routeParams, PageService) {
         var vm = this;
         vm.websiteId = $routeParams.wid;
         vm.userId = $routeParams.uid;
 
-        // var user = UserService.findUserById(userId);
-        // if(user != null) {
-        //     vm.user = user;
-        // }
-        //
-        // var website = WebsiteService.findWebsiteById(websiteId);
-        // if(website != null) {
-        //     vm.website = website;
-        // }
-        vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+         PageService
+            .findPageByWebsiteId(vm.websiteId)
+            .success(function (pages) {
+                vm.pages = pages;
+            })
+             .error(function (serverError) {
+                 vm.error = "server returned error";
+             });
     }
     
     function NewPageController($location, $routeParams, PageService) {
@@ -31,28 +28,24 @@
         vm.websiteId = $routeParams.wid;
         vm.userId = $routeParams.uid;
 
-        // var user = UserService.findUserById(userId);
-        // if(user != null) {
-        //     vm.user = user;
-        // }
-        //
-        // var website = WebsiteService.findWebsiteById(websiteId);
-        // if(website != null) {
-        //     vm.website = website;
-        // }
 
         vm.createNewPage = createNewPage;
         function createNewPage(name, title) {
             if(name === undefined){
                 vm.error = "Name field cannot be empty";
             }else {
-                idGen = idGen + 1;
-                var newId = idGen.toString();
                 var newPage = {
-                    "_id": newId, "name": name, "websiteId": vm.websiteId, "title" : title
+                    "_id": "", "name": name, "websiteId": vm.websiteId, "title" : title
                 };
-                PageService.createPage(vm.websiteId, newPage);
-                $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page");
+                PageService
+                    .createPage(vm.websiteId, newPage)
+                    .success(function (page) {
+                        $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page");
+                    })
+                    .error(function (serverError) {
+                        vm.error = "server returned error";
+                    });
+
             }
         }
         
@@ -64,16 +57,30 @@
         vm.userId = $routeParams.uid;
         vm.pageId = $routeParams.pid;
 
-        var page = PageService.findPageById(vm.pageId);
-        if(page != null){
-            vm.page = page;
-        }
+        PageService
+            .findPageById(vm.pageId)
+            .success(function (page) {
+                if(page != '0'){
+                    vm.page = page;
+                }
+            })
+            .error(function (serverError) {
+                vm.error = "server returned error";
+            });
+
         vm.deletePage = deletePage;
         vm.updatePage = updatePage;
 
         function deletePage(localPageId) {
-            PageService.deletePage(localPageId);
-            $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page");
+            PageService
+                .deletePage(localPageId)
+                .success(function (successFromServer) {
+                    $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page");
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+
         }
 
         function updatePage(name, title) {
@@ -84,8 +91,15 @@
             } else {
                 vm.page.name = name;
                 vm.page.title = title;
-                PageService.updatePage(vm.pageId, vm.page);
-                $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page");
+                PageService
+                    .updatePage(vm.pageId, vm.page)
+                    .success(function (successFromServer) {
+                        $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page");
+                    })
+                    .error(function (serverError) {
+                        vm.error = "server returned error";
+                    });
+
             }
         }
     }
