@@ -11,55 +11,59 @@
     function WebsiteListController($routeParams, UserService, WebsiteService) {
         var vm = this;
         var userId = $routeParams.uid;
+        function init() {
+            UserService
+                .findUserById(userId)
+                .success(function (user) {
+                    if (user != '0') {
+                        vm.user = user;
+                    }
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
 
-        UserService
-            .findUserById(userId)
-            .success(function (user) {
-                if(user != '0') {
-                    vm.user = user;
-                }
-            })
-            .error(function (serverError) {
-                vm.error = "server returned error";
-            });
-
-        WebsiteService
-            .findWebsitesByUser(userId)
-            .success(function (websites) {
-                vm.websites = websites;
-            })
-            .error(function (serverError){
-                vm.error = "server returned error";
-            });
+            WebsiteService
+                .findWebsitesByUser(userId)
+                .success(function (websites) {
+                    vm.websites = websites;
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+        }
+        init();
     }
 
     function NewWebsiteController($location, $routeParams, UserService, WebsiteService) {
         var vm = this;
         var userId = $routeParams.uid;
         var websiteId = $routeParams.wid;
-        UserService
-            .findUserById(userId)
-            .success(function (user) {
-                if(user != '0') {
-                    vm.user = user;
-                }
-            })
-            .error(function (serverError) {
-                vm.error = "server returned error";
-            });
-
-
-        WebsiteService
-            .findWebsitesByUser(userId)
-            .success(function (websites) {
-                vm.websites = websites;
-            })
-            .error(function (serverError){
-                vm.error = "server returned error";
-            });
-
 
         vm.createNewWebsite = createNewWebsite;
+
+        function init() {
+            UserService
+                .findUserById(userId)
+                .success(function (user) {
+                    if (user != '0') {
+                        vm.user = user;
+                    }
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+
+            WebsiteService
+                .findWebsitesByUser(userId)
+                .success(function (websites) {
+                    vm.websites = websites;
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+        }
+        init();
 
         function createNewWebsite(name, description) {
             if(name === undefined){
@@ -85,40 +89,43 @@
         var userId = $routeParams.uid;
         var websiteId = $routeParams.wid;
 
-        UserService
-            .findUserById(userId)
-            .success(function (user) {
-                if(user != '0') {
-                    vm.user = user;
-                }
-            })
-            .error(function (serverError) {
-                vm.error = "server returned error";
-            });
-
-        WebsiteService
-            .findWebsiteById(websiteId)
-            .success(function (website) {
-                if(website != '0'){
-                    vm.website = website;
-                }
-            })
-            .error(function (serverError) {
-                vm.error = "server returned error";
-            });
-
-        WebsiteService
-            .findWebsitesByUser(userId)
-            .success(function (websites) {
-                vm.websites = websites;
-            })
-            .error(function (serverError){
-                vm.error = "server returned error";
-            });
-
-
         vm.deleteWebsite = deleteWebsite;
         vm.updateWebsite = updateWebsite;
+
+        function init() {
+            UserService
+                .findUserById(userId)
+                .success(function (user) {
+                    if (user != '0') {
+                        vm.user = user;
+                    }
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+
+            WebsiteService
+                .findWebsiteById(websiteId)
+                .success(function (website) {
+                    if (website != '0') {
+                        vm.website = website;
+                    }
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+
+            WebsiteService
+                .findWebsitesByUser(userId)
+                .success(function (websites) {
+                    vm.websites = websites;
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+
+        }
+        init();
 
         function deleteWebsite(localWebsiteId) {
             WebsiteService
@@ -148,7 +155,6 @@
                     .error(function (serverError) {
                         vm.error = "server returned error";
                     });
-
             }
         }
     }

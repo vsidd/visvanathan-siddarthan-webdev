@@ -17,7 +17,6 @@ module.exports = function (app) {
 
     var multer = require('multer'); // npm install multer --save
     var mime = require('mime');  // npm install mime --save
-    // var upload = multer({ dest: __dirname+'/../../public/assignment/uploads' });
 
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -36,6 +35,7 @@ module.exports = function (app) {
     app.get("/api/widget/:widgetId", findWidgetById);
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
+    app.put("/api/page/:pageId/widget", updateWidgetList);
 
 
     function uploadImage(req, res) {
@@ -46,6 +46,10 @@ module.exports = function (app) {
         var width         = req.body.width;
         var myFile        = req.file;
 
+        if(myFile === undefined){
+            res.send("No file attached to upload");
+            return;
+        }
 
         var originalname  = myFile.originalname; // file name on user's computer
         var filename      = myFile.filename;     // new file name in upload folder
@@ -64,7 +68,6 @@ module.exports = function (app) {
         }
 
         res.redirect('../assignment/index.html#/user/'+userId+'/website/'+websiteId+'/page/'+pageId+'/widget/'+widgetId);
-        // res.send(200);http://localhost:3000/assignment/#/user/456/website/456/page/321/widget/345
     }
 
     function createWidget(req, res) {
@@ -123,5 +126,12 @@ module.exports = function (app) {
             }
         }
         res.send('0');
+    }
+
+    function updateWidgetList(req, res) {
+        var start = req.query.initial;
+        var end = req.query.final;
+        widgets.splice(end, 0, widgets.splice(start, 1)[0]);
+        res.send('success');
     }
 };

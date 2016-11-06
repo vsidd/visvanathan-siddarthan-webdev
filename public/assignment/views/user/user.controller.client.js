@@ -11,6 +11,7 @@
     function LoginController($location, UserService) {
         var vm = this;
         vm.login = login;
+
         function login(username, password) {
             UserService
                 .findUserByCredentials(username,password)
@@ -30,6 +31,7 @@
     function RegisterController($location, UserService) {
         var vm = this;
         vm.register = register;
+
         function register(username, password, verifyPassword) {
             if(username === undefined
                 || password === undefined
@@ -49,7 +51,6 @@
                     .error(function (serverError) {
                         vm.error = "server returned error";
                     });
-
             }
         }
     }
@@ -57,6 +58,10 @@
     function ProfileController($routeParams, UserService, $location) {
         var vm = this;
         var userId = $routeParams.uid;
+
+        vm.updateUser = updateUser;
+        vm.unregisterUser = unregisterUser;
+        
         function init() {
             UserService
                 .findUserById(userId)
@@ -70,8 +75,6 @@
                 });
         }
         init();
-        vm.updateUser = updateUser;
-        vm.unregisterUser = unregisterUser;
 
         function updateUser(username, email, firstname, lastname) {
             vm.user.username = username;

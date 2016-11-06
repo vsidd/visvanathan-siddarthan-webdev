@@ -19,15 +19,17 @@
         vm.checkSafeYouTubeUrl = checkSafeYouTubeUrl;
         vm.checkSafeImageUrl = checkSafeImageUrl;
 
-        WidgetService
-            .findWidgetsByPageId(vm.pageId)
-            .success(function (widgets) {
+        function init() {
+            WidgetService
+                .findWidgetsByPageId(vm.pageId)
+                .success(function (widgets) {
                     vm.widgets = widgets;
-            })
-            .error(function (serverError) {
-                vm.error = "server returned error";
-            });
-
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+        }
+        init();
 
         function checkSafeHtml(html) {
             return $sce.trustAsHtml(html);
@@ -115,18 +117,6 @@
         vm.pageId = $routeParams.pid;
         vm.widgetId = $routeParams.wgid;
 
-        WidgetService
-            .findWidgetById(vm.widgetId)
-            .success(function (widget) {
-                if(widget != '0'){
-                    vm.widget = widget;
-                }
-            })
-            .error(function (serverError) {
-                vm.error = "server returned error";
-            });
-
-
         vm.updateHTML = updateHTML;
         vm.updateImage = updateImage;
         vm.deleteImage = deleteImage;
@@ -135,6 +125,20 @@
         vm.updateHeading = updateHeading;
         vm.deleteHeading = deleteHeading;
         vm.deleteHTML = deleteHTML;
+
+        function init() {
+            WidgetService
+                .findWidgetById(vm.widgetId)
+                .success(function (widget) {
+                    if (widget != '0') {
+                        vm.widget = widget;
+                    }
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+        }
+        init();
 
         function updateHTML(text) {
             if (text === undefined ||

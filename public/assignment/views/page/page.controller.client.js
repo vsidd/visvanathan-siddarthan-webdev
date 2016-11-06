@@ -13,23 +13,26 @@
         vm.websiteId = $routeParams.wid;
         vm.userId = $routeParams.uid;
 
-         PageService
-            .findPageByWebsiteId(vm.websiteId)
-            .success(function (pages) {
-                vm.pages = pages;
-            })
-             .error(function (serverError) {
-                 vm.error = "server returned error";
-             });
+        function init() {
+            PageService
+                .findPageByWebsiteId(vm.websiteId)
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+        }
+        init();
     }
-    
+
     function NewPageController($location, $routeParams, PageService) {
         var vm = this;
         vm.websiteId = $routeParams.wid;
         vm.userId = $routeParams.uid;
 
-
         vm.createNewPage = createNewPage;
+
         function createNewPage(name, title) {
             if(name === undefined){
                 vm.error = "Name field cannot be empty";
@@ -45,31 +48,33 @@
                     .error(function (serverError) {
                         vm.error = "server returned error";
                     });
-
             }
         }
-        
+
     }
-    
+
     function EditPageController($location, $routeParams, PageService) {
         var vm = this;
         vm.websiteId = $routeParams.wid;
         vm.userId = $routeParams.uid;
         vm.pageId = $routeParams.pid;
 
-        PageService
-            .findPageById(vm.pageId)
-            .success(function (page) {
-                if(page != '0'){
-                    vm.page = page;
-                }
-            })
-            .error(function (serverError) {
-                vm.error = "server returned error";
-            });
-
         vm.deletePage = deletePage;
         vm.updatePage = updatePage;
+
+        function init() {
+            PageService
+                .findPageById(vm.pageId)
+                .success(function (page) {
+                    if (page != '0') {
+                        vm.page = page;
+                    }
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+        }
+        init();
 
         function deletePage(localPageId) {
             PageService
@@ -80,7 +85,6 @@
                 .error(function (serverError) {
                     vm.error = "server returned error";
                 });
-
         }
 
         function updatePage(name, title) {
@@ -99,7 +103,6 @@
                     .error(function (serverError) {
                         vm.error = "server returned error";
                     });
-
             }
         }
     }
