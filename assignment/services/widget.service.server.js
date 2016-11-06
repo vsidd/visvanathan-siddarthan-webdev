@@ -129,9 +129,23 @@ module.exports = function (app) {
     }
 
     function updateWidgetList(req, res) {
-        var start = req.query.initial;
-        var end = req.query.final;
-        widgets.splice(end, 0, widgets.splice(start, 1)[0]);
+        var initial = req.query.initial;
+        var final = req.query.final;
+        var pageId = req.params.pageId;
+        var actualInitalIndex = -1;
+        var actualFinalIndex = -1;
+        var pageWidgetIterator = -1;
+        for(var w in widgets){
+            if(widgets[w].pageId === pageId){
+                pageWidgetIterator++;
+                if(pageWidgetIterator === parseInt(initial)){
+                    actualInitalIndex = w;
+                } else if (pageWidgetIterator === parseInt(final)){
+                    actualFinalIndex = w;
+                }
+            }
+        }
+        widgets.splice(actualFinalIndex, 0, widgets.splice(actualInitalIndex, 1)[0]);
         res.send('success');
     }
 };
