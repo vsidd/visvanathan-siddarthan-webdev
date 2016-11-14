@@ -1,0 +1,42 @@
+.remove-left-padding{
+padding-left: 0px;
+    padding-right: 0px;
+}
+
+html, body, .container-fluid, .row {
+    height: 100%;
+    color:#f9f9f9;
+    background-color: #fdfdfd;
+}
+
+.sidebar {
+    /*background-color: #CCCCCC;*/
+}
+
+@media (min-width: 992px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1000;
+        display: block;
+        /*background-color: #CCCCCC;*/
+    }
+}
+
+.btn {
+    white-space: normal;
+}
+
+.imageOverImage {position: absolute; z-index: 1; top: 10%; left: 30%;}
+.textOverImage {position: absolute; z-index: 2; left: -70px;}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+p{
+    color: #a2a2a2;
+    font-size: 17px;
+}
