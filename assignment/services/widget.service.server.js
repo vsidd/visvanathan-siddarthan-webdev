@@ -1,7 +1,7 @@
 /**
  * Created by Siddarthan on 26-Oct-16.
  */
-module.exports = function (app) {
+module.exports = function (app, model) {
 
     var widgets = [
         { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
@@ -79,53 +79,68 @@ module.exports = function (app) {
 
     function findAllWidgetsForPage(req, res) {
         var pageId = req.params.pageId;
-        var widgetsForPage = [];
-        for(var wd in widgets){
-            var widget = widgets[wd];
-            if(widget.pageId === pageId){
-                widgetsForPage.push(JSON.parse(JSON.stringify(widget)));
-            }
-        }
+        model
+            .widgetModel
+            .findAllWebsitesForUser(pageId)
+            .then(
+                function (widgets) {
+                        res.send(widgets)
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
         res.send(widgetsForPage);
     }
 
     function findWidgetById(req, res) {
         var widgetId = req.params.widgetId;
-        for(var wd in widgets){
-            var widget = widgets[wd];
-            if(widget._id === widgetId){
-                res.send(JSON.parse(JSON.stringify(widget)));
-                return;
-            }
-        }
-        res.send('0');
+        model
+            .widgetModel
+            .findWidgetById(widgetId)
+            .then(
+                function (widget) {
+                    if(widget){
+                        res.send(widget)
+                    }else{
+                        res.send('0')
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
     }
 
     function updateWidget(req, res) {
         var widget = req.body;
         var widgetId = req.params.widgetId;
-        for(var wd in widgets) {
-            var localWidget = widgets[wd];
-            if (localWidget._id === widgetId) {
-                widgets[wd] = widget;
-                res.send('success');
-                return;
-            }
-        }
-        res.send('0');
+        model
+            .widgetModel
+            .updateWidget(widgetId, widget)
+            .then(
+                function (status) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
     }
 
     function deleteWidget(req, res) {
         var widgetId = req.params.widgetId;
-        for(var wd in widgets){
-            var widget = widgets[wd];
-            if(widget._id === widgetId){
-                widgets.splice(wd, 1);
-                res.send('success');
-                return;
-            }
-        }
-        res.send('0');
+        model
+            .widgetModel
+            .deleteWidget(widgetId)
+            .then(
+                function (status) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
     }
 
     function updateWidgetList(req, res) {
