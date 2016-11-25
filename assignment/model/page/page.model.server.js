@@ -2,6 +2,7 @@
  * Created by Siddarthan on 15-Nov-16.
  */
 module.exports = function () {
+    var model = {};
     var mongoose = require("mongoose");
     var PageSchema = require("./page.schema.server.js")();
     var PageModel = mongoose.model("PageModel", PageSchema);
@@ -11,12 +12,18 @@ module.exports = function () {
         findAllPagesForWebsite : findAllPagesForWebsite,
         findPageById : findPageById,
         updatePage : updatePage,
-        deletePage : deletePage
+        deletePage : deletePage,
+        setModel : setModel
     };
     return api;
 
-    function createPage(websiteId, page) {
+    function setModel(_model) {
+        model = _model;
+    }
 
+    function createPage(websiteId, page) {
+        page._website = websiteId;
+        return PageModel.create(page);
     }
 
     function findAllPagesForWebsite(websiteId) {
@@ -30,7 +37,16 @@ module.exports = function () {
     }
 
     function updatePage(pageId, page) {
-
+        return PageModel
+            .update(
+                {
+                    _id : pageId
+                },
+                {
+                    name : page.name,
+                    title : page.title
+                }
+            );
     }
 
     function deletePage(pageId) {

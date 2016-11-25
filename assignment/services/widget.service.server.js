@@ -3,17 +3,17 @@
  */
 module.exports = function (app, model) {
 
-    var widgets = [
-        { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
-        { "_id": "234", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
-        { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
-            "url": "http://lorempixel.com/400/200/", "name":"", "text":""},
-        { "_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"},
-        { "_id": "567", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
-        { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-            "url": "https://youtu.be/AM2Ivdi9c4E" },
-        { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
-    ];
+    // var widgets = [
+    //     { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
+    //     { "_id": "234", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
+    //     { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
+    //         "url": "http://lorempixel.com/400/200/", "name":"", "text":""},
+    //     { "_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"},
+    //     { "_id": "567", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
+    //     { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
+    //         "url": "https://youtu.be/AM2Ivdi9c4E" },
+    //     { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
+    // ];
 
     var multer = require('multer'); // npm install multer --save
     var mime = require('mime');  // npm install mime --save
@@ -58,30 +58,55 @@ module.exports = function (app, model) {
         var size          = myFile.size;
         var mimetype      = myFile.mimetype;
 
-        for(var wd in widgets){
-            var widget = widgets[wd];
-            if(widget._id === widgetId){
-                widget.width = width;
-                widget.name = filename;
-                widget.url = "/assignment/uploads/"+filename;
-            }
-        }
 
-        res.redirect('../assignment/index.html#/user/'+userId+'/website/'+websiteId+'/page/'+pageId+'/widget/'+widgetId);
+
+        model
+            .widgetModel
+            .findWidgetById(widgetId)
+            .then(
+                function (widget) {
+                    widget.width = width;
+                    widget.name = filename;
+                    widget.url = "/assignment/uploads/"+filename;
+                    model
+                        .widgetModel
+                        .updateWidget(widgetId, widget)
+                        .then(
+                            function (status) {
+                                res.redirect('../assignment/index.html#/user/'+userId+'/website/'+websiteId+'/page/'+pageId+'/widget/'+widgetId);
+                            },
+                            function (error) {
+                                res.sendStatus(400).send(error);
+                            }
+                        )
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
     }
 
     function createWidget(req, res) {
         var widget = req.body;
-        widget._id = String((new Date()).getTime());
-        widgets.push(widget);
-        res.send(JSON.parse(JSON.stringify(widget)));
+        var pageId = req.params.pageId;
+        model
+            .widgetModel
+            .createWidget(pageId, widget)
+            .then(
+                function (newWidget) {
+                    res.send(newWidget);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
     }
 
     function findAllWidgetsForPage(req, res) {
         var pageId = req.params.pageId;
         model
             .widgetModel
-            .findAllWebsitesForUser(pageId)
+            .findAllWidgetsForPage(pageId)
             .then(
                 function (widgets) {
                         res.send(widgets)
@@ -90,7 +115,6 @@ module.exports = function (app, model) {
                     res.sendStatus(400).send(error);
                 }
             )
-        res.send(widgetsForPage);
     }
 
     function findWidgetById(req, res) {

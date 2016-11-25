@@ -19,15 +19,34 @@ module.exports = function (app, model) {
         var user = req.body;
         model
             .userModel
-            .createUser(user)
+            .findUserByUsername(user.username)
             .then(
-                function (newUser) {
-                    res.send(newUser);
+                function (retrivedUser) {
+                    if(retrivedUser){
+                        res.send('0');
+                    }else{
+                        model
+                            .userModel
+                            .createUser(user)
+                            .then(
+                                function (newUser) {
+                                    if(newUser) {
+                                        res.send(newUser);
+                                    }else{
+                                        res.send('0');
+                                    }
+                                },
+                                function (error) {
+                                    res.sendStatus(400).send(error);
+                                }
+                            );
+                    }
                 },
                 function (error) {
                     res.sendStatus(400).send(error);
                 }
-            );
+            )
+
     }
 
     function getUser(req, res) {
@@ -65,9 +84,9 @@ module.exports = function (app, model) {
             .userModel
             .findUserByCredentials(username, password)
             .then(
-                function (users) {
-                    if(users){
-                        res.send(users[0]);
+                function (user) {
+                    if(user){
+                        res.send(user);
                     }else{
                         res.send('0');
                     }

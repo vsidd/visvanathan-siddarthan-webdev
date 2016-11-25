@@ -66,20 +66,20 @@
         init();
 
         function createNewWebsite(name, description) {
-            if(name === undefined){
-                vm.error = "Name field cannot be empty";
-            }else {
+            if(name){
                 var newWebsite = {
-                    "_id": "", "name": name, "developerId": userId, "description": description
+                    "name": name, "description": description
                 };
                 WebsiteService
                     .createWebsite(userId, newWebsite)
                     .success(function (website) {
-                        $location.url("/user/"+ website.developerId +"/website");
+                        $location.url("/user/"+ website._user +"/website");
                     })
                     .error(function (serverError) {
                         vm.error = "server returned error";
                     });
+            }else {
+                vm.error = "Name field cannot be empty";
             }
         }
     }
@@ -140,11 +140,7 @@
         }
 
         function updateWebsite(name, description) {
-            if(name === undefined ||
-                name === "" ||
-                name === null) {
-                vm.error = "Name field cannot be empty";
-            } else {
+            if(name) {
                 vm.website.name = name;
                 vm.website.description = description;
                 WebsiteService
@@ -155,6 +151,8 @@
                     .error(function (serverError) {
                         vm.error = "server returned error";
                     });
+            } else {
+                vm.error = "Name field cannot be empty";
             }
         }
     }

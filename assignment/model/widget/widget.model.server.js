@@ -2,6 +2,7 @@
  * Created by Siddarthan on 15-Nov-16.
  */
 module.exports = function () {
+    var model = {};
     var mongoose = require("mongoose");
     var WidgetSchema = require("./widget.schema.server.js")();
     var WidgetModel = mongoose.model("WidgetModel", WidgetSchema);
@@ -12,12 +13,18 @@ module.exports = function () {
         findWidgetById : findWidgetById,
         updateWidget : updateWidget,
         deleteWidget : deleteWidget,
-        reorderWidget : reorderWidget
+        reorderWidget : reorderWidget,
+        setModel : setModel
     };
     return api;
 
-    function createWidget(pageId, widget) {
+    function setModel(_model) {
+        model = _model;
+    }
 
+    function createWidget(pageId, widget) {
+        widget._page = pageId;
+        return WidgetModel.create(widget);
     }
 
     function findAllWidgetsForPage(pageId) {
@@ -31,7 +38,15 @@ module.exports = function () {
     }
 
     function updateWidget(widgetId, widget) {
-
+        return WidgetModel
+            .update(
+                {
+                    _id : widgetId
+                },
+                {
+                    $set : widget
+                }
+            );
     }
 
     function deleteWidget(widgetId) {

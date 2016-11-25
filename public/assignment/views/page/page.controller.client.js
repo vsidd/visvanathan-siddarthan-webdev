@@ -34,11 +34,9 @@
         vm.createNewPage = createNewPage;
 
         function createNewPage(name, title) {
-            if(name === undefined){
-                vm.error = "Name field cannot be empty";
-            }else {
+            if(name){
                 var newPage = {
-                    "_id": "", "name": name, "websiteId": vm.websiteId, "title" : title
+                    "name": name, "title" : title
                 };
                 PageService
                     .createPage(vm.websiteId, newPage)
@@ -48,6 +46,8 @@
                     .error(function (serverError) {
                         vm.error = "server returned error";
                     });
+            }else {
+                vm.error = "Name field cannot be empty";
             }
         }
 
@@ -88,11 +88,7 @@
         }
 
         function updatePage(name, title) {
-            if(name === undefined ||
-                name === "" ||
-                name === null) {
-                vm.error = "Name field cannot be empty";
-            } else {
+            if(name) {
                 vm.page.name = name;
                 vm.page.title = title;
                 PageService
@@ -103,6 +99,8 @@
                     .error(function (serverError) {
                         vm.error = "server returned error";
                     });
+            } else {
+                vm.error = "Name field cannot be empty";
             }
         }
     }

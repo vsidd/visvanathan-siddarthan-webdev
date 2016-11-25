@@ -2,11 +2,11 @@
  * Created by Siddarthan on 26-Oct-16.
  */
 module.exports = function (app, model) {
-    var pages = [
-        { "_id": "321", "name": "Post 1", "websiteId": "456", "title": "" },
-        { "_id": "432", "name": "Post 2", "websiteId": "456", "title": "" },
-        { "_id": "543", "name": "Post 3", "websiteId": "456", "title": "" }
-    ];
+    // var pages = [
+    //     { "_id": "321", "name": "Post 1", "websiteId": "456", "title": "" },
+    //     { "_id": "432", "name": "Post 2", "websiteId": "456", "title": "" },
+    //     { "_id": "543", "name": "Post 3", "websiteId": "456", "title": "" }
+    // ];
 
     app.post("/api/website/:websiteId/page", createPage);
     app.get("/api/website/:websiteId/page", findAllPagesForWebsite);
@@ -16,9 +16,18 @@ module.exports = function (app, model) {
 
     function createPage(req, res){
         var page = req.body;
-        page._id = String((new Date()).getTime());
-        pages.push(page);
-        res.send(JSON.parse(JSON.stringify(page)));
+        var websiteId = req.params.websiteId;
+        model
+            .pageModel
+            .createPage(websiteId, page)
+            .then(
+                function (newPage) {
+                    res.send(newPage);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
     }
 
     function findAllPagesForWebsite(req, res){

@@ -41,12 +41,16 @@
                 vm.error = "Entered password do not match with each other"
             }else {
                 var user = {
-                    _id: "", username: username, password: password, firstName: "", lastName: ""
+                     username: username, password: password, firstName: "", lastName: ""
                 };
                 UserService
                     .createUser(user)
                     .success(function (user) {
-                        $location.url("/user/" + user._id);
+                        if(user === '0'){
+                            vm.error = "Username already exists";
+                        }else {
+                            $location.url("/user/" + user._id);
+                        }
                     })
                     .error(function (serverError) {
                         vm.error = "server returned error";

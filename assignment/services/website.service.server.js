@@ -2,14 +2,14 @@
  * Created by Siddarthan on 26-Oct-16.
  */
 module.exports = function (app, model) {
-    var websites = [
-        { "_id": "123", "name": "Facebook",    "developerId": "456",  "description": ""},
-        { "_id": "234", "name": "Tweeter",     "developerId": "456",  "description": "" },
-        { "_id": "456", "name": "Gizmodo",     "developerId": "456",  "description": "" },
-        { "_id": "567", "name": "Tic Tac Toe", "developerId": "123",  "description": "" },
-        { "_id": "678", "name": "Checkers",    "developerId": "123",  "description": "" },
-        { "_id": "789", "name": "Chess",       "developerId": "234",  "description": "" }
-    ];
+    // var websites = [
+    //     { "_id": "123", "name": "Facebook",    "developerId": "456",  "description": ""},
+    //     { "_id": "234", "name": "Tweeter",     "developerId": "456",  "description": "" },
+    //     { "_id": "456", "name": "Gizmodo",     "developerId": "456",  "description": "" },
+    //     { "_id": "567", "name": "Tic Tac Toe", "developerId": "123",  "description": "" },
+    //     { "_id": "678", "name": "Checkers",    "developerId": "123",  "description": "" },
+    //     { "_id": "789", "name": "Chess",       "developerId": "234",  "description": "" }
+    // ];
 
     app.post("/api/user/:userId/website", createWebsite);
     app.get("/api/user/:userId/website", findAllWebsitesForUser);

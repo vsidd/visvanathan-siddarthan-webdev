@@ -60,7 +60,7 @@
         vm.createYoutube = createYoutube;
 
         function createHeader() {
-            var header = { "_id": "", "widgetType": "HEADING", "pageId": vm.pageId, "size": 4, "text": "This is a new HEADER Widget"};
+            var header = { "type": "HEADING", "size": 4, "text": "This is a new HEADER Widget"};
             WidgetService
                 .createWidget(vm.pageId, header)
                 .success(function (widget) {
@@ -72,7 +72,7 @@
         }
 
         function createHtml() {
-            var html = { "_id": "", "widgetType": "HTML", "pageId": vm.pageId, "text": "<p>This is a new HTML Widget</p>"};
+            var html = { "type": "HTML", "text": "<p>This is a new HTML Widget</p>"};
             WidgetService
                 .createWidget(vm.pageId, html)
                 .success(function (widget) {
@@ -84,7 +84,7 @@
         }
 
         function createImage() {
-            var image = { "_id": "", "widgetType": "IMAGE", "pageId": vm.pageId, "width": "100%",
+            var image = { "type": "IMAGE", "width": "100%",
                 "url": "http://lorempixel.com/400/200/", "name":"", "text":""};
             WidgetService
                 .createWidget(vm.pageId, image)
@@ -97,7 +97,7 @@
         }
 
         function createYoutube() {
-            var youtube = { "_id": "", "widgetType": "YOUTUBE", "pageId": vm.pageId, "width": "100%",
+            var youtube = { "type": "YOUTUBE", "width": "100%",
                 "url": "https://youtu.be/AM2Ivdi9c4E" };
             WidgetService
                 .createWidget(vm.pageId, youtube)
@@ -200,7 +200,7 @@
                 vm.widget.name = name;
                 vm.widget.text = text;
                 vm.widget.url = url;
-                widget.width = width;
+                vm.widget.width = width;
                 WidgetService
                     .updateWidget(vm.widgetId, vm.widget)
                     .success(function (successMsgFromServer) {
