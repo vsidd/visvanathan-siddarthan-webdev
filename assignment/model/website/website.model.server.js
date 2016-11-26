@@ -22,10 +22,17 @@ module.exports = function () {
     }
 
     function createWebsiteForUser(userId, website) {
+        website._user = userId;
         return WebsiteModel
             .create(website)
             .then(function (websiteObj) {
-
+                model.userModel
+                    .findUserById(userId)
+                    .then(function (userObj) {
+                        userObj.websites.push(websiteObj);
+                        userObj.save();
+                    });
+                return websiteObj;
             });
     }
 
@@ -49,8 +56,7 @@ module.exports = function () {
                     _id : websiteId
                 },
                 {
-                    name : website.name,
-                    description : website.description,
+                    $set : website
                 }
             )
     }

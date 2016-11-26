@@ -24,7 +24,17 @@ module.exports = function () {
 
     function createWidget(pageId, widget) {
         widget._page = pageId;
-        return WidgetModel.create(widget);
+        return WidgetModel
+            .create(widget)
+            .then(function (widgetObj) {
+                model.pageModel
+                    .findPageById(pageId)
+                    .then(function (pageObj) {
+                        pageObj.widgets.push(widgetObj);
+                        pageObj.save();
+                    });
+                return widgetObj;
+            });
     }
 
     function findAllWidgetsForPage(pageId) {

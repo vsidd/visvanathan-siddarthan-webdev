@@ -58,10 +58,7 @@ module.exports = function () {
                     _id : userId
                 },
                 {
-                    username : user.username,
-                    firstName : user.firstName,
-                    lastName: user.lastName,
-                    email: user.email
+                    $set : user
                 }
             );
     }

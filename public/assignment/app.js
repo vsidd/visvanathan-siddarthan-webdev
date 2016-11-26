@@ -3,5 +3,5 @@
  */
 
 (function () {
-    angular.module("WebAppMaker",["ngRoute", "jgaDirectives"]);
+    angular.module("WebAppMaker",["ngRoute", "jgaDirectives", "textAngular"]);
 })();

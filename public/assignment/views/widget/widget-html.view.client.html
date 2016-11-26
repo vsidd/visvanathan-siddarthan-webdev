@@ -22,16 +22,20 @@
     <div ng-show="model.error" class="alert alert-danger" role="alert">
         {{model.error}}
     </div>
-    <form>
-        <div class="form-group">
-            <label for="html">HTML</label>
-            <input id="html"
-                   ng-model="model.widget.text"
-                   type="text" class="form-control"
-                   placeholder="HTML">
+
+        <div ng-model="model.widget.text"
+             text-angular
+             ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+        ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+        ['indent','outdent'],['html']]">
+
+            <!--<label for="html">HTML</label>-->
+            <!--<input id="html"-->
+                   <!--ng-model="model.widget.text"-->
+                   <!--type="text" class="form-control"-->
+                   <!--placeholder="HTML">-->
         </div>
         <a class="btn btn-danger  btn-block btn-lg" ng-click="model.deleteHTML(model.widgetId)">Delete</a>
-    </form>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom pagesbgcolor">

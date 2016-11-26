@@ -23,7 +23,17 @@ module.exports = function () {
 
     function createPage(websiteId, page) {
         page._website = websiteId;
-        return PageModel.create(page);
+        return PageModel
+            .create(page)
+            .then(function (pageObj) {
+                model.websiteModel
+                    .findWebsiteById(websiteId)
+                    .then(function (websiteObj) {
+                        websiteObj.pages.push(pageObj);
+                        websiteObj.save();
+                    });
+                return pageObj;
+            });
     }
 
     function findAllPagesForWebsite(websiteId) {
@@ -43,8 +53,7 @@ module.exports = function () {
                     _id : pageId
                 },
                 {
-                    name : page.name,
-                    title : page.title
+                    $set : page
                 }
             );
     }

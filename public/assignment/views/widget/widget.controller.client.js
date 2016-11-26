@@ -58,13 +58,14 @@
         vm.createHtml = createHtml;
         vm.createImage = createImage;
         vm.createYoutube = createYoutube;
+        vm.createTextInput = createTextInput;
 
         function createHeader() {
             var header = { "type": "HEADING", "size": 4, "text": "This is a new HEADER Widget"};
             WidgetService
                 .createWidget(vm.pageId, header)
                 .success(function (widget) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/"+widget._id);
                 })
                 .error(function (serverError) {
                     vm.error = "server returned error";
@@ -76,7 +77,7 @@
             WidgetService
                 .createWidget(vm.pageId, html)
                 .success(function (widget) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/"+widget._id);
                 })
                 .error(function (serverError) {
                     vm.error = "server returned error";
@@ -89,7 +90,7 @@
             WidgetService
                 .createWidget(vm.pageId, image)
                 .success(function (widget) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/"+widget._id);
                 })
                 .error(function (serverError) {
                     vm.error = "server returned error";
@@ -102,7 +103,20 @@
             WidgetService
                 .createWidget(vm.pageId, youtube)
                 .success(function (widget) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/"+widget._id);
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+        }
+
+        function createTextInput() {
+            var textInput = { "type": "INPUT", "text": "This is a new INPUT Widget", "rows": 1,
+            "placeholder" : "Some text input", "formatted" : true};
+            WidgetService
+                .createWidget(vm.pageId, textInput)
+                .success(function (widget) {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/"+widget._id);
                 })
                 .error(function (serverError) {
                     vm.error = "server returned error";
