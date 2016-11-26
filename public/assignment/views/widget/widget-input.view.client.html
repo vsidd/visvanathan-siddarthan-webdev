@@ -1,10 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<nav class="navbar navbar-default navbar-fixed-top pagesbgcolor">
+    <div class="container containerRightPadding">
+        <div class="navbar-header">
+            <p class="navbar-text pull-left">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/" class="navbar-link">
+                  <span class="glyphicon glyphicon-chevron-left glyphiconBackProperties pagesbgcolor">
+                  </span>
+                </a>
+            </p>
+            <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}">Widget Edit</a>
+            <p class="navbar-text pull-right">
+                <a href ng-click="model.updateInput(model.widget.text, model.widget.rows, model.widget.placeholder, model.widget.formatted)" class="navbar-link">
+                  <span class="glyphicon glyphicon-ok glyphiconOkProperties pagesbgcolor">
+                  </span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>
 
-</body>
-</html>
+<div class="container">
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
+
+    <form>
+        <div class="form-group">
+            <label for="iptext">Text</label>
+            <input ng-model="model.widget.text" class="form-control" type="text" id="iptext"/>
+        </div>
+        <div class="form-group">
+            <label for="rows">Rows</label>
+            <input ng-model="model.widget.rows" class="form-control" type="number" min="1" id="rows"/>
+        </div>
+        <div class="form-group">
+            <label for="placeHolder">Placeholder</label>
+            <input ng-model="model.widget.placeholder" class="form-control" type="text" id="placeHolder"/>
+        </div>
+        <div class="form-group">
+            <label for="formatted">Formatted</label>
+            <input ng-model="model.widget.formatted" type="checkbox" id="formatted"/>
+        </div>
+    </form>
+    <a class="btn btn-danger  btn-block btn-lg" ng-click="model.deleteInput(model.widgetId)">Delete</a>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom pagesbgcolor">
+    <div class="container">
+
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}" class="navbar-link">
+                    <span class="glyphicon glyphicon-user glyphiconUserProperties pagesbgcolor">
+          </span>
+            </a>
+        </p>
+    </div>
+
+</nav>
+

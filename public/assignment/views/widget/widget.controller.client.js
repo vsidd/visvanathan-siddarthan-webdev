@@ -112,7 +112,7 @@
 
         function createTextInput() {
             var textInput = { "type": "INPUT", "text": "This is a new INPUT Widget", "rows": 1,
-            "placeholder" : "Some text input", "formatted" : true};
+                "placeholder" : "Some text input", "formatted" : true};
             WidgetService
                 .createWidget(vm.pageId, textInput)
                 .success(function (widget) {
@@ -139,6 +139,8 @@
         vm.updateHeading = updateHeading;
         vm.deleteHeading = deleteHeading;
         vm.deleteHTML = deleteHTML;
+        vm.updateInput = updateInput;
+        vm.deleteInput = deleteInput;
 
         function init() {
             WidgetService
@@ -269,6 +271,33 @@
         }
 
         function deleteHTML(localWidgetId) {
+            WidgetService
+                .deleteWidget(localWidgetId)
+                .success(function (successMsgFromServer) {
+                    $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/");
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+        }
+
+        function updateInput(text, rows, placeholder, formatted) {
+            vm.widget.text = text;
+            vm.widget.rows = rows;
+            vm.widget.placeholder = placeholder;
+            vm.widget.formatted = formatted;
+            WidgetService
+                .updateWidget(vm.widgetId, vm.widget)
+                .success(function (successMsgFromServer) {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/");
+                })
+                .error(function (serverError) {
+                    vm.error = "server returned error";
+                });
+
+        }
+
+        function deleteInput(localWidgetId) {
             WidgetService
                 .deleteWidget(localWidgetId)
                 .success(function (successMsgFromServer) {
