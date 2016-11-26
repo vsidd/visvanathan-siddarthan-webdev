@@ -13,7 +13,8 @@ module.exports = function () {
         findPageById : findPageById,
         updatePage : updatePage,
         deletePage : deletePage,
-        setModel : setModel
+        setModel : setModel,
+        findAllWidgetsForPage : findAllWidgetsForPage
     };
     return api;
 
@@ -64,5 +65,12 @@ module.exports = function () {
                 {
                     _id : pageId
                 });
+    }
+
+    function findAllWidgetsForPage(pageId) {
+        return PageModel
+            .findById(pageId)
+            .populate("widgets")
+            .exec();
     }
 }

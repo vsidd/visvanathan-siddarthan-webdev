@@ -23,7 +23,7 @@
             WidgetService
                 .findWidgetsByPageId(vm.pageId)
                 .success(function (widgets) {
-                    vm.widgets = widgets;
+                    vm.widgets = widgets.widgets;
                 })
                 .error(function (serverError) {
                     vm.error = "server returned error";

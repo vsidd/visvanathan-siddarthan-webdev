@@ -38,9 +38,7 @@ module.exports = function () {
     }
 
     function findAllWidgetsForPage(pageId) {
-        return WidgetModel.find({
-            _page : pageId
-        })
+        return model.pageModel.findAllWidgetsForPage(pageId);
     }
 
     function findWidgetById(widgetId) {
@@ -61,13 +59,35 @@ module.exports = function () {
 
     function deleteWidget(widgetId) {
         return WidgetModel
-            .remove(
-                {
-                    _id : widgetId
-                });
+            .findById(widgetId)
+            .then(function (widgetObj) {
+                return WidgetModel
+                    .remove(
+                        {
+                            _id : widgetId
+                        })
+                    .then(function (removeSuccess) {
+                        model
+                            .pageModel
+                            .findPageById(widgetObj._page)
+                            .then(function (page) {
+                                page.widgets.splice(page.widgets.indexOf(widgetId),1);
+                                page.save();
+                            })
+                    });
+            })
+
     }
 
     function reorderWidget(pageId, start, end) {
-
+        return model
+            .pageModel
+            .findPageById(pageId)
+            .then(function (page) {
+                page.widgets.splice(end, 0, page.widgets.splice(start, 1)[0]);
+                page.save();
+            }, function (error) {
+                return error;
+            })
     }
 }

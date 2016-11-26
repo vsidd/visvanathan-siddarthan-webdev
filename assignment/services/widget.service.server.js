@@ -109,7 +109,8 @@ module.exports = function (app, model) {
             .findAllWidgetsForPage(pageId)
             .then(
                 function (widgets) {
-                        res.send(widgets)
+                    wd = widgets.widgets;
+                    res.send(widgets)
                 },
                 function (error) {
                     res.sendStatus(400).send(error);
@@ -171,20 +172,16 @@ module.exports = function (app, model) {
         var initial = req.query.initial;
         var final = req.query.final;
         var pageId = req.params.pageId;
-        var actualInitalIndex = -1;
-        var actualFinalIndex = -1;
-        var pageWidgetIterator = -1;
-        for(var w in widgets){
-            if(widgets[w].pageId === pageId){
-                pageWidgetIterator++;
-                if(pageWidgetIterator === parseInt(initial)){
-                    actualInitalIndex = w;
-                } else if (pageWidgetIterator === parseInt(final)){
-                    actualFinalIndex = w;
-                }
-            }
-        }
-        widgets.splice(actualFinalIndex, 0, widgets.splice(actualInitalIndex, 1)[0]);
-        res.send('success');
+
+        model
+            .widgetModel
+            .reorderWidget(pageId, initial, final)
+            .then(
+                function (status) {
+                res.send(200);
+            },
+                function (error) {
+                res.sendStatus(400).send(error);
+            })
     }
 };
