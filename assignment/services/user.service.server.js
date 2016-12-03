@@ -5,18 +5,35 @@ module.exports = function (app, model) {
 
     var passport      = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
+    var auth = authorized;
+    var cookieParser  = require('cookie-parser');
+    var session       = require('express-session');
+
+    app.use(session({
+        secret: 'this is the secret',
+        resave: true,
+        saveUninitialized: true
+    }));
+
+    app.use(cookieParser());
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
-    app.post("/api/user", createUser);
-    app.get("/api/user", getUser);
-    app.get("/api/user/:userId", getUserById);
-    app.put("/api/user/:userId", updateUser);
-    app.delete("/api/user/:userId", deleteUser);
+
+
+    app.post("/api/user",auth, createUser);
+    app.get("/api/user",auth, getUser);
+    app.get("/api/user/:userId",auth, getUserById);
+    app.put("/api/user/:userId",auth, updateUser);
+    app.delete("/api/user/:userId",auth, deleteUser);
     app.post('/api/login', passport.authenticate('local'), login);
     app.post('/api/logout', logout);
+    app.post ('/api/register', register);
+    app.post('/api/checkLoggedin', checkLoggedin);
 
     function serializeUser(user, done) {
         done(null, user);
@@ -63,6 +80,38 @@ module.exports = function (app, model) {
         req.logOut();
         res.send(200);
     }
+
+    function register (req, res) {
+        var user = req.body;
+        model
+            .userModel
+            .createUser(user)
+            .then(
+                function(user){
+                    if(user){
+                        req.login(user, function(err) {
+                            if(err) {
+                                res.status(400).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                }
+            );
+    }
+
+    function checkLoggedin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function authorized (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    };
 
     function createUser(req, res){
         var user = req.body;

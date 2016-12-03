@@ -8,10 +8,9 @@
         .controller("RegisterController", RegisterController)
         .controller("ProfileController", ProfileController);
 
-    function LoginController($location, UserService) {
+    function LoginController($location, UserService, $rootScope) {
         var vm = this;
         vm.login = login;
-        vm.logout = logout;
 
         function login(username, password) {
             UserService
@@ -20,7 +19,7 @@
                     if(user === '0'){
                         vm.error = "No such user";
                     }else {
-                        // $rootScope.currentUser = user;
+                        $rootScope.currentUser = user;
                         $location.url("/user/" + user._id);
                     }
                 })
@@ -28,21 +27,14 @@
                     vm.error = "server returned error";
                 });
         }
-    }
 
-    function logout() {
-        UserService
-            .logout()
-            .success(function () {
-                $location.url("/login");
-            })
-            .error(function (error) {
-                
-            })
+
     }
 
 
-    function RegisterController($location, UserService) {
+
+
+    function RegisterController($location, UserService, $rootScope) {
         var vm = this;
         vm.register = register;
 
@@ -59,13 +51,20 @@
                 };
                 UserService
                     .register(user)
-                    .success(function (user) {
-                        if(user === '0'){
-                            vm.error = "Username already exists";
-                        }else {
+                    .then(
+                        function (response) {
+                            var user = response.data;
+                            $rootScope.currentUser = user;
                             $location.url("/user/" + user._id);
                         }
-                    })
+                    )
+                    // .success(function (user) {
+                    //     if(user === '0'){
+                    //         vm.error = "Username already exists";
+                    //     }else {
+                    //
+                    //     }
+                    // })
                     .error(function (serverError) {
                         vm.error = "server returned error";
                     });
@@ -73,13 +72,14 @@
         }
     }
 
-    function ProfileController($routeParams, UserService, $location) {
+    function ProfileController($routeParams, UserService, $location, $rootScope) {
         var vm = this;
         var userId = $routeParams.uid;
 
         vm.updateUser = updateUser;
         vm.unregisterUser = unregisterUser;
-        
+        vm.logout = logout;
+
         function init() {
             UserService
                 .findUserById(userId)
@@ -118,6 +118,18 @@
                 .error(function(){
 
                 });
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .success(function () {
+                    $rootScope.currentUser = null;
+                    $location.url("/login");
+                })
+                .error(function (error) {
+
+                })
         }
     }
 })();

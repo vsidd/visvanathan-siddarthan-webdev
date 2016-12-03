@@ -15,17 +15,31 @@
             "updateUser" : updateUser,
             "deleteUser" : deleteUser,
             "login" : login,
-            "logout" : logout
+            "logout" : logout,
+            "register" : register,
+            "checkLoggedin" : checkLoggedin
         };
 
         return api;
 
-        function login(user) {
+        function login(username, password) {
+            var user = {
+                username : username,
+                password : password
+            }
             return $http.post("/api/login", user);
         }
 
         function logout(user) {
             return $http.post("/api/logout");
+        }
+
+        function register(user) {
+            return $http.post("/api/register", user);
+        }
+
+        function checkLoggedin() {
+            return $http.post("/api/checkLoggedin");
         }
 
         function createUser(user) {

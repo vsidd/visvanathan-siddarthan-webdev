@@ -9,8 +9,13 @@ var passport      = require('passport');
 var cookieParser = require('cookie-parser');
 var session      = require('express-session');
 
+app.use(session({
+    secret: 'this is the secret',
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(cookieParser());
-app.use(session({ secret: process.env.SESSION_SECRET }));
+// app.use(session({ secret: process.env.SESSION_SECRET }));
 
 
 // configure a public directory to host static content
