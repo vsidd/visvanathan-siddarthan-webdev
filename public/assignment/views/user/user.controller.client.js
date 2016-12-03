@@ -11,14 +11,16 @@
     function LoginController($location, UserService) {
         var vm = this;
         vm.login = login;
+        vm.logout = logout;
 
         function login(username, password) {
             UserService
-                .findUserByCredentials(username,password)
+                .login(username,password)
                 .success(function(user) {
                     if(user === '0'){
                         vm.error = "No such user";
                     }else {
+                        // $rootScope.currentUser = user;
                         $location.url("/user/" + user._id);
                     }
                 })
@@ -27,6 +29,18 @@
                 });
         }
     }
+
+    function logout() {
+        UserService
+            .logout()
+            .success(function () {
+                $location.url("/login");
+            })
+            .error(function (error) {
+                
+            })
+    }
+
 
     function RegisterController($location, UserService) {
         var vm = this;
@@ -44,7 +58,7 @@
                      username: username, password: password, firstName: "", lastName: ""
                 };
                 UserService
-                    .createUser(user)
+                    .register(user)
                     .success(function (user) {
                         if(user === '0'){
                             vm.error = "Username already exists";

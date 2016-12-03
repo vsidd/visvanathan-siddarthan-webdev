@@ -13,10 +13,20 @@
             "findUserByUserName" : findUserByUserName,
             "findUserByCredentials" : findUserByCredentials,
             "updateUser" : updateUser,
-            "deleteUser" : deleteUser
+            "deleteUser" : deleteUser,
+            "login" : login,
+            "logout" : logout
         };
 
         return api;
+
+        function login(user) {
+            return $http.post("/api/login", user);
+        }
+
+        function logout(user) {
+            return $http.post("/api/logout");
+        }
 
         function createUser(user) {
             var url = "/api/user";
