@@ -13,22 +13,25 @@
         vm.login = login;
 
         function login(username, password) {
-            UserService
-                .login(username,password)
-                .success(function(user) {
-                    if(user === '0'){
-                        vm.error = "No such user";
-                    }else {
-                        $rootScope.currentUser = user;
-                        $location.url("/user/" + user._id);
-                    }
-                })
-                .error(function(serverError) {
-                    vm.error = "server returned error";
-                });
+            if (username === undefined || password === undefined) {
+                vm.error = "Please fill out the fields";
+            } else {
+                UserService
+                    .login(username, password)
+                    .success(function (user) {
+                        if (user === '0') {
+                            vm.error = "No such user";
+                        } else {
+                            $rootScope.currentUser = user;
+                            $location.url("/user/" + user._id);
+                        }
+                    })
+                    .error(function (serverError) {
+                        vm.error = "server returned error";
+                    });
+            }
+
         }
-
-
     }
 
 
@@ -47,7 +50,7 @@
                 vm.error = "Entered password do not match with each other"
             }else {
                 var user = {
-                     username: username, password: password, firstName: "", lastName: ""
+                    username: username, password: password, firstName: "", lastName: ""
                 };
                 UserService
                     .register(user)

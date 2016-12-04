@@ -5,9 +5,11 @@ module.exports = function (app, model) {
 
     var passport      = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
+    var FacebookStrategy = require('passport-facebook').Strategy;
     var auth = authorized;
     var cookieParser  = require('cookie-parser');
     var session       = require('express-session');
+    var bcrypt = require("bcrypt-nodejs");
 
     app.use(session({
         secret: 'this is the secret',
@@ -31,9 +33,24 @@ module.exports = function (app, model) {
     app.put("/api/user/:userId",auth, updateUser);
     app.delete("/api/user/:userId",auth, deleteUser);
     app.post('/api/login', passport.authenticate('local'), login);
+    app.get ('/auth/facebook', passport.authenticate('facebook', { scope : ['profile','email'] }));
     app.post('/api/logout', logout);
     app.post ('/api/register', register);
     app.post('/api/checkLoggedin', checkLoggedin);
+
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect: '/#/user',
+            failureRedirect: '/#/login'
+        }));
+
+    var facebookConfig = {
+        clientID     : process.env.FACEBOOK_CLIENT_ID,
+        clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL  : process.env.FACEBOOK_CALLBACK_URL
+    };
+
+    passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
     function serializeUser(user, done) {
         done(null, user);
@@ -59,7 +76,7 @@ module.exports = function (app, model) {
             .findUserByCredentials(username, password)
             .then(
                 function(user) {
-                    if(user.username === username && user.password === password) {
+                    if(user.username === username && bcrypt.compareSync(password, user.password)) {
                         return done(null, user);
                     } else {
                         return done(null, false);
@@ -67,6 +84,49 @@ module.exports = function (app, model) {
                 },
                 function(err) {
                     if (err) { return done(err); }
+                }
+            );
+    }
+
+    function facebookStrategy(token, refreshToken, profile, done) {
+        model
+            .userModel
+            .findUserByFacebookId(profile.id)
+            .then(
+                function (user) {
+                    if(user){
+                        return done(null,user);
+                    }else{
+                        var email = profile.emails[0].value;
+                        var emailParts = email.split("@");
+                        var newFacebookUser = {
+                            username: emailParts[0],
+                            firstName: profile.name.givenName,
+                            lastName: profile.name.familyName,
+                            email: email,
+                            facebook: {
+                                id: profile.id,
+                                token: token
+                            }
+                        };
+                        return model.userModel.createUser(newFacebookUser);
+                    }
+                },
+                function (err) {
+                    if(err){
+                        return done(err);
+                    }
+                }
+
+            )
+            .then(
+                function (user) {
+                    return done(null,user);
+                },
+                function (err) {
+                    if(err){
+                        return done(err);
+                    }
                 }
             );
     }
@@ -83,6 +143,7 @@ module.exports = function (app, model) {
 
     function register (req, res) {
         var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
         model
             .userModel
             .createUser(user)
