@@ -17,7 +17,7 @@ body {
     background-size: cover;
     overflow: hidden;
     padding-top: 70px;
-
+    overflow: scroll;
 }
 
 .registerBgImg {
@@ -30,7 +30,20 @@ body {
     background-size: cover;
     overflow: hidden;
     padding-top: 60px;
-    /*z-index: 10;*/
+    overflow: scroll;
+}
+
+.profileBgImg {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    background: url("../images/pokemongo3.png")  center center no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    overflow: hidden;
+    padding-top: 60px;
+    overflow: scroll;
 
 }
 

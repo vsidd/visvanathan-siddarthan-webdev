@@ -1,9 +1,10 @@
 /**
- * Created by Siddarthan on 17-Oct-16.
+ * Created by Siddarthan on 03-Dec-16.
  */
+
 (function () {
     angular
-        .module("WebAppMaker")
+        .module("PokemonLocator")
         .controller("LoginController", LoginController)
         .controller("RegisterController", RegisterController)
         .controller("ProfileController", ProfileController);
@@ -12,25 +13,25 @@
         var vm = this;
         vm.login = login;
 
-        function login(username, password) {
-            if (username === undefined || password === undefined) {
+        function login() {
+            if (vm.user.username === undefined || vm.user.password === undefined) {
                 vm.error = "Please fill out the fields";
             } else {
                 UserService
-                    .login(username, password)
+                    .login(vm.user.username, vm.user.password)
                     .success(function (user) {
                         if (user === '0') {
                             vm.error = "No such user";
                         } else {
                             $rootScope.currentUser = user;
-                            $location.url("/user/" + user._id);
+                            // $location.url("/register/" + user._id); //TODO: change here
+                            $location.url("/profile/");
                         }
                     })
                     .error(function (serverError) {
                         vm.error = "server returned error";
                     });
             }
-
         }
     }
 
@@ -41,19 +42,16 @@
         var vm = this;
         vm.register = register;
 
-        function register(username, password, verifyPassword) {
-            if(username === undefined
-                || password === undefined
-                || verifyPassword === undefined){
+        function register() {
+            if(vm.user.username === undefined
+                || vm.user.password === undefined
+                || vm.verifyPassword === undefined){
                 vm.error = "One or more field is empty";
-            }else if(password !== verifyPassword) {
+            }else if(vm.user.password !== vm.verifyPassword) {
                 vm.error = "Entered password do not match with each other"
             }else {
-                var user = {
-                    username: username, password: password, firstName: "", lastName: ""
-                };
                 UserService
-                    .register(user)
+                    .register(vm.user)
                     .then(
                         function (response) {
                             var user = response.data;
@@ -61,7 +59,8 @@
                                 vm.error = "Username already exists";
                             }else {
                                 $rootScope.currentUser = user;
-                                $location.url("/user/" + user._id);
+                                // $location.url("/login/" + user._id); //TODO: change here
+                                $location.url("/login/");
                             }
                         },
                         function (err) {

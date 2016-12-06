@@ -1,6 +1,7 @@
 /**
- * Created by Siddarthan on 26-Oct-16.
+ * Created by Siddarthan on 03-Dec-16.
  */
+
 module.exports = function (app, model) {
 
     var passport      = require('passport');
@@ -27,16 +28,16 @@ module.exports = function (app, model) {
 
 
 
-    app.post("/api/user",auth, createUser);
-    app.get("/api/user",auth, getUser);
-    app.get("/api/user/:userId",auth, getUserById);
-    app.put("/api/user/:userId",auth, updateUser);
-    app.delete("/api/user/:userId",auth, deleteUser);
-    app.post('/api/login', passport.authenticate('local'), login);
+    app.post("/api/project/user",auth, createUser);
+    app.get("/api/project/user",auth, getUser);
+    app.get("/api/project/user/:userId",auth, getUserById);
+    app.put("/api/project/user/:userId",auth, updateUser);
+    app.delete("/api/project/user/:userId",auth, deleteUser);
+    app.post('/api/project/login', passport.authenticate('local'), login);
     app.get ('/auth/facebook', passport.authenticate('facebook', { scope : ['profile','email'] }));
-    app.post('/api/logout', logout);
-    app.post ('/api/register', register);
-    app.post('/api/checkLoggedin', checkLoggedin);
+    app.post('/api/project/logout', logout);
+    app.post ('/api/project/register', register);
+    app.post('/api/project/checkLoggedin', checkLoggedin);
 
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
@@ -58,7 +59,7 @@ module.exports = function (app, model) {
 
     function deserializeUser(user, done) {
         model
-            .userModel
+            .userModelPL
             .findUserById(user._id)
             .then(
                 function(user){
@@ -72,11 +73,11 @@ module.exports = function (app, model) {
 
     function localStrategy(username, password, done) {
         model
-            .userModel
+            .userModelPL
             .findUserByUsername(username)
             .then(
                 function(user) {
-                    if(user.username === username && bcrypt.compareSync(password, user.password)) {
+                    if(user && user.username === username && bcrypt.compareSync(password, user.password)) {
                         return done(null, user);
                     } else {
                         return done(null, false);
@@ -90,7 +91,7 @@ module.exports = function (app, model) {
 
     function facebookStrategy(token, refreshToken, profile, done) {
         model
-            .userModel
+            .userModelPL
             .findUserByFacebookId(profile.id)
             .then(
                 function (user) {
@@ -109,7 +110,7 @@ module.exports = function (app, model) {
                                 token: token
                             }
                         };
-                        return model.userModel.createUser(newFacebookUser);
+                        return model.userModelPL.createUser(newFacebookUser);
                     }
                 },
                 function (err) {
@@ -145,7 +146,7 @@ module.exports = function (app, model) {
         var user = req.body;
         user.password = bcrypt.hashSync(user.password);
         model
-            .userModel
+            .userModelPL
             .findUserByUsername(user.username)
             .then(
                 function (retrivedUser) {
@@ -153,7 +154,7 @@ module.exports = function (app, model) {
                         res.send('0');
                     }else{
                         model
-                            .userModel
+                            .userModelPL
                             .createUser(user)
                             .then(
                                 function(user){
@@ -191,7 +192,7 @@ module.exports = function (app, model) {
     function createUser(req, res){
         var user = req.body;
         model
-            .userModel
+            .userModelPL
             .findUserByUsername(user.username)
             .then(
                 function (retrivedUser) {
@@ -199,7 +200,7 @@ module.exports = function (app, model) {
                         res.send('0');
                     }else{
                         model
-                            .userModel
+                            .userModelPL
                             .createUser(user)
                             .then(
                                 function (newUser) {
@@ -234,7 +235,7 @@ module.exports = function (app, model) {
     function findUserByUserName(req, res){
         var username = req.query.username;
         model
-            .userModel
+            .userModelPL
             .findUserByUsername(username)
             .then(
                 function (users) {
@@ -254,7 +255,7 @@ module.exports = function (app, model) {
         var username = req.query.username;
         var password = req.query.password;
         model
-            .userModel
+            .userModelPL
             .findUserByCredentials(username, password)
             .then(
                 function (user) {
@@ -273,7 +274,7 @@ module.exports = function (app, model) {
     function getUserById(req, res){
         var userId = req.params.userId;
         model
-            .userModel
+            .userModelPL
             .findUserById(userId)
             .then(
                 function (user) {
@@ -293,7 +294,7 @@ module.exports = function (app, model) {
         var user = req.body;
         var userId = req.params.userId;
         model
-            .userModel
+            .userModelPL
             .updateUser(userId, user)
             .then(
                 function (status) {
@@ -308,7 +309,7 @@ module.exports = function (app, model) {
     function deleteUser(req, res) {
         var userId = req.params.userId;
         model
-            .userModel
+            .userModelPL
             .deleteUser(userId)
             .then(
                 function (status) {

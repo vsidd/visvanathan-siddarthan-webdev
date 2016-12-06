@@ -11,18 +11,23 @@
         $routeProvider
             .when("/home", {
                 templateUrl : "views/home/home.view.client.html",
-                // controller  : "LoginController",
-                // controllerAs : "model"
+                controller  : "LoginController",
+                controllerAs : "model"
             })
             .when("/login",{
                 templateUrl : "views/user/login.view.client.html",
-                // controller : "RegisterController",
-                // controllerAs : "model"
+                controller : "LoginController",
+                controllerAs : "model"
+            })
+            .when("/profile",{
+                templateUrl : "views/user/profile.view.client.html",
+                controller : "ProfileController",
+                controllerAs : "model"
             })
             .when("/register",{
                 templateUrl : "views/user/register.view.client.html",
-                // controller : "RegisterController",
-                // controllerAs : "model"
+                controller : "RegisterController",
+                controllerAs : "model"
             })
             .when("/map",{
                 templateUrl : "views/map/map.view.client.html",

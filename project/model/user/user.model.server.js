@@ -1,18 +1,18 @@
 /**
- * Created by Siddarthan on 15-Nov-16.
+ * Created by Siddarthan on 03-Dec-16.
  */
+
 module.exports = function () {
     var model = {};
     var mongoose = require("mongoose");
     var UserSchema = require("./user.schema.server.js")();
-    var UserModel = mongoose.model("UserModel", UserSchema);
+    var UserModelPL = mongoose.model("UserModelPL", UserSchema);
 
     var api = {
         createUser : createUser,
         findUserById : findUserById,
         findUserByUsername : findUserByUsername,
         findUserByCredentials : findUserByCredentials,
-        // findAllWebsitesForUser : findAllWebsitesForUser,
         updateUser : updateUser,
         deleteUser : deleteUser,
         setModel : setModel,
@@ -24,40 +24,33 @@ module.exports = function () {
         model = _model;
     }
 
-    // function findAllWebsitesForUser(userId){
-    //     return UserModel
-    //         .findById(userId)
-    //         .populate("websites")
-    //         .exec();
-    // }
-
     function findUserByFacebookId(facebookId) {
-        return UserModel.findOne({'facebook.id': facebookId});
+        return UserModelPL.findOne({'facebook.id': facebookId});
     }
 
     function createUser(user){
-        return UserModel.create(user);
+        return UserModelPL.create(user);
     }
 
     function findUserById(userId) {
-        return UserModel.findById(userId);
+        return UserModelPL.findById(userId);
     }
 
     function findUserByUsername(username) {
-        return UserModel.findOne({
+        return UserModelPL.findOne({
             username: username
         })
     }
-    
+
     function findUserByCredentials(username, password) {
-        return UserModel.findOne({
+        return UserModelPL.findOne({
             username: username,
             password: password
         })
     }
 
     function updateUser(userId, user) {
-        return UserModel
+        return UserModelPL
             .update(
                 {
                     _id : userId
@@ -69,7 +62,7 @@ module.exports = function () {
     }
 
     function deleteUser(userId) {
-        return UserModel
+        return UserModelPL
             .remove(
                 {
                     _id : userId
