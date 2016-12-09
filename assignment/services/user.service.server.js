@@ -27,21 +27,21 @@ module.exports = function (app, model) {
 
 
 
-    app.post("/api/user",auth, createUser);
-    app.get("/api/user",auth, getUser);
-    app.get("/api/user/:userId",auth, getUserById);
-    app.put("/api/user/:userId",auth, updateUser);
-    app.delete("/api/user/:userId",auth, deleteUser);
+    app.post("/api/user", createUser);
+    app.get("/api/user", getUser);
+    app.get("/api/user/:userId", getUserById);
+    app.put("/api/user/:userId", updateUser);
+    app.delete("/api/user/:userId", deleteUser);
     app.post('/api/login', passport.authenticate('local'), login);
-    app.get ('/auth/facebook', passport.authenticate('facebook', { scope : ['profile','email'] }));
+    app.get ('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
     app.post('/api/logout', logout);
     app.post ('/api/register', register);
     app.post('/api/checkLoggedin', checkLoggedin);
 
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
-            successRedirect: '/#/user',
-            failureRedirect: '/#/login'
+            successRedirect: '/assignment/index.html#/user/',
+            failureRedirect: '/assignment/index.html#/login/'
         }));
 
     var facebookConfig = {
@@ -97,13 +97,14 @@ module.exports = function (app, model) {
                     if(user){
                         return done(null,user);
                     }else{
-                        var email = profile.emails[0].value;
-                        var emailParts = email.split("@");
+                        var displayName = profile.displayName.split(" ");
+                        var username = displayName[0]+"_"+displayName[1];
+                        var firstName = displayName[0];
+                        var lastName = displayName[1];
                         var newFacebookUser = {
-                            username: emailParts[0],
-                            firstName: profile.name.givenName,
-                            lastName: profile.name.familyName,
-                            email: email,
+                            username: username,
+                            firstName: firstName,
+                            lastName: lastName,
                             facebook: {
                                 id: profile.id,
                                 token: token

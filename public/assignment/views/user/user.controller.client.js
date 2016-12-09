@@ -14,7 +14,7 @@
 
         function login(username, password) {
             if (username === undefined || password === undefined) {
-                vm.error = "Please fill out the fields";
+                // vm.error = "Please fill out the fields";
             } else {
                 UserService
                     .login(username, password)
@@ -27,7 +27,7 @@
                         }
                     })
                     .error(function (serverError) {
-                        vm.error = "server returned error";
+                        vm.error = serverError;
                     });
             }
 
@@ -45,7 +45,7 @@
             if(username === undefined
                 || password === undefined
                 || verifyPassword === undefined){
-                vm.error = "One or more field is empty";
+                // vm.error = "One or more field is empty";
             }else if(password !== verifyPassword) {
                 vm.error = "Entered password do not match with each other"
             }else {
@@ -79,7 +79,9 @@
         vm.updateUser = updateUser;
         vm.unregisterUser = unregisterUser;
         vm.logout = logout;
-
+        if(!userId){
+            userId = $rootScope.currentUser._id;
+        }
         function init() {
             UserService
                 .findUserById(userId)
