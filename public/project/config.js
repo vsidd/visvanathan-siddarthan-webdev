@@ -19,7 +19,7 @@
                 controller : "LoginController",
                 controllerAs : "model"
             })
-            .when("/profile",{
+            .when("/user/:uid/profile",{
                 templateUrl : "views/user/profile.view.client.html",
                 controller : "ProfileController",
                 controllerAs : "model"
@@ -29,10 +29,15 @@
                 controller : "RegisterController",
                 controllerAs : "model"
             })
-            .when("/map",{
-                templateUrl : "views/map/map.view.client.html",
-                // controller : "RegisterController",
-                // controllerAs : "model"
+            .when("/user/:uid/map",{
+                templateUrl : "views/map/list.map.view.client.html",
+                controller : "ListMapController",
+                controllerAs : "model"
+            })
+            .when("/user/:uid/:pid/map",{
+                templateUrl : "views/map/add.map.view.client.html",
+                controller : "AddMapController",
+                controllerAs : "model"
             })
             .otherwise({
                 redirectTo: "/home"

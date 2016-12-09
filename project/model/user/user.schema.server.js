@@ -10,8 +10,9 @@ module.exports = function () {
         firstName : String,
         lastName : String,
         email : String,
-        phone : String,
-        // websites : [{type: mongoose.Schema.ObjectId, ref:'WebsiteModel'}],
+        role : {type: String, default: "user"},
+        // phone : String,
+        locations : [{type: mongoose.Schema.ObjectId, ref:'LocationModel'}],
         dateCreated : {type: Date, default: Date.now},
         facebook: {
             id:    String,

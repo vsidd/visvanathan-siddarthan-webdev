@@ -1,3 +1,33 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#/home">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+
+
 <div class="container profileBgImg">
     <h1>Edit Profile</h1>
     <hr>
@@ -5,13 +35,13 @@
         <!-- left column -->
         <div class="col-md-3">
             <div class="text-center">
-                <img src="./images/pokeball.png" class="avatar img-circle img-responsive" alt="avatar" style="height: 120px">
+                <img src="./images/Pokeball2.png" class="avatar img-circle img-responsive center-block" alt="avatar" style="height: 120px">
 
             </div>
         </div>
 
         <!-- edit form column -->
-        <div class="col-md-9 personal-info">
+        <div class="col-md-6 personal-info">
             <!--<div class="alert alert-info alert-dismissable">-->
                 <!--<a class="panel-close close" data-dismiss="alert">×</a>-->
                 <!--<i class="fa fa-coffee"></i>-->
@@ -23,68 +53,89 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label">First name:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" value="Jane">
+                        <input class="form-control" type="text" placeholder="First Name">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Last name:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" value="Bishop">
+                        <input class="form-control" type="text" placeholder="Last Name">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Company:</label>
+                    <label class="col-lg-3 control-label">Username:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" value="">
+                        <input class="form-control" type="text" placeholder="User Name" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Email:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" value="janesemail@gmail.com">
+                        <input class="form-control" type="text" placeholder="sample@domain.com">
                     </div>
                 </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="col-lg-3 control-label">Time Zone:</label>-->
+                    <!--<div class="col-lg-8">-->
+                        <!--<div class="ui-select">-->
+                            <!--<select id="user_time_zone" class="form-control">-->
+                                <!--<option value="Hawaii">(GMT-10:00) Hawaii</option>-->
+                                <!--<option value="Alaska">(GMT-09:00) Alaska</option>-->
+                                <!--<option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>-->
+                                <!--<option value="Arizona">(GMT-07:00) Arizona</option>-->
+                                <!--<option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>-->
+                                <!--<option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>-->
+                                <!--<option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>-->
+                                <!--<option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-3 control-label">Username:</label>-->
+                    <!--<div class="col-md-8">-->
+                        <!--<input class="form-control" type="text" value="janeuser">-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Time Zone:</label>
+                    <label class="col-lg-3 control-label">Password:</label>
                     <div class="col-lg-8">
-                        <div class="ui-select">
-                            <select id="user_time_zone" class="form-control">
-                                <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                                <option value="Alaska">(GMT-09:00) Alaska</option>
-                                <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                                <option value="Arizona">(GMT-07:00) Arizona</option>
-                                <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                                <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
-                                <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                                <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-                            </select>
-                        </div>
+                        <input class="form-control" type="password" placeholder="Password" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Username:</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="text" value="janeuser">
+                    <label class="col-lg-3 control-label">Verify password:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="password" placeholder="Verify Password" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Password:</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="password" value="11111122333">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Confirm password:</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="password" value="11111122333">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label"></label>
-                    <div class="col-md-8">
-                        <input type="button" class="btn btn-primary" value="Save Changes">
+                    <label class="col-lg-3 control-label"></label>
+                    <div class="col-lg-8">
+                        <input type="submit" class="btn btn-primary btn-block" value="Save Changes">
                         <span></span>
-                        <input type="reset" class="btn btn-default" value="Cancel">
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="col-lg-3 control-label"></label>-->
+                    <!--<div class="col-lg-8">-->
+                        <!--<input type="button" class="btn btn-danger btn-block" value="Logout">-->
+                        <!--<span></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"></label>
+                    <div class="col-lg-8">
+                        <input type="button" class="btn btn-danger btn-block" value="Unregister">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"></label>
+                    <div class="col-lg-8">
+                        <a class="btn btn-warning btn-block"
+                           ng-show="model.user.role == 'ADMIN'"
+                           href="#/admin">Admin</a>
                     </div>
                 </div>
             </form>

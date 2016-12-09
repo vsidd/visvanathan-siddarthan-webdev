@@ -25,11 +25,11 @@
                         } else {
                             $rootScope.currentUser = user;
                             // $location.url("/register/" + user._id); //TODO: change here
-                            $location.url("/profile/");
+                            $location.url("/user/"+user._id+"/map");
                         }
                     })
                     .error(function (serverError) {
-                        vm.error = "server returned error";
+                        vm.error = serverError;
                     });
             }
         }
@@ -60,7 +60,7 @@
                             }else {
                                 $rootScope.currentUser = user;
                                 // $location.url("/login/" + user._id); //TODO: change here
-                                $location.url("/login/");
+                                $location.url("/user/"+user._id+"/profile/");
                             }
                         },
                         function (err) {
@@ -85,6 +85,7 @@
                 .success(function (user) {
                     if(user != '0') {
                         vm.user = user;
+                        vm.user.role = "ADMIN"
                     }
                 })
                 .error(function (serverError) {
