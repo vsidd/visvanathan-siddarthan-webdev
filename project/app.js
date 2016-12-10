@@ -6,4 +6,5 @@ module.exports = function(app) {
     var model = require("./model/model.server.js")(app);
     require("./services/user.service.server.js")(app, model);
     require("./services/location.service.server.js")(app, model);
+    require("./services/pokemon.service.server.js")(app, model);
 };

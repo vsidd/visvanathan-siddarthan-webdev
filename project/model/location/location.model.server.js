@@ -24,16 +24,33 @@ module.exports = function () {
 
     function createLocationForUser(userId, location, pokemonId) {
         location._user = userId;
-        location._pokemon = pokemonId;
+        // location._pokemon = pokemonId;
+
+        model.pokemonModel
+            .findPokemonByNumber(pokemonId)
+            .then(function (pokemonObj) {
+                location._pokemon = pokemonObj._id;
+            })
+
         return LocationModel
             .create(location)
             .then(function (locationObj) {
                 model.userModelPL
                     .findUserById(userId)
                     .then(function (userObj) {
-                        userObj.locations.push(locationObj);
-                        userObj.save();
+                        model.pokemonModel
+                            .findPokemonByNumber(pokemonId)
+                            .then(function (pokemonObj) {
+                                pokemonObj.locations.push(locationObj);
+                                pokemonObj.users.push(userObj);
+                                pokemonObj.save();
+                                userObj.locations.push(locationObj);
+                                userObj.pokemons.push(pokemonObj);
+                                userObj.save();
+                            });
                     });
+
+
                 return locationObj;
             });
     }

@@ -61,7 +61,7 @@ module.exports = function () {
             );
     }
 
-    function deleteUser(userId) {
+    function deleteUser(userId) { //TODO: delete from other tables as well
         return UserModelPL
             .remove(
                 {

@@ -1,0 +1,70 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#/home">Home</a></li>
+                <li><a href="#/map">Map</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+<div style="overflow: hidden">
+    <div id="map" class="map"></div>
+</div>
+
+
+
+
+
+<!--<nav class="navbar navbar-default navbar-fixed-bottom">-->
+    <!--<div class="container">-->
+        <button type="button" class="btn btn-primary btn-lg pokemonAddButton" data-toggle="modal" data-target="#myModal">
+            Add a Pokemon to the map
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Pokemon list</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <select ng-model = "selectedPokemon" ng-options="pokemon.name for pokemon in model.pokemonList"
+                                    class="selectpicker"
+                                    data-live-search="true">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" ng-click="model.addSelectedPokemon(selectedPokemon) && $('.modal-dialog').hide() " data-dismiss="modal" class="btn btn-primary">Add to map</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--</div>-->
+
+<!--</nav>-->

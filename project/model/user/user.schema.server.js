@@ -13,6 +13,7 @@ module.exports = function () {
         role : {type: String, default: "user"},
         // phone : String,
         locations : [{type: mongoose.Schema.ObjectId, ref:'LocationModel'}],
+        pokemons : [{type: mongoose.Schema.ObjectId, ref:'PokemonModel'}],
         dateCreated : {type: Date, default: Date.now},
         facebook: {
             id:    String,

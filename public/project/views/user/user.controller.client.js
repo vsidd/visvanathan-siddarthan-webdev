@@ -26,6 +26,7 @@
                             $rootScope.currentUser = user;
                             // $location.url("/register/" + user._id); //TODO: change here
                             $location.url("/user/"+user._id+"/map");
+                            // $location.url("/user/list");
                         }
                     })
                     .error(function (serverError) {
@@ -79,13 +80,17 @@
         vm.unregisterUser = unregisterUser;
         vm.logout = logout;
 
+        if(!userId){
+            userId = $rootScope.currentUser._id;
+        }
+
         function init() {
             UserService
                 .findUserById(userId)
                 .success(function (user) {
                     if(user != '0') {
                         vm.user = user;
-                        vm.user.role = "ADMIN"
+                        // vm.user.role = "ADMIN"
                     }
                 })
                 .error(function (serverError) {

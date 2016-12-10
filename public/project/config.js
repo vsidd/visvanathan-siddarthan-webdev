@@ -30,12 +30,12 @@
                 controllerAs : "model"
             })
             .when("/user/:uid/map",{
-                templateUrl : "views/map/list.map.view.client.html",
+                templateUrl : "views/map/map-list.view.client.html",
                 controller : "ListMapController",
                 controllerAs : "model"
             })
             .when("/user/:uid/:pid/map",{
-                templateUrl : "views/map/add.map.view.client.html",
+                templateUrl : "views/map/map-add.view.client.html",
                 controller : "AddMapController",
                 controllerAs : "model"
             })

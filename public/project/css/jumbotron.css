@@ -151,8 +151,16 @@ img.pokemon.small {max-height: 120px;
 
 #map{
     /*height: 800px;*/
+    position: relative;
     height: 700px;
     width: 100%;
+}
+
+.pokemonAddButton{
+    position: absolute;
+    bottom: 2%;
+    left: 1%;
+    /*left:50%;*/
 }
 
 .mapBackgroundImage {
