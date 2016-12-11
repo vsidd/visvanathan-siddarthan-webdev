@@ -10,7 +10,9 @@
     function PokemonService($http) {
         var api = {
 
-            "findAllPokemon" : findAllPokemon
+            "findAllPokemon" : findAllPokemon,
+            "findFromPokeApi" : findFromPokeApi,
+            "findPokemonByNumber" : findPokemonByNumber
             // "saveLocation" : saveLocation,
             // "findLocationByUserId" : findLocationByUserId,
             // "findLocationById" : findLocationById,
@@ -27,7 +29,15 @@
             return $http.get(url);
         }
 
+        function findFromPokeApi(pokemonNumber) {
+            var url = "http://pokeapi.co/api/v2/pokemon/"+pokemonNumber+"/"
+            return $http.get(url);
+        }
 
+        function findPokemonByNumber(pokemonNumber) {
+            var url = "/api/project/pokemon/number/"+pokemonNumber;
+            return $http.get(url);
+        }
 
         // function updateLocation(locationId, location) {
         //     var url = "/api/project/location/"+locationId;

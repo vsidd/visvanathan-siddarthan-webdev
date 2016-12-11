@@ -7,7 +7,6 @@ module.exports = function (app, model) {
     var passport      = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
     var FacebookStrategy = require('passport-facebook').Strategy;
-    var auth = authorized;
     var cookieParser  = require('cookie-parser');
     var session       = require('express-session');
     var bcrypt = require("bcrypt-nodejs");
@@ -28,11 +27,11 @@ module.exports = function (app, model) {
 
 
 
-    app.post("/api/project/user",auth, createUser);
-    app.get("/api/project/user",auth, getUser);
-    app.get("/api/project/user/:userId",auth, getUserById);
-    app.put("/api/project/user/:userId",auth, updateUser);
-    app.delete("/api/project/user/:userId",auth, deleteUser);
+    app.post("/api/project/user", createUser);
+    app.get("/api/project/user", getUser);
+    app.get("/api/project/user/:userId", getUserById);
+    app.put("/api/project/user/:userId", updateUser);
+    app.delete("/api/project/user/:userId", deleteUser);
     app.post('/api/project/login', passport.authenticate('local'), login);
     app.get ('/auth/facebook', passport.authenticate('facebook', { scope : ['profile','email'] }));
     app.post('/api/project/logout', logout);

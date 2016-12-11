@@ -73,6 +73,7 @@ module.exports = function () {
             .populate("locations","coordinates")
             .exec();
     }
+
     function findPokemonById(pokemonId) {
         return PokemonModel.findById(pokemonId);
     }
@@ -80,7 +81,9 @@ module.exports = function () {
     function findPokemonByNumber(pokemonNumber) {
         return PokemonModel.findOne({
             pokemonNumber : pokemonNumber
-        });
+        })
+            .populate("locations","address")
+            .exec();
     }
 
     function insertUser(userId, pokemonId) {

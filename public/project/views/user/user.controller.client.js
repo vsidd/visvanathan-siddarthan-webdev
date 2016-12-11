@@ -24,8 +24,10 @@
                             vm.error = "No such user";
                         } else {
                             $rootScope.currentUser = user;
+                            $rootScope.currentUserSignedIn = true;
                             // $location.url("/register/" + user._id); //TODO: change here
-                            $location.url("/user/"+user._id+"/map");
+                            // $location.url("/user/"+user._id+"/map");
+                            $location.url("/home");
                             // $location.url("/user/list");
                         }
                     })
@@ -60,6 +62,7 @@
                                 vm.error = "Username already exists";
                             }else {
                                 $rootScope.currentUser = user;
+                                $rootScope.currentUserSignedIn = true;
                                 // $location.url("/login/" + user._id); //TODO: change here
                                 $location.url("/user/"+user._id+"/profile/");
                             }
@@ -79,6 +82,8 @@
         vm.updateUser = updateUser;
         vm.unregisterUser = unregisterUser;
         vm.logout = logout;
+        vm.goToGlobalMap = goToGlobalMap;
+        vm.goToMyMap = goToMyMap;
 
         if(!userId){
             userId = $rootScope.currentUser._id;
@@ -90,6 +95,8 @@
                 .success(function (user) {
                     if(user != '0') {
                         vm.user = user;
+                        $rootScope.currentUser = user;
+                        $rootScope.currentUserSignedIn = true;
                         // vm.user.role = "ADMIN"
                     }
                 })
@@ -99,19 +106,17 @@
         }
         init();
 
-        function updateUser(username, email, firstname, lastname) {
-            vm.user.username = username;
-            vm.user.email = email;
-            vm.user.firstName = firstname;
-            vm.user.lastName = lastname;
-            UserService
-                .updateUser(userId, vm.user)
-                .success(function (successFromServer) {
-
-                })
-                .error(function (errorFromServer) {
-                    vm.error = "server returned error";
-                });
+        function updateUser() {
+           if(vm.user) {
+               UserService
+                   .updateUser(userId, vm.user)
+                   .success(function (successFromServer) {
+                       $location.url("/home");
+                   })
+                   .error(function (errorFromServer) {
+                       vm.error = "server returned error";
+                   });
+           }
         }
 
         function unregisterUser() {
@@ -119,6 +124,8 @@
                 .deleteUser(userId)
                 .success(function(successFromServer){
                     $location.url("/login");
+                    $rootScope.currentUserSignedIn = false;
+                    $rootScope.currentUser = null;
                 })
                 .error(function(){
 
@@ -130,11 +137,28 @@
                 .logout()
                 .success(function () {
                     $rootScope.currentUser = null;
-                    $location.url("/login");
+                    $rootScope.currentUserSignedIn = false;
+                    $location.url("/home");
                 })
                 .error(function (error) {
 
                 })
         }
+
+        function goToGlobalMap() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/map");
+            }else{
+                return false;
+            }
+        }
+        function goToMyMap() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/mymap");
+            }else{
+                return false;
+            }
+        }
+
     }
 })();

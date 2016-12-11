@@ -26,12 +26,6 @@ module.exports = function () {
         location._user = userId;
         // location._pokemon = pokemonId;
 
-        model.pokemonModel
-            .findPokemonByNumber(pokemonId)
-            .then(function (pokemonObj) {
-                location._pokemon = pokemonObj._id;
-            })
-
         return LocationModel
             .create(location)
             .then(function (locationObj) {
@@ -41,6 +35,8 @@ module.exports = function () {
                         model.pokemonModel
                             .findPokemonByNumber(pokemonId)
                             .then(function (pokemonObj) {
+                                locationObj._pokemon = pokemonObj._id;
+                                locationObj.save();
                                 pokemonObj.locations.push(locationObj);
                                 pokemonObj.users.push(userObj);
                                 pokemonObj.save();
@@ -59,6 +55,8 @@ module.exports = function () {
         return LocationModel.find({
             _user : userId
         })
+            .populate("_pokemon","pokemonNumber")
+            .exec();
     }
     // function findAllWebsitesForUser(userId) {
     //     return model.userModel.findAllWebsitesForUser(userId);

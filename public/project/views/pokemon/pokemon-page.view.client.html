@@ -1,0 +1,133 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href ng-click="model.backToSearch()"><span class="glyphicon glyphicon-arrow-left"></span> Back to search</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li ><a href="#/home">Home</a></li>
+                <li><a href ng-click="model.goToGlobalMap()">Global Map</a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.goToMyMap()">My Map</a></li>
+                <!--<li class="active" ng-if="currentUserSignedIn"><a href ng-click="model.searchPokemon()">Search Pokemon <span class="glyphicon glyphicon-search"></span></a></li>-->
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-hide="currentUserSignedIn"><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li ng-hide="currentUserSignedIn"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()"> {{currentUser.username}}, Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+            </ul>
+
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+
+
+<div class="pokemonBgImg">
+    <!--<label class="col-md-5 col-md-offset-4 labelSearchFont"><h1>Result Pokemon</h1></label>-->
+    <!--<div class="col-md-6 col-md-offset-3">-->
+
+    <!--</div>-->
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="well">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <img src={{model.pokemonImg}} alt="" class="image-circle img-responsive" />
+                    </div>
+                    <div class="col-sm-6 col-md-offset-1 col-md-5">
+                        <table class="table table-striped table-hover table-condensed">
+                            <tr>
+                                <td>Name</td>
+                                <td>{{model.pokemon.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Number</td>
+                                <td>{{model.pokemon.pokemonNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>Type</td>
+                                <td>{{model.pokemon.type}}</td>
+                            </tr>
+                            <tr>
+                                <td>Moves</td>
+                                <td>{{model.pokemon.moves}}</td>
+                            </tr>
+                            <tr>
+                                <td>Totally caught by users</td>
+                                <td>{{model.pokemon.users.length}}</td>
+                            </tr>
+                            <tr>
+                                <td>Number of unique users<br>
+                                    who caught this pokemon</td>
+                                <td>{{model.uniqueUsers.length}}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Base experience</td>
+                                <td>{{model.base_experience}}</td>
+                            </tr>
+                            <tr>
+                                <td>Attack</td>
+                                <td>{{model.pokemon.attack}}</td>
+                            </tr>
+                            <tr>
+                                <td>Defense</td>
+                                <td>{{model.pokemon.defense}}</td>
+                            </tr>
+                            <tr>
+                                <td>Weight</td>
+                                <td>{{model.weight}}</td>
+                            </tr>
+                            <tr>
+                                <td>Height</td>
+                                <td>{{model.height}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<div class="container">-->
+    <!--<div class="row">-->
+    <!--<div class="col-md-5 col-md-offset-3">-->
+    <!--<div class="card">-->
+    <!--<img class="card-img-top" src="./images/pokemon3.png" alt="Card image cap">-->
+    <!--<div class="card-block">-->
+    <!--<h4 class="card-title">{{model.pokemon.name}}</h4>-->
+    <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+</div>
