@@ -76,14 +76,18 @@ module.exports = function (app, model) {
             .findUserByUsername(username)
             .then(
                 function(user) {
-                    if(user.username === username && bcrypt.compareSync(password, user.password)) {
-                        return done(null, user);
-                    } else {
+                    if(user) {
+                        if (user.username === username && bcrypt.compareSync(password, user.password)) {
+                            return done(null, user);
+                        } else {
+                            return done(null, false);
+                        }
+                    }else{
                         return done(null, false);
                     }
                 },
                 function(err) {
-                    if (err) { return done(err); }
+                     return done(err);
                 }
             );
     }
