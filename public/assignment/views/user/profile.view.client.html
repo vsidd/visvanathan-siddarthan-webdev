@@ -15,10 +15,18 @@
 
 
 <div class="container">
-    <form>
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
+    <div ng-show="profileForm.$invalid && profileForm.$submitted" class="alert alert-danger" role="alert">
+        Required fields are missing.
+        <li ng-show="profileForm.model.user.username.$invalid">Username is missing</li>
+    </div>
+    <form name="profileForm" novalidate>
         <div class="form-group">
             <label for="username">Username</label>
-            <input ng-model="model.user.username" type="text" class="form-control" id="username" placeholder="Username">
+            <input ng-model="model.user.username" type="text" class="form-control" id="username" placeholder="Username" required>
+            <div ng-show="profileForm.model.user.username.$invalid && profileForm.$submitted" class="error">Username is required</div>
         </div>
         <div class="form-group">
             <label for="email">Email address</label>

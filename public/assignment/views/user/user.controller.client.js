@@ -97,18 +97,23 @@
         init();
 
         function updateUser(username, email, firstname, lastname) {
-            vm.user.username = username;
-            vm.user.email = email;
-            vm.user.firstName = firstname;
-            vm.user.lastName = lastname;
-            UserService
-                .updateUser(userId, vm.user)
-                .success(function (successFromServer) {
+            vm.error = "";
+            if(!username){
+                vm.error = "Username is required"
+            }else {
+                vm.user.username = username;
+                vm.user.email = email;
+                vm.user.firstName = firstname;
+                vm.user.lastName = lastname;
+                UserService
+                    .updateUser(userId, vm.user)
+                    .success(function (successFromServer) {
 
-                })
-                .error(function (errorFromServer) {
-                    vm.error = "server returned error";
-                });
+                    })
+                    .error(function (errorFromServer) {
+                        vm.error = "server returned error";
+                    });
+            }
         }
 
         function unregisterUser() {
