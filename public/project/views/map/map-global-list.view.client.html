@@ -61,10 +61,9 @@
                             </select>
                         </div>
                     </div>
-                    <a href='#/user/{{model.userId}}/{{selectedPokemon.pokemonNumber}}/map' data-dismiss="modal">text</a>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <a href='#/user/{{model.userId}}/{{selectedPokemon.pokemonNumber}}/map' type="button" data-dismiss="modal" class="btn btn-primary">Add to map</a>
+                        <button type="button" ng-click="model.addSelectedPokemon(selectedPokemon) && $('#myModal').modal('hide')" onclick="$('#myModal').modal('hide');" class="btn btn-primary">Add to map</button>
                     </div>
                 </div>
             </div>

@@ -11,6 +11,7 @@ module.exports = function (app, model) {
     app.get("/api/project/pokemon/number/:pokemonNumber", findPokemonByNumber);
     // app.put("/api/project/pokemon/:userId/:pid/location", insertLocation);
     app.put("/api/project/pokemon/:userId/:pid/", insertUser);
+    app.post("/api/project/pokemon/comment/:pid", addComment)
     // app.put("/api/project/location/:locationId", updateLocation);
     // app.delete("/api/project/location/:locationId", deleteLocation);
 
@@ -103,6 +104,20 @@ module.exports = function (app, model) {
     //         )
     // }
 
+    function addComment(req, res) {
+        var pokemonId = req.params.pid;
+        var comment = req.body;
+        model
+            .pokemonModel
+            .addComment(pokemonId, comment)
+            .then(function (status) {
+                res.send(200);
+            },
+            function (err) {
+                console.log(err);
+                res.sendStatus(400).send(error);
+            })
+    }
     function insertUser(req, res) {
         var userId = req.params.userId;
         var pokemonId = req.params.pid;

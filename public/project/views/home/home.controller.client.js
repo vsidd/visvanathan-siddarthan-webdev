@@ -14,6 +14,7 @@
         vm.goToMyMap = goToMyMap;
         vm.userprofile = userprofile;
         vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         function goToGlobalMap() {
             if($rootScope.currentUserSignedIn){
@@ -50,6 +51,14 @@
         function searchPokemon() {
             if($rootScope.currentUserSignedIn){
                 $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
             }else{
                 return false;
             }

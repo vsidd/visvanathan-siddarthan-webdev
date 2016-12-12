@@ -12,7 +12,8 @@
 
             "findAllPokemon" : findAllPokemon,
             "findFromPokeApi" : findFromPokeApi,
-            "findPokemonByNumber" : findPokemonByNumber
+            "findPokemonByNumber" : findPokemonByNumber,
+            "addComment" : addComment
             // "saveLocation" : saveLocation,
             // "findLocationByUserId" : findLocationByUserId,
             // "findLocationById" : findLocationById,
@@ -37,6 +38,11 @@
         function findPokemonByNumber(pokemonNumber) {
             var url = "/api/project/pokemon/number/"+pokemonNumber;
             return $http.get(url);
+        }
+
+        function addComment(pokemonId, comment) {
+            var url = "/api/project/pokemon/comment/"+pokemonId;
+            return $http.post(url, comment);
         }
 
         // function updateLocation(locationId, location) {

@@ -17,6 +17,7 @@ module.exports = function () {
         findPokemonByNumber : findPokemonByNumber,
         insertUser : insertUser,
         findAllPokemon : findAllPokemon,
+        addComment : addComment,
         // updateLocation : updateLocation,
         // deleteLocation : deleteLocation,
         setModel : setModel
@@ -86,9 +87,21 @@ module.exports = function () {
             .exec();
     }
 
+    function addComment(pokemonId, comment) {
+        return PokemonModel
+            .findById(pokemonId)
+            .then(function (pokemonObj) {
+                pokemonObj.comments.push(comment);
+                pokemonObj.save();
+                return pokemonObj;
+            },function (err) {
+                console.log(err);
+            })
+    }
+
     function insertUser(userId, pokemonId) {
       return PokemonModel
-            .findPokemonById(pokemonId)
+            .findById(pokemonId)
             .then(
                 function (pokemonObj) {
                     if(pokemonObj){

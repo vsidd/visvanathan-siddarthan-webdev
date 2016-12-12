@@ -31,8 +31,8 @@ var port      = process.env.PORT || 3000;
 
 app.listen(port, ipaddress);
 
-// require("./assignment/app.js")(app);
-require("./project/app.js")(app);
+require("./assignment/app.js")(app);
+// require("./project/app.js")(app);
 
 
 console.log("server started");

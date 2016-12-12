@@ -16,7 +16,8 @@ module.exports = function () {
         updateUser : updateUser,
         deleteUser : deleteUser,
         setModel : setModel,
-        findUserByFacebookId: findUserByFacebookId
+        findUserByFacebookId: findUserByFacebookId,
+        findAllUsersPokemons : findAllUsersPokemons
     };
     return api;
 
@@ -34,6 +35,13 @@ module.exports = function () {
 
     function findUserById(userId) {
         return UserModelPL.findById(userId);
+    }
+
+    function findAllUsersPokemons() {
+        return UserModelPL
+            .find()
+            .populate("pokemons","name")
+            .exec();
     }
 
     function findUserByUsername(username) {

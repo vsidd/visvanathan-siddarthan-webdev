@@ -180,7 +180,9 @@
         }
 
         function addSelectedPokemon(selectedPokemon) {
-
+            // alert($('#myModal').attr('class'));
+            $('#myModal').modal('hide');
+            $('.modal-backdrop.fade.in').hide();
             if(selectedPokemon){
                 $location.url("/user/"+userId+"/"+selectedPokemon.pokemonNumber+"/map");
             }
@@ -252,7 +254,7 @@
                     if(locationList && locationList != '0'){
                         for(var i = 0; i < locationList.length; i++){
                             var location = locationList[i];
-                            var pokemon = location._pokemon;
+                            var pokemon = location._pokemon[0];
                             var image = {
                                 url: "./images/gen1/"+pokemon.pokemonNumber+".png", // image is 512 x 512
                                 scaledSize : new google.maps.Size(43, 43)
@@ -344,7 +346,7 @@
                     if(locationList && locationList != '0'){
                         for(var i = 0; i < locationList.length; i++){
                             var location = locationList[i];
-                            var pokemon = location._pokemon;
+                            var pokemon = location._pokemon[0];
                             var uniqueId = location.coordinates.lat+'_'+location.coordinates.lng;
                             var image = {
                                 url: "./images/gen1/"+pokemon.pokemonNumber+".png", // image is 512 x 512
@@ -387,9 +389,6 @@
         }
         
         function deleteMarker(marker, markerId) {
-            // console.log(marker);
-            // for(var i=0; i <  vm.markerList.length; i++){
-            //     var marker = vm.markerList[i];
                 if(marker.getAnimation() !== null){
                     for(var j = 0; j < vm.locationList.length; j++){
                         var location = vm.locationList[j];
@@ -397,16 +396,11 @@
                         var locationCoordinates = location.coordinates;
                         if((markerCoordinates.lat() == locationCoordinates.lat)&&
                             (markerCoordinates.lng() == locationCoordinates.lng)){
-                            // console.log(markerCoordinates.lat());
-                            // console.log(locationCoordinates.lat);
-                            // console.log(markerCoordinates.lng());
-                            // console.log(locationCoordinates.lng);
                             marker.setAnimation(null);
                             marker.setMap(null);
                             LocationService.deleteLocation(location._id);
                         }
                     }
-                // }
             }
 
         }

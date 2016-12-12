@@ -13,6 +13,7 @@ module.exports = function () {
         findAllLocationsForUser : findAllLocationsForUser,
         findLocationById : findLocationById,
         updateLocation : updateLocation,
+        deleteLocationReference : deleteLocationReference,
         deleteLocation : deleteLocation,
         setModel : setModel
     };
@@ -35,7 +36,7 @@ module.exports = function () {
                         model.pokemonModel
                             .findPokemonByNumber(pokemonId)
                             .then(function (pokemonObj) {
-                                locationObj._pokemon = pokemonObj._id;
+                                locationObj._pokemon.push(pokemonObj._id);
                                 locationObj.save();
                                 pokemonObj.locations.push(locationObj);
                                 pokemonObj.users.push(userObj);
@@ -76,6 +77,45 @@ module.exports = function () {
                     $set : location
                 }
             )
+    }
+
+    function deleteLocationReference(locationId) {
+        return LocationModel
+            .findById(locationId)
+            .then(function (locationObj) {
+                console.log(locationObj);
+                console.log(locationObj._user[0]);
+               model.userModelPL
+                    .findUserById(locationObj._user[0])
+                    .then(function (userObj) {
+                        model.pokemonModel
+                            .findPokemonById(locationObj._pokemon[0])
+                            .then(function (pokemonObj) {
+                                var locationIndexInUser = userObj.locations.indexOf(locationObj._id);
+                                var locationIndexInPokemon = pokemonObj.locations.indexOf(locationObj._id);
+                                var pokemonIndexInUser = userObj.pokemons.indexOf(pokemonObj._id);
+                                var userIndexInPokemon = pokemonObj.users.indexOf(userObj._id);
+
+                                if(locationIndexInUser > -1){
+                                    userObj.locations.splice(locationIndexInUser, 1);
+                                    userObj.save();
+                                }
+                                if(locationIndexInPokemon > -1){
+                                    pokemonObj.locations.splice(locationIndexInPokemon, 1);
+                                    pokemonObj.save();
+                                }
+                                if(pokemonIndexInUser > -1){
+                                    userObj.pokemons.splice(pokemonIndexInUser, 1);
+                                    userObj.save();
+                                }
+                                if(userIndexInPokemon > -1){
+                                    pokemonObj.users.splice(userIndexInPokemon, 1);
+                                    pokemonObj.save();
+                                }
+                            })
+                    })
+                return locationObj;
+            })
     }
 
     function deleteLocation(locationId) {

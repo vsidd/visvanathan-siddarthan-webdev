@@ -11,6 +11,7 @@
         var api = {
             "createUser" : createUser,
             "findUserById" : findUserById,
+            "findAllUsersPokemons" : findAllUsersPokemons,
             "findUserByUserName" : findUserByUserName,
             "findUserByCredentials" : findUserByCredentials,
             "updateUser" : updateUser,
@@ -71,6 +72,11 @@
         function deleteUser(userId) {
             var url = "/api/project/user/"+userId;
             return $http.delete(url);
+        }
+
+        function findAllUsersPokemons() {
+            var url = "/api/project/users/pokemons";
+            return $http.get(url);
         }
     }
 })();

@@ -13,6 +13,7 @@ module.exports = function () {
         moves:[{type: String}],
         users : [{type: mongoose.Schema.ObjectId, ref:'UserModelPL'}],
         locations : [{type: mongoose.Schema.ObjectId, ref:'LocationModel'}],
+        comments : [{username : String, comment: String, today: String}],
         dateCreated : {type : Date, default : Date.now}
     }, {collection: "pokemon"});
     return PokemonSchema;

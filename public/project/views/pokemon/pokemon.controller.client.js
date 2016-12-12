@@ -6,7 +6,9 @@
     angular
         .module("PokemonLocator")
         .controller("PokemonSearchController", PokemonSearchController)
-        .controller("PokemonDetailController", PokemonDetailController);
+        .controller("PokemonDetailController", PokemonDetailController)
+        .controller("LeaderboardController", LeaderboardController);
+
     function PokemonSearchController($location, UserService, $routeParams, LocationService, PokemonService, $rootScope) {
         var vm = this;
         var userId = $routeParams.uid;
@@ -180,6 +182,7 @@
         vm.goToGlobalMap = goToGlobalMap;
         vm.userprofile = userprofile;
         vm.backToSearch = backToSearch;
+        vm.addComment = addComment;
 
         function init() {
             PokemonService
@@ -201,6 +204,7 @@
                         }, []);
                     };
                     vm.uniqueUsers = uniqueUsers(users);
+                    vm.comments = pokemon.comments;
                 })
                 .error(function (err) {
 
@@ -213,6 +217,105 @@
                     "&weight="+vm.weight+"&height="+vm.height+"&query="+vm.query+"&resultPage="+vm.resultPage+
                     "&error="+vm.error+"&name="+vm.name+"&backFromPage="+true+"&pokemonNumber="+vm.pokemonNumber);
         }
+
+        function addComment() {
+            if(vm.comment){
+                var m_names = ["January", "February", "March","April", "May", "June", "July", "August", "September","October", "November", "December"];
+
+                var date = new Date();
+                var curr_date = date.getDate();
+                var curr_month = date.getMonth();
+                var curr_year = date.getFullYear();
+
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var ampm = hours >= 12 ? 'pm' : 'am';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 10 ? '0'+minutes : minutes;
+                var strTime = hours + ':' + minutes + ' ' + ampm;
+
+                var today = "on "+m_names[curr_month]+" "+curr_date+"th, "+curr_year+" "+strTime;
+
+
+                var commentObj = {username: $rootScope.currentUser.username, comment: vm.comment, today: today};
+                PokemonService
+                    .addComment(vm.pokemon._id, commentObj)
+                    .success(function (status) {
+                        vm.comments.push(commentObj);
+                        vm.comment = "";
+                    })
+                    .error(function (err) {
+                        console.log(err);
+                    })
+            }
+        }
+        function logout() {
+            UserService
+                .logout()
+                .success(function () {
+                    $rootScope.currentUser = null;
+                    $rootScope.currentUserSignedIn = false;
+                    $location.url("/home");
+                })
+                .error(function (error) {
+
+                })
+        }
+
+        function goToMyMap() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/mymap");
+            }else{
+                return false;
+            }
+        }
+
+        function goToGlobalMap() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/map");
+            }else{
+                return false;
+            }
+        }
+
+        function userprofile() {
+            $location.url("/user/"+$rootScope.currentUser._id+"/profile/");
+        }
+
+    }
+
+    function LeaderboardController($location, UserService, $routeParams, LocationService, PokemonService, $rootScope) {
+        var vm = this;
+        vm.userId = $routeParams.uid;
+
+        vm.logout = logout;
+        vm.goToMyMap = goToMyMap;
+        vm.goToGlobalMap = goToGlobalMap;
+        vm.userprofile = userprofile;
+
+        function init() {
+            UserService
+                .findAllUsersPokemons()
+                .success(function (users) {
+                    users.sort(function (a, b) {
+                        if(a.pokemons.length < b.pokemons.length){
+                            return 1;
+                        }
+                        if(a.pokemons.length > b.pokemons.length){
+                            return -1;
+                        }
+                        return 0;
+                    })
+                    vm.userList = users;
+                    console.log(users);
+                })
+                .error(function (err) {
+
+                })
+        }
+        init();
+
 
         function logout() {
             UserService

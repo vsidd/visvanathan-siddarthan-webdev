@@ -43,10 +43,10 @@
 
             <div class="well">
                 <div class="row">
-                    <div class="col-sm-6 col-md-4">
+                    <div class="col-sm-6 col-md-offset-1 col-md-4 imgPaddingTop">
                         <img src={{model.pokemonImg}} alt="" class="image-circle img-responsive" />
                     </div>
-                    <div class="col-sm-6 col-md-offset-1 col-md-5">
+                    <div class="col-sm-6  col-md-5">
                         <table class="table table-striped table-hover table-condensed">
                             <tr>
                                 <td>Name</td>
@@ -101,11 +101,60 @@
         </div>
     </div>
 
+    <div class="container">
+        <div class="row">
+    <!--<div class="well">-->
+    <div class="detailBox">
+        <div class="titleBox">
+            <label>Join the discussion</label>
+            <button type="button" class="close" aria-hidden="true">&times;</button>
+        </div>
+        <!--<div class="commentBox">-->
 
+            <!--<p class="taskDescription">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>-->
+        <!--</div>-->
+        <div class="actionBox">
+            <ul class="commentList" ng-repeat="comment in model.comments">
+                <li>
+                    <div class="commenterImage">
+                        <img src="./images/avatar1.png" />
+                    </div>
+                    <div class="commentText">
+                       {{comment.username}}: <p class="">{{comment.comment}}</p> <span class="date sub-text">{{comment.today}}</span>
 
+                    </div>
+                </li>
+                <!--<li>-->
+                    <!--<div class="commenterImage">-->
+                        <!--<img src="./images/avatar1.png" />-->
+                    <!--</div>-->
+                    <!--<div class="commentText">-->
+                        <!--<p class="">Hello this is a test comment and this comment is particularly very long and it goes on and on and on.</p> <span class="date sub-text">on March 5th, 2014</span>-->
 
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<div class="commenterImage">-->
+                        <!--<img src="./images/avatar1.png" />-->
+                    <!--</div>-->
+                    <!--<div class="commentText">-->
+                        <!--<p class="">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>-->
 
-
+                    <!--</div>-->
+                <!--</li>-->
+            </ul>
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <input ng-model="model.comment" class="form-control" type="text" placeholder="Your comments" />
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-default" ng-click="model.addComment()">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
 
 
 

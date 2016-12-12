@@ -87,14 +87,17 @@ module.exports = function (app, model) {
 
     function deleteLocation(req, res) {
         var locationId = req.params.locationId;
-        model
-            .locationModel
-            .deleteLocation(locationId)
-            .then(
-                function (status) {
-                    res.send(200);
+        model.locationModel
+            .deleteLocationReference(locationId)
+            .then(function (status) {
+                    model.locationModel
+                        .deleteLocation(locationId)
+                        .then(function (status) {
+                            res.send(200);
+                        })
                 },
                 function (error) {
+                    console.log(error);
                     res.sendStatus(400).send(error);
                 }
             )

@@ -30,6 +30,7 @@ module.exports = function (app, model) {
     app.post("/api/project/user", createUser);
     app.get("/api/project/user", getUser);
     app.get("/api/project/user/:userId", getUserById);
+    app.get("/api/project/users/pokemons",findAllUsersPokemons);
     app.put("/api/project/user/:userId", updateUser);
     app.delete("/api/project/user/:userId", deleteUser);
     app.post('/api/project/login', passport.authenticate('local'), login);
@@ -279,6 +280,24 @@ module.exports = function (app, model) {
                 function (user) {
                     if(user) {
                         res.send(user);
+                    }else {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
+    }
+
+    function findAllUsersPokemons(req, res) {
+        model
+            .userModelPL
+            .findAllUsersPokemons()
+            .then(
+                function (users) {
+                    if(users) {
+                        res.send(users);
                     }else {
                         res.send('0');
                     }

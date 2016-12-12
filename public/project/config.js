@@ -59,6 +59,12 @@
                 controllerAs : "model",
                 resolve: { checkLoggedin: checkLoggedin }
             })
+            .when("/user/:uid/leaderboard",{
+                templateUrl : "views/pokemon/pokemon-user-leaderboard.view.client.html",
+                controller : "LeaderboardController",
+                controllerAs : "model",
+                resolve: { checkLoggedin: checkLoggedin }
+            })
             .when("/user/:uid/:pid/map",{
                 templateUrl : "views/map/map-global-list-add.view.client.html",
                 controller : "AddMapController",
