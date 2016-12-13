@@ -36,6 +36,24 @@
                 controllerAs : "model",
                 resolve: { checkLoggedin: checkLoggedin }
             })
+            .when("/admin/:uid/",{
+                templateUrl : "views/admin/admin-home.view.client.html",
+                controller : "AdminHomeController",
+                controllerAs : "model",
+                resolve: { checkAdmin: checkAdmin }
+            })
+            .when("/admin/:uid/users",{
+                templateUrl : "views/admin/admin-user.view.client.html",
+                controller : "AdminUserController",
+                controllerAs : "model",
+                resolve: { checkAdmin: checkAdmin }
+            })
+            .when("/admin/:uid/pokemons",{
+                templateUrl : "views/admin/admin-pokemon.view.client.html",
+                controller : "AdminPokemonController",
+                controllerAs : "model",
+                resolve: { checkAdmin: checkAdmin }
+            })
             .when("/register",{
                 templateUrl : "views/user/register.view.client.html",
                 controller : "RegisterController",
@@ -62,6 +80,12 @@
             .when("/user/:uid/leaderboard",{
                 templateUrl : "views/pokemon/pokemon-user-leaderboard.view.client.html",
                 controller : "LeaderboardController",
+                controllerAs : "model",
+                resolve: { checkLoggedin: checkLoggedin }
+            })
+            .when("/user/:uid1/:uid2/socialProfile",{
+                templateUrl : "views/user/social-profile.view.client.html",
+                controller : "SocialProfileController",
                 controllerAs : "model",
                 resolve: { checkLoggedin: checkLoggedin }
             })
@@ -125,6 +149,23 @@
                             $rootScope.currentUserSignedIn = false;
                             deferred.reject();
                             $location.url("/homepage");
+                        }
+                    }
+                );
+            return deferred.promise;
+        }
+
+        function checkAdmin($q, UserService, $location) {
+            var deferred = $q.defer();
+            UserService
+                .checkAdmin()
+                .success(
+                    function (user) {
+                        if(user != '0') {
+                            deferred.resolve();
+                        } else {
+                            deferred.reject();
+                            $location.url("/login");
                         }
                     }
                 );

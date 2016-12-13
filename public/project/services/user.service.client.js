@@ -19,7 +19,12 @@
             "login" : login,
             "logout" : logout,
             "register" : register,
-            "checkLoggedin" : checkLoggedin
+            "checkLoggedin" : checkLoggedin,
+            "checkAdmin": checkAdmin,
+            "addComment" : addComment,
+            "updateFollowingUser" : updateFollowingUser,
+            "removeFollowingUser" : removeFollowingUser,
+            "findAllUsers" : findAllUsers
         };
 
         return api;
@@ -44,11 +49,25 @@
             return $http.post("/api/project/checkLoggedin");
         }
 
-        function createUser(user) { //TODO:
+        function checkAdmin() {
+            return $http.post("/api/project/checkAdmin");
+        }
+
+        function createUser(user) {
             var url = "/api/project/user";
             return $http.post(url, user);
         }
 
+
+        function addComment(userId, comment) {
+            var url = "/api/project/user/"+userId+"/comment";
+            return $http.post(url, comment);
+        }
+
+        function findAllUsers(userId) {
+            var url = "/api/project/users/"+userId;
+            return $http.get(url);
+        }
         function findUserById(userId){
             var url = "/api/project/user/"+userId;
             return $http.get(url);
@@ -62,6 +81,16 @@
         function findUserByCredentials(username, password) {//TODO: find if anyone is using
             var url = '/api/project/user?username='+username+'&password='+password;
             return $http.get(url);
+        }
+
+        function updateFollowingUser(userIdToAdd, userId2) {
+            var url = "/api/project/"+userId2+"/follow";
+            return $http.post(url, userIdToAdd);
+        }
+
+        function removeFollowingUser(userIdToRemove, userId2) {
+            var url = "/api/project/"+userId2+"/unfollow";
+            return $http.post(url, userIdToRemove);
         }
 
         function updateUser(userId, user) {

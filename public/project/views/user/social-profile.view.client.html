@@ -1,0 +1,131 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href ng-click="model.backToLeaderboard()"><span class="glyphicon glyphicon-arrow-left"></span> Back to Leaderboard</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li ><a href="#/home">Home</a></li>
+                <li><a href ng-click="model.goToGlobalMap()">Global Map</a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.goToMyMap()">My Map</a></li>
+                <!--<li class="active" ng-if="currentUserSignedIn"><a href ng-click="model.searchPokemon()">Search Pokemon <span class="glyphicon glyphicon-search"></span></a></li>-->
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-hide="currentUserSignedIn"><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li ng-hide="currentUserSignedIn"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()"> {{currentUser.username}}, Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+            </ul>
+
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+
+
+<div class="pokemonBgImg">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="well">
+                <div class="row">
+                    <!--<div class="col-sm-6 col-md-offset-1 col-md-4 imgPaddingTop">-->
+                    <!--<img src={{model.pokemonImg}} alt="" class="image-circle img-responsive" />-->
+                    <!--</div>-->
+                    <div class="col-sm-6  col-md-6 col-md-offset-2">
+                        <table class="table table-striped table-hover table-condensed">
+                            <tr>
+                                <td>Name</td>
+                                <td>{{model.viewedUser.username}}</td>
+                            </tr>
+                            <tr>
+                                <td>Number of Pokemons marked</td>
+                                <td>{{model.pokemonCount}}</td>
+                            </tr>
+                            <tr ng-if="model.checkboxcheck">
+                                <td>Email</td>
+                                <td>{{model.viewedUser.email}}</td>
+                            </tr>
+                            <tr ng-if="model.checkboxcheck">
+                                <td>First Name</td>
+                                <td>{{model.viewedUser.firstName}}</td>
+                            </tr>
+                            <tr ng-if="model.checkboxcheck">
+                                <td>Last Name</td>
+                                <td>{{model.viewedUser.lastName}}</td>
+                            </tr>
+                            <tr ng-if="model.checkboxcheck">
+                                <td>Pokemons captured</td>
+                                <td>{{model.userAllPokemons}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="checkboxPaddingLeft">
+            <div class="col-sm-5  col-md-offset-1">
+                <label class="labelFontColor" ng-if="!model.checkboxcheck">Follow the user to know more</label>
+                <div>
+                    <span class="checkbox" ng-if="model.checkboxcheck">
+                        <div ng-click="model.toggleCheckbox()">
+                            <input type="checkbox" checked> <label data-on="&#x2714;" data-off="&#x2718;"></label>
+                        </div>
+                    </span>
+                        <span class="checkbox" ng-if="!model.checkboxcheck">
+                        <div ng-click="model.toggleCheckbox()">
+                            <input type="checkbox"> <label data-on="&#x2714;" data-off="&#x2718;"></label>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" ng-if="model.checkboxcheck">
+        <div class="row">
+            <div class="detailBox">
+                <div class="titleBox">
+                    <label>Join the discussion</label>
+                </div>
+
+                <div class="actionBox">
+                    <ul class="commentList" ng-repeat="comment in model.comments">
+                        <li>
+                            <div class="commenterImage">
+                                <img src="./images/avatar1.png" />
+                            </div>
+                            <div class="commentText">
+                                {{comment.username}}: <p class="">{{comment.comment}}</p> <span class="date sub-text">{{comment.today}}</span>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <input ng-model="model.comment" class="form-control" type="text" placeholder="Your comments" />
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-default" ng-click="model.addComment()">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

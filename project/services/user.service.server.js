@@ -28,9 +28,11 @@ module.exports = function (app, model) {
 
 
     app.post("/api/project/user", createUser);
+    app.post("/api/project/user/:userId/comment", addComment);
     app.get("/api/project/user", getUser);
     app.get("/api/project/user/:userId", getUserById);
-    app.get("/api/project/users/pokemons",findAllUsersPokemons);
+    app.get("/api/project/users/pokemons", findAllUsersPokemons);
+    app.get("/api/project/users/:userId", findAllUsers);
     app.put("/api/project/user/:userId", updateUser);
     app.delete("/api/project/user/:userId", deleteUser);
     app.post('/api/project/login', passport.authenticate('local'), login);
@@ -38,6 +40,9 @@ module.exports = function (app, model) {
     app.post('/api/project/logout', logout);
     app.post ('/api/project/register', register);
     app.post('/api/project/checkLoggedin', checkLoggedin);
+    app.post('/api/project/checkAdmin', checkAdmin);
+    app.post("/api/project/:uid/follow", updateFollowingUser);
+    app.post("/api/project/:uid/unfollow", removeFollowingUser);
 
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
@@ -189,8 +194,23 @@ module.exports = function (app, model) {
         }
     };
 
+    function checkAdmin(req, res) {
+        var loggedIn = req.isAuthenticated();
+        if(req.user) {
+            var isAdmin = req.user.role == "ADMIN";
+            if (loggedIn && isAdmin) {
+                res.json(req.user);
+            } else {
+                res.send('0');
+            }
+        }else {
+            res.send('0');
+        }
+    }
+
     function createUser(req, res){
         var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
         model
             .userModelPL
             .findUserByUsername(user.username)
@@ -211,6 +231,7 @@ module.exports = function (app, model) {
                                     }
                                 },
                                 function (error) {
+                                    console.log(error);
                                     res.sendStatus(400).send(error);
                                 }
                             );
@@ -221,6 +242,51 @@ module.exports = function (app, model) {
                 }
             )
 
+    }
+
+    function addComment(req, res) {
+        var userId = req.params.userId;
+        var comment = req.body;
+        model
+            .userModelPL
+            .addComment(userId, comment)
+            .then(function (status) {
+                    res.send(200);
+                },
+                function (err) {
+                    console.log(err);
+                    res.sendStatus(400).send(error);
+                })
+    }
+
+    function updateFollowingUser(req, res) {
+        var userId2 = req.params.uid;
+        var userIdToAdd = req.body;
+        model
+            .userModelPL
+            .updateFollowingUser(userIdToAdd, userId2)
+            .then(function (status) {
+                res.send(200);
+            },
+            function (err) {
+                console.log(err);
+                res.sendStatus(400).send(error);
+            })
+    }
+
+    function removeFollowingUser(req, res) {
+        var userId2 = req.params.uid;
+        var userIdToRemove = req.body;
+        model
+            .userModelPL
+            .removeFollowingUser(userIdToRemove, userId2)
+            .then(function (status) {
+                    res.send(200);
+                },
+                function (err) {
+                    console.log(err);
+                    res.sendStatus(400).send(error);
+                })
     }
 
     function getUser(req, res) {
@@ -271,6 +337,24 @@ module.exports = function (app, model) {
             );
     }
 
+    function findAllUsers(req, res) {
+        model
+            .userModelPL
+            .findAllUsers()
+            .then(
+                function (users) {
+                    if(users) {
+                        res.send(users);
+                    }else {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
+    }
+
     function getUserById(req, res){
         var userId = req.params.userId;
         model
@@ -311,6 +395,9 @@ module.exports = function (app, model) {
     function updateUser(req, res) {
         var user = req.body;
         var userId = req.params.userId;
+        if(user.password.length < 15){
+            user.password = bcrypt.hashSync(user.password);
+        }
         model
             .userModelPL
             .updateUser(userId, user)

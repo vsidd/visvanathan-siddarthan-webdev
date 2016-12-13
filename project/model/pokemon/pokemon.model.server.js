@@ -13,6 +13,7 @@ module.exports = function () {
     var api = {
         // createLocationForUser : createLocationForUser,
         // findAllLocationsForUser : findAllLocationsForUser,
+        createPokemon : createPokemon,
         findPokemonById : findPokemonById,
         findPokemonByNumber : findPokemonByNumber,
         insertUser : insertUser,
@@ -51,23 +52,10 @@ module.exports = function () {
     }
 
 
-    // function createLocationForUser(userId, location, pokemonId) {//TODO: only by admin
-    //     location._user = userId;
-    //     location._pokemon = pokemonId;
-    //     return PokemonModel
-    //         .create(location)
-    //         .then(function (locationObj) {
-    //             model.userModelPL
-    //                 .findUserById(userId)
-    //                 .then(function (userObj) {
-    //                     userObj.locations.push(locationObj);
-    //                     userObj.save();
-    //                 });
-    //             return locationObj;
-    //         });
-    // }
 
-
+    function createPokemon(pokemon){
+        return PokemonModel.create(pokemon);
+    }
     function findAllPokemon() {
         return PokemonModel
             .find()

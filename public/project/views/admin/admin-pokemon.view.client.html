@@ -1,0 +1,81 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project Locator</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li ><a href="#/home">Home</a></li>
+                <li><a href ng-click="model.goToGlobalMap()">Global Map</a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.goToMyMap()">My Map</a></li>
+                <!--<li class="active" ng-if="currentUserSignedIn"><a href ng-click="model.searchPokemon()">Search Pokemon <span class="glyphicon glyphicon-search"></span></a></li>-->
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-hide="currentUserSignedIn"><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li ng-hide="currentUserSignedIn"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()"> {{currentUser.username}}, Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+            </ul>
+
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+
+
+<div class="container adminBgImg">
+    <div class="panel panel-default col-md-8 col-md-offset-2 adminPanelWhite" >
+        <br><br>
+        <div ng-show="model.error" class="alert alert-danger" role="alert">
+            {{model.error}}
+        </div>
+        <label><h1>Pokemon Model</h1></label><br>
+        <table class="table table-hover table-condensed tableWordWrap">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Type</th>
+                <th>Attack</th>
+                <th>Defense</th>
+                <th>Moves</th>
+                <th>&nbsp;</th>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input ng-model="model.newPokemon.name" class="form-control" placeholder="Name"/></td>
+                <td><input ng-model="model.newPokemon.pokemonNumber" class="form-control" placeholder="Pokemon Number"/></td>
+                <td><input ng-model="model.newPokemon.type" class="form-control" placeholder="Type"/></td>
+                <td><input ng-model="model.newPokemon.attack" class="form-control" type="email" placeholder="Attack"/></td>
+                <td><input ng-model="model.newPokemon.defense" class="form-control" type="password" placeholder="Defense"/></td>
+                <td><input ng-model="model.newPokemon.moves" class="form-control" placeholder="Moves"/></td>
+                <td><button ng-click="model.createPokemon(model.newPokemon)" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button ng-click="model.updatePokemon(model.newPokemon)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span></button></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="pokemon in model.pokemons">
+                <td>{{pokemon.indexnum}}</td>
+                <td>{{pokemon.name}}</td>
+                <td>{{pokemon.pokemonNumber}}</td>
+                <td>{{pokemon.type}}</td>
+                <td>{{pokemon.attack}}</td>
+                <td>{{pokemon.defense}}</td>
+                <td>{{pokemon.moves}}</td>
+                <td><button ng-click="model.deletePokemon(pokemon)" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                    <button ng-click="model.selectPokemon(pokemon)" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span></button></td>
+            </tr>
+            </tbody>
+        </table>
+        <br><br>
+    </div>
+</div>

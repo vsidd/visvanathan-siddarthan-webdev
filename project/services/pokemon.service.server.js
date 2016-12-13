@@ -6,6 +6,7 @@ module.exports = function (app, model) {
 
     // app.post("/api/project/user/:userId/:pid/location", saveLocation);
     // app.get("/api/project/user/:userId/location", findAllLocationsForUser);
+    app.post("/api/project/pokemon", createPokemon);
     app.get("/api/project/pokemon/", findAllPokemon);
     app.get("/api/project/pokemon/:pokemonId", findPokemonById);
     app.get("/api/project/pokemon/number/:pokemonNumber", findPokemonByNumber);
@@ -24,6 +25,35 @@ module.exports = function (app, model) {
     //         findPokemonByUser(req, res, userId);
     //     }
     // }
+
+    function createPokemon(req, res) {
+        var pokemon = req.body;
+        model
+            .pokemonModel
+            .findPokemonById(pokemon._id)
+            .then(function (retrivedPokemon) {
+                if(retrivedPokemon){
+                    res.send('0');
+                }else{
+                    model
+                        .pokemonModel
+                        .createPokemon(pokemon)
+                        .then(function (newPokemon) {
+                            if(newPokemon){
+                                res.send(newPokemon);
+                            }else{
+                                res.send('0');
+                            }
+                        }, function (error) {
+                            console.log(error);
+                            res.sendStatus(400).send(error);
+                        })
+                }
+            }, function (error) {
+                console.log(error);
+                res.sendStatus(400).send(error);
+            })
+    }
 
     function findAllPokemon(req, res) {
         model

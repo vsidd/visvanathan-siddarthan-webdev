@@ -130,8 +130,8 @@
                     <label class="col-lg-3 control-label"></label>
                     <div class="col-lg-8">
                         <a class="btn btn-warning btn-block"
-                           ng-show="model.user.role == 'ADMIN'"
-                           href="#/admin">Admin</a>
+                           ng-show="model.user.role.toLowerCase() == 'admin'"
+                           href="#/admin/{{model.user._id}}/">Admin</a>
                     </div>
                 </div>
             </form>

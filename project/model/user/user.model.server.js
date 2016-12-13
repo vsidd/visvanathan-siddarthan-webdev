@@ -17,7 +17,11 @@ module.exports = function () {
         deleteUser : deleteUser,
         setModel : setModel,
         findUserByFacebookId: findUserByFacebookId,
-        findAllUsersPokemons : findAllUsersPokemons
+        findAllUsersPokemons : findAllUsersPokemons,
+        findAllUsers : findAllUsers,
+        addComment : addComment,
+        updateFollowingUser : updateFollowingUser,
+        removeFollowingUser : removeFollowingUser
     };
     return api;
 
@@ -34,7 +38,10 @@ module.exports = function () {
     }
 
     function findUserById(userId) {
-        return UserModelPL.findById(userId);
+        return UserModelPL
+            .findById(userId)
+            .populate("pokemons","name")
+            .exec();
     }
 
     function findAllUsersPokemons() {
@@ -44,6 +51,9 @@ module.exports = function () {
             .exec();
     }
 
+    function findAllUsers() {
+        return UserModelPL.find();
+    }
     function findUserByUsername(username) {
         return UserModelPL.findOne({
             username: username
@@ -55,6 +65,49 @@ module.exports = function () {
             username: username,
             password: password
         })
+    }
+    
+    function addComment(userId, comment) {
+        return UserModelPL
+            .findById(userId)
+            .then(function (userObj) {
+                userObj.comments.push(comment);
+                userObj.save();
+                return userObj;
+            },function (err) {
+                console.log(err);
+            })
+    }
+
+    function updateFollowingUser(userIdToAdd, userId2) {
+        return UserModelPL
+            .findById(userId2)
+            .then(function (userObj) {
+                var following = userObj.following;
+                if(following.indexOf(userIdToAdd.userId) === -1){
+                    userObj.following.push(userIdToAdd.userId);
+                }
+                userObj.save();
+                return userObj;
+            }, function (err) {
+                console.log(err)
+            })
+    }
+
+    function removeFollowingUser(userIdToRemove, userId2) {
+        return UserModelPL
+            .findById(userId2)
+            .then(function (userObj) {
+                var following = userObj.following;
+                if(following.indexOf(userIdToRemove.userId) != -1){
+                    following.splice(following.indexOf(userIdToRemove.userId), 1);
+                }
+                userObj.following = following;
+                userObj.save();
+                return userObj;
+            }, function (err) {
+                console.log(err)
+            })
     }
 
     function updateUser(userId, user) {
