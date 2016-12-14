@@ -15,26 +15,31 @@
                 <li><a href="#/home">Home</a></li>
                 <li class="active"><a href="#">Global Map</a></li>
                 <li><a href ng-click="model.goToMyMap()">My Map</a></li>
-                <!--<li><a href="#">About</a></li>-->
-                <!--<li><a href="#">Contact</a></li>-->
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.leaderboard()">Leaderboard</a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.searchPokemon()"><span class="glyphicon glyphicon-search"></span> Search Pokemon</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li ng-hide="currentUserSignedIn"><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li ng-hide="currentUserSignedIn"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()">{{currentUser.username}}, Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()">{{currentUser.username}} <span class="glyphicon glyphicon-user"></span></a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()"> Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
             </ul>
 
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
 
-<div style="overflow: hidden">
+<div class="hideOverFlow">
     <div id="map" class="map"></div>
 </div>
 
-
+<div class="alert alert-info alert-dismissible fade in addAlert" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Info!</strong> Click on the Add button to choose a Pokemon and mark it on Add map.
+</div>
 
 
 
@@ -50,7 +55,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Pokemon list</h4>
+                        <h4 class="modal-title" id="myModalLabel">Choose a Pokemon from the drop-down list</h4><br>
                     </div>
                     <div class="modal-body">
                         <div class="container">

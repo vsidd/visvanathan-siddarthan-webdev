@@ -21,8 +21,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ng-hide="currentUserSignedIn"><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li ng-hide="currentUserSignedIn"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()"> {{currentUser.username}}, Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()">{{currentUser.username}} <span class="glyphicon glyphicon-user"></span></a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()"> Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
             </ul>
 
         </div><!--/.navbar-collapse -->

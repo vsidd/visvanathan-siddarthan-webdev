@@ -81,12 +81,12 @@ body {
     position: absolute;
     top: 0px;
     bottom: 0px;
-    background: url("../images/pokemongo7.jpg")  center center no-repeat;
+    background: url("../images/pokemongo13.jpg")  center center no-repeat;
     width: 100%;
     height: 100%;
     background-size: cover;
     overflow: hidden;
-    padding-top: 70px;
+    padding-top: 50px;
     overflow: scroll;
     background-color: white
 }
@@ -212,6 +212,14 @@ body {
     margin-bottom: 30px;
 }
 
+.enhancedLowerPanel {
+    background-color: rgba(255,255,255,0.90);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px rgba(0,0,0,0.5);
+    margin-bottom: 30px;
+}
+
 .pokeball-wrapper {
     position: absolute;
     left: 0;
@@ -283,7 +291,16 @@ small {
 }
 
 
-
+.addAlert{
+    position: absolute;
+    top: 9%;
+    left: 10%;
+    background-color: #9ed9f7;
+    border-color: #bfced1;
+/*    background-color: rgba(225, 186, 26, 0.76);
+    color: #232323;*/
+    /*left:50%;*/
+}
 
 
 
@@ -491,4 +508,8 @@ small {
 .tableWordWrap{
     word-wrap: break-word;
     table-layout: fixed;
+}
+
+.hideOverFlow{
+    overflow: hidden;
 }

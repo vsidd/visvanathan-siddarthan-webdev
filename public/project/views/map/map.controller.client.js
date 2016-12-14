@@ -26,7 +26,8 @@
             var neu = {lat: 42.340245, lng: -71.088354};
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 16,
-                center: neu
+                center: neu,
+                gestureHandling: 'greedy'
             });
             var geocoder = new google.maps.Geocoder;
 
@@ -138,7 +139,8 @@
             var neu = {lat: 42.340245, lng: -71.088354};
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 16,
-                center: neu
+                center: neu,
+                gestureHandling: 'greedy'
             });
             listCaughtPokemon(map);
         }
@@ -238,7 +240,8 @@
             var neu = {lat: 42.340245, lng: -71.088354};
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 16,
-                center: neu
+                center: neu,
+                gestureHandling: 'greedy'
             });
             listMyCaughtPokemon(map);
         }
@@ -330,7 +333,8 @@
             var neu = {lat: 42.340245, lng: -71.088354};
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 16,
-                center: neu
+                center: neu,
+                gestureHandling: 'greedy'
             });
             listMyCaughtPokemon(map);
         }

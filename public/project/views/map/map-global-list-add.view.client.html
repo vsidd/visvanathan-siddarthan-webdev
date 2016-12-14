@@ -23,14 +23,23 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ng-hide="currentUserSignedIn"><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li ng-hide="currentUserSignedIn"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()">{{currentUser.username}}, Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()">{{currentUser.username}} <span class="glyphicon glyphicon-user"></span></a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()"> Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
             </ul>
 
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
 
-<div style="overflow: hidden">
+
+
+<div class="hideOverFlow">
     <div id="map" class="map"></div>
+</div>
+<div class="alert alert-info alert-dismissible fade in addAlert" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Info!</strong> This is Add Map. Here, as soon as you click on the Map, the Pokemon
+    will be placed on the Map and you will be taken back to Global Map page where all Pokemons will be displayed again.
 </div>

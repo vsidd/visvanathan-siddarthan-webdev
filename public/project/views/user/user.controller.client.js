@@ -15,6 +15,7 @@
         vm.login = login;
 
         function login() {
+            vm.error = "";
             if (vm.user.username === undefined || vm.user.password === undefined) {
                 vm.error = "Please fill out the fields";
             } else {

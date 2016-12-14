@@ -249,7 +249,7 @@ module.exports = function (app, model) {
     function checkAdmin(req, res) {
         var loggedIn = req.isAuthenticated();
         if(req.user) {
-            var isAdmin = req.user.role.toLowerCase() == "ADMIN";
+            var isAdmin = req.user.role.toLowerCase() == "admin";
             if (loggedIn && isAdmin) {
                 res.json(req.user);
             } else {

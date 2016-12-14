@@ -23,18 +23,24 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ng-hide="currentUserSignedIn"><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li ng-hide="currentUserSignedIn"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()">{{currentUser.username}}, Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()">{{currentUser.username}} <span class="glyphicon glyphicon-user"></span></a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()"> Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
             </ul>
 
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
 
-<div style="overflow: hidden">
+<div class="hideOverFlow">
     <div id="map" class="map"></div>
 </div>
 
+<div class="alert alert-info alert-dismissible fade in addAlert" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Info!</strong> Click on a Pokemon twice to delete it. Clicking once will highlight it and once more will delete it. Delete as many as you want and go back to your personal map from the button below.
+</div>
 
 <button type="button" ng-click="model.goToMyMap()" class="btn btn-primary btn-lg pokemonAddButton">
     Go back to my Map

@@ -16,18 +16,15 @@
                 <li class="active"><a href="#/home">Home</a></li>
                 <li><a href ng-click="model.goToGlobalMap()">Global Map</a></li>
                 <li ng-if="currentUserSignedIn"><a href ng-click="model.goToMyMap()">My Map</a></li>
-                <li ng-if="currentUserSignedIn"><a href ng-click="model.searchPokemon()">Search Pokemon <span class="glyphicon glyphicon-search"></span></a></li>
                 <li ng-if="currentUserSignedIn"><a href ng-click="model.leaderboard()">Leaderboard</a></li>
-                <!--<li><a href="#">About</a></li>-->
-                <!--<li><a href="#">Contact</a></li>-->
-
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.searchPokemon()"><span class="glyphicon glyphicon-search"></span> Search Pokemon</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li ng-hide="currentUserSignedIn"><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li ng-hide="currentUserSignedIn"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()"> {{currentUser.username}}, Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.userprofile()">{{currentUser.username}} <span class="glyphicon glyphicon-user"></span></a></li>
+                <li ng-if="currentUserSignedIn"><a href ng-click="model.logout()"> Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
             </ul>
 
         </div><!--/.navbar-collapse -->
@@ -92,7 +89,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="enhanced">
+            <div class="enhancedLowerPanel">
                 <h1>Lorem Ipsum</h1>
                 <p>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
