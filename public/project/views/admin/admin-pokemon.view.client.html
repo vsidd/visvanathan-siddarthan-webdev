@@ -54,10 +54,10 @@
             <tr>
                 <td>&nbsp;</td>
                 <td><input ng-model="model.newPokemon.name" class="form-control" placeholder="Name"/></td>
-                <td><input ng-model="model.newPokemon.pokemonNumber" class="form-control" placeholder="Pokemon Number"/></td>
+                <td><input ng-model="model.newPokemon.pokemonNumber" class="form-control" type="number" placeholder="Pokemon Number"/></td>
                 <td><input ng-model="model.newPokemon.type" class="form-control" placeholder="Type"/></td>
-                <td><input ng-model="model.newPokemon.attack" class="form-control" placeholder="Attack"/></td>
-                <td><input ng-model="model.newPokemon.defense" class="form-control" placeholder="Defense"/></td>
+                <td><input ng-model="model.newPokemon.attack" class="form-control" type="number"  placeholder="Attack"/></td>
+                <td><input ng-model="model.newPokemon.defense" class="form-control" type="number"  placeholder="Defense"/></td>
                 <td><input ng-model="model.newPokemon.moves" class="form-control" placeholder="Moves"/></td>
                 <td><button ng-click="model.createPokemon(model.newPokemon)" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
                     <button ng-click="model.updatePokemon(model.newPokemon)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span></button></td>

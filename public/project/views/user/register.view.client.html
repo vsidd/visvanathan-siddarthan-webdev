@@ -32,8 +32,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <span class="glyphicon glyphicon-plus-sign"></span> Sign Up!</div>
+                    <div ng-show="model.error" class="alert alert-danger" role="alert">
+                        {{model.error}}
+                    </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form">
+                        <form class="form-horizontal" role="form" novalidate>
+
                             <div class="form-group">
                                 <label for="inputText1" class="col-sm-3 control-label">
                                     Username</label>

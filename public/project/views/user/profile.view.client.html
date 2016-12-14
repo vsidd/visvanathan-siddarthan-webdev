@@ -51,9 +51,12 @@
                 <!--<i class="fa fa-coffee"></i>-->
                 <!--This is an <strong>.alert</strong>. Use this to show important messages to the user.-->
             <!--</div>-->
+            <div ng-show="model.error" class="alert alert-danger" role="alert">
+                {{model.error}}
+            </div>
             <h3>Personal info</h3>
 
-            <form class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" novalidate>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">First name:</label>
                     <div class="col-lg-8">

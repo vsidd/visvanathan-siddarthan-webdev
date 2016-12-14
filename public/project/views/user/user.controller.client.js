@@ -48,10 +48,11 @@
         vm.register = register;
 
         function register() {
-            if(vm.user.username === undefined
-                || vm.user.password === undefined
-                || vm.verifyPassword === undefined){
-                vm.error = "One or more field is empty";
+            vm.error= "";
+            if(!vm.user || !vm.user.username
+                || !vm.user.password
+                || !vm.verifyPassword){
+                vm.error = "One or more required field is empty. Required fields are Username, Password, Verify Password";
             }else if(vm.user.password !== vm.verifyPassword) {
                 vm.error = "Entered password do not match with each other"
             }else {
@@ -112,16 +113,20 @@
         init();
 
         function updateUser() {
-           if(vm.user) {
-               UserService
-                   .updateUser(userId, vm.user)
-                   .success(function (successFromServer) {
-                       $location.url("/home");
-                   })
-                   .error(function (errorFromServer) {
-                       vm.error = "server returned error";
-                   });
-           }
+            if(!vm.user || vm.user.username === undefined || vm.user.username === "" || vm.user.username === null){
+                vm.error = "Username cannot be null"
+            }else {
+                if (vm.user) {
+                    UserService
+                        .updateUser(userId, vm.user)
+                        .success(function (successFromServer) {
+                            $location.url("/home");
+                        })
+                        .error(function (errorFromServer) {
+                            vm.error = "server returned error";
+                        });
+                }
+            }
         }
 
         function unregisterUser() {
