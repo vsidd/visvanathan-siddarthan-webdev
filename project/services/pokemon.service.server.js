@@ -8,23 +8,14 @@ module.exports = function (app, model) {
     // app.get("/api/project/user/:userId/location", findAllLocationsForUser);
     app.post("/api/project/pokemon", createPokemon);
     app.get("/api/project/pokemon/", findAllPokemon);
-    app.get("/api/project/pokemon/:pokemonId", findPokemonById);
+    app.get("/api/project/pokemon/id/:pokemonId", findPokemonById);
     app.get("/api/project/pokemon/number/:pokemonNumber", findPokemonByNumber);
     // app.put("/api/project/pokemon/:userId/:pid/location", insertLocation);
     app.put("/api/project/pokemon/:userId/:pid/", insertUser);
     app.post("/api/project/pokemon/comment/:pid", addComment)
-    // app.put("/api/project/location/:locationId", updateLocation);
-    // app.delete("/api/project/location/:locationId", deleteLocation);
+    app.put("/api/project/pokemon/:pokemonId", updatePokemon);
+    app.delete("/api/project/pokemon/:pokemonId", deletePokemon);
 
-
-    // function findPokemon(req, res) {
-    //     var userId = req.params.userId;
-    //     if(!userId){
-    //         findAllPokemon(req, res);
-    //     }else{
-    //         findPokemonByUser(req, res, userId);
-    //     }
-    // }
 
     function createPokemon(req, res) {
         var pokemon = req.body;
@@ -111,28 +102,6 @@ module.exports = function (app, model) {
             )
     }
 
-    // function insertLocation(req, res) {
-    //     var location = req.body;
-    //     var userId = req.params.userId;
-    //     var pokemonId = req.params.pid;
-    //     model
-    //         .pokemonModel
-    //         .findPokemonById(pokemonId)
-    //         .then(
-    //             function (pokemonObj) {
-    //                 if(pokemonObj){
-    //                     pokemonObj.locations.push(location);
-    //                     pokemonObj.save();
-    //                     res.sendStatus(200);
-    //                 }else {
-    //                     res.send('0');
-    //                 }
-    //             },
-    //             function (error) {
-    //                 res.sendStatus(400).send(error);
-    //             }
-    //         )
-    // }
 
     function addComment(req, res) {
         var pokemonId = req.params.pid;
@@ -164,18 +133,30 @@ module.exports = function (app, model) {
             )
     }
 
-    // function deleteLocation(req, res) {
-    //     var locationId = req.params.locationId;
-    //     model
-    //         .locationModel
-    //         .deleteLocation(locationId)
-    //         .then(
-    //             function (status) {
-    //                 res.send(200);
-    //             },
-    //             function (error) {
-    //                 res.sendStatus(400).send(error);
-    //             }
-    //         )
-    // }
+
+    function updatePokemon(req, res) {
+        var pokemonId = req.params.pokemonId;
+        var pokemon = req.body;
+        model
+            .pokemonModel
+            .updatePokemon(pokemonId, pokemon)
+            .then(function (status) {
+                res.send(200);
+            }, function (error) {
+                console.log(error)
+                res.sendStatus(400).send(error);
+            })
+    }
+
+    function deletePokemon(req, res) {
+        var pokemonId = req.params.pokemonId;
+        model
+            .pokemonModel
+            .deletePokemon(pokemonId)
+            .then(function (status) {
+                res.send(200);
+            }, function (error) {
+                res.sendStatus(400).send(error);
+            })
+    }
 };

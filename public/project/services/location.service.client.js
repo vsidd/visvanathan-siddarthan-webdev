@@ -15,7 +15,8 @@
             "findLocationById" : findLocationById,
             // "findLocationByPokemonId" : findLocationByPokemonId,
             "updateLocation" : updateLocation,
-            "deleteLocation" : deleteLocation
+            "deleteLocation" : deleteLocation,
+            "findAllLocations" : findAllLocations
         };
 
         return api;
@@ -35,10 +36,10 @@
             return $http.get(url);
         }
 
-        // function findLocationByPokemonId(pokemonId){
-        //     var url = "/api/project/location/"+pokemonId;
-        //     return $http.get(url);
-        // }
+        function findAllLocations() {
+            var url = "/api/project/location/";
+            return $http.get(url);
+        }
 
         function updateLocation(locationId, location) {
             var url = "/api/project/location/"+locationId;

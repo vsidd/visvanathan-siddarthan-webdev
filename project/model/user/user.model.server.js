@@ -17,6 +17,7 @@ module.exports = function () {
         deleteUser : deleteUser,
         setModel : setModel,
         findUserByFacebookId: findUserByFacebookId,
+        findUserByGoogleId: findUserByGoogleId,
         findAllUsersPokemons : findAllUsersPokemons,
         findAllUsers : findAllUsers,
         addComment : addComment,
@@ -31,6 +32,10 @@ module.exports = function () {
 
     function findUserByFacebookId(facebookId) {
         return UserModelPL.findOne({'facebook.id': facebookId});
+    }
+
+    function findUserByGoogleId(googleId) {
+        return UserModelPL.findOne({'google.id': googleId});
     }
 
     function createUser(user){

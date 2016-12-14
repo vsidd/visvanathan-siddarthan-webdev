@@ -19,6 +19,8 @@ module.exports = function () {
         insertUser : insertUser,
         findAllPokemon : findAllPokemon,
         addComment : addComment,
+        deletePokemon : deletePokemon,
+        updatePokemon : updatePokemon,
         // updateLocation : updateLocation,
         // deleteLocation : deleteLocation,
         setModel : setModel
@@ -114,17 +116,25 @@ module.exports = function () {
     }
 
 
-    // function updateLocation(locationId, location) {
-    //     return PokemonModel
-    //         .update(
-    //             {
-    //                 _id : locationId
-    //             },
-    //             {
-    //                 $set : location
-    //             }
-    //         )
-    // }
+    function deletePokemon(pokemonId) {
+        return PokemonModel
+            .remove(
+                {
+                    _id : pokemonId
+                });
+    }
+
+    function updatePokemon(pokemonId, pokemonObj) {
+        return PokemonModel
+            .update(
+                {
+                    _id : pokemonId
+                },
+                {
+                    $set : pokemonObj.pokemon
+                }
+            )
+    }
 
 
     // function updateLocation(locationId, location) {

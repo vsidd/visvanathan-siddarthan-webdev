@@ -20,6 +20,11 @@ module.exports = function () {
         facebook: {
             id:    String,
             token: String
+        },
+        google: {
+            id: String,
+            token: String,
+            email: String
         }
     }, {collection: "pmUser"});
     return UserSchema;

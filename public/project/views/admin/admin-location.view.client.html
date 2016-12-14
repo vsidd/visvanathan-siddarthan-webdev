@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project Locator</a>
+            <a class="navbar-brand" href ng-click="model.backToAdminList()"><span class="glyphicon glyphicon-arrow-left"></span>Admin List</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
 
@@ -30,7 +30,7 @@
 </nav>
 
 
-<div class="container adminBgImg">
+<div class="container pokemonPaddingInBgImg">
     <div class="panel panel-default col-md-8 col-md-offset-2 adminPanelWhite" >
         <br><br>
         <div ng-show="model.error" class="alert alert-danger" role="alert">
@@ -48,25 +48,20 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td><input ng-model="model.newLocation.latitude" class="form-control" placeholder="Latitude"/></td>
-                <td><input ng-model="model.newLocation.longitude" class="form-control" placeholder="Longitude"/></td>
+                <td><input ng-model="model.newLocation.coordinates.lat" class="form-control" placeholder="Latitude"/></td>
+                <td><input ng-model="model.newLocation.coordinates.lng" class="form-control" placeholder="Longitude"/></td>
                 <td><input ng-model="model.newLocation.address" class="form-control" placeholder="Last Name"/></td>
-                <td><button ng-click="model.createUser(model.newUser)" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
-                    <button ng-click="model.updateUser(model.newUser)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span></button></td>
+                <td><button ng-click="model.updateLocation(model.newLocation)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span></button></td>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="user in model.users">
-                <td>{{user.indexnum}}</td>
-                <td>{{user.username}}</td>
-                <td>{{user.firstName}}</td>
-                <td>{{user.lastName}}</td>
-                <td>{{user.email}}</td>
-                <!--<td>&nbsp;</td>-->
-                <td>****</td>
-                <td>{{user.role}}</td>
-                <td><button ng-click="model.deleteUser(user)" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
-                    <button ng-click="model.selectUser(user)" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span></button></td>
+            <tr ng-repeat="location in model.locations">
+                <td>{{location.indexnum}}</td>
+                <td>{{location.coordinates.lat}}</td>
+                <td>{{location.coordinates.lng}}</td>
+                <td>{{location.address}}</td>
+                <td><button ng-click="model.deleteLocation(location)" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                    <button ng-click="model.selectLocation(location)" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span></button></td>
             </tr>
             </tbody>
         </table>

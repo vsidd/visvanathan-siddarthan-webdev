@@ -3,18 +3,11 @@
  */
 
 module.exports = function (app, model) {
-    // var websites = [
-    //     { "_id": "123", "name": "Facebook",    "developerId": "456",  "description": ""},
-    //     { "_id": "234", "name": "Tweeter",     "developerId": "456",  "description": "" },
-    //     { "_id": "456", "name": "Gizmodo",     "developerId": "456",  "description": "" },
-    //     { "_id": "567", "name": "Tic Tac Toe", "developerId": "123",  "description": "" },
-    //     { "_id": "678", "name": "Checkers",    "developerId": "123",  "description": "" },
-    //     { "_id": "789", "name": "Chess",       "developerId": "234",  "description": "" }
-    // ];
 
     app.post("/api/project/user/:userId/:pid/location", saveLocation);
     app.get("/api/project/user/:userId/location", findAllLocationsForUser);
     app.get("/api/project/location/:locationId", findLocationById);
+    app.get("/api/project/location/", findAllLocation);
     app.put("/api/project/location/:locationId", updateLocation);
     app.delete("/api/project/location/:locationId", deleteLocation);
 
@@ -59,6 +52,24 @@ module.exports = function (app, model) {
                 function (location) {
                     if(location){
                         res.send(location);
+                    }else {
+                        res.send('0');
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
+    }
+
+    function findAllLocation(req, res) {
+        model
+            .locationModel
+            .findAllLocation()
+            .then(
+                function (locations) {
+                    if(locations){
+                        res.send(locations);
                     }else {
                         res.send('0');
                     }

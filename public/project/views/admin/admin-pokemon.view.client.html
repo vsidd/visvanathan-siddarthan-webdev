@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project Locator</a>
+            <a class="navbar-brand" href ng-click="model.backToAdminList()"><span class="glyphicon glyphicon-arrow-left"></span>Admin List</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
 
@@ -31,7 +31,7 @@
 
 
 
-<div class="container adminBgImg">
+<div class="container pokemonPaddingInBgImg">
     <div class="panel panel-default col-md-8 col-md-offset-2 adminPanelWhite" >
         <br><br>
         <div ng-show="model.error" class="alert alert-danger" role="alert">
@@ -55,8 +55,8 @@
                 <td><input ng-model="model.newPokemon.name" class="form-control" placeholder="Name"/></td>
                 <td><input ng-model="model.newPokemon.pokemonNumber" class="form-control" placeholder="Pokemon Number"/></td>
                 <td><input ng-model="model.newPokemon.type" class="form-control" placeholder="Type"/></td>
-                <td><input ng-model="model.newPokemon.attack" class="form-control" type="email" placeholder="Attack"/></td>
-                <td><input ng-model="model.newPokemon.defense" class="form-control" type="password" placeholder="Defense"/></td>
+                <td><input ng-model="model.newPokemon.attack" class="form-control" placeholder="Attack"/></td>
+                <td><input ng-model="model.newPokemon.defense" class="form-control" placeholder="Defense"/></td>
                 <td><input ng-model="model.newPokemon.moves" class="form-control" placeholder="Moves"/></td>
                 <td><button ng-click="model.createPokemon(model.newPokemon)" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
                     <button ng-click="model.updatePokemon(model.newPokemon)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span></button></td>
@@ -70,7 +70,7 @@
                 <td>{{pokemon.type}}</td>
                 <td>{{pokemon.attack}}</td>
                 <td>{{pokemon.defense}}</td>
-                <td>{{pokemon.moves}}</td>
+                <td>{{pokemon.moveList}}</td>
                 <td><button ng-click="model.deletePokemon(pokemon)" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
                     <button ng-click="model.selectPokemon(pokemon)" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span></button></td>
             </tr>

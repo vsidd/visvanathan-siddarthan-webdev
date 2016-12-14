@@ -14,14 +14,10 @@
             "findFromPokeApi" : findFromPokeApi,
             "findPokemonByNumber" : findPokemonByNumber,
             "addComment" : addComment,
-            "createPokemon" : createPokemon
-            // "findPokemonById" : findPokemonById
-            // "saveLocation" : saveLocation,
-            // "findLocationByUserId" : findLocationByUserId,
-            // "findLocationById" : findLocationById,
-            // // "findLocationByPokemonId" : findLocationByPokemonId,
-            // "updateLocation" : updateLocation,
-            // "deleteLocation" : deleteLocation
+            "createPokemon" : createPokemon,
+            "deletePokemon" : deletePokemon,
+            "findPokemonById" : findPokemonById,
+            "updatePokemon" : updatePokemon
         };
 
         return api;
@@ -50,6 +46,21 @@
         function addComment(pokemonId, comment) {
             var url = "/api/project/pokemon/comment/"+pokemonId;
             return $http.post(url, comment);
+        }
+
+        function deletePokemon(pokemonId) {
+            var url = "/api/project/pokemon/"+pokemonId;
+            return $http.delete(url);
+        }
+
+        function findPokemonById(pokemonId) {
+            var url = "/api/project/pokemon/id/"+pokemonId;
+            return $http.get(url);
+        }
+
+        function updatePokemon(pokemonId, pokemon) {
+            var url = "/api/project/pokemon/"+pokemonId;
+            return $http.put(url, pokemon);
         }
 
         // function updateLocation(locationId, location) {

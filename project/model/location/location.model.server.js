@@ -12,6 +12,7 @@ module.exports = function () {
         createLocationForUser : createLocationForUser,
         findAllLocationsForUser : findAllLocationsForUser,
         findLocationById : findLocationById,
+        findAllLocation : findAllLocation,
         updateLocation : updateLocation,
         deleteLocationReference : deleteLocationReference,
         deleteLocation : deleteLocation,
@@ -59,9 +60,10 @@ module.exports = function () {
             .populate("_pokemon","pokemonNumber")
             .exec();
     }
-    // function findAllWebsitesForUser(userId) {
-    //     return model.userModel.findAllWebsitesForUser(userId);
-    // }
+
+    function findAllLocation() {
+        return LocationModel.find();
+    }
 
     function findLocationById(locationId) {
         return LocationModel.findById(locationId);

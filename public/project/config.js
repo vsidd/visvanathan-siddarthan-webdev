@@ -54,6 +54,12 @@
                 controllerAs : "model",
                 resolve: { checkAdmin: checkAdmin }
             })
+            .when("/admin/:uid/locations",{
+                templateUrl : "views/admin/admin-location.view.client.html",
+                controller : "AdminLocationController",
+                controllerAs : "model",
+                resolve: { checkAdmin: checkAdmin }
+            })
             .when("/register",{
                 templateUrl : "views/user/register.view.client.html",
                 controller : "RegisterController",
