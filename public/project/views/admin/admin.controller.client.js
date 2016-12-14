@@ -353,7 +353,7 @@
             if(!pokemonInPokemons._id){
                 vm.error = "Cannot update a value that is not created"
             }else {
-                var commaMoves = pokemonInPokemons.moves.split(",");
+                var commaMoves = pokemonInPokemons.moveList.split(",");
                 var listMoves = [];
                 for(var i = 0; i < commaMoves.length; i++){
                     listMoves.push(commaMoves[i]);
