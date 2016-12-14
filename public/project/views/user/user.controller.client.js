@@ -87,6 +87,8 @@
         vm.logout = logout;
         vm.goToGlobalMap = goToGlobalMap;
         vm.goToMyMap = goToMyMap;
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         if(!userId){
             userId = $rootScope.currentUser._id;
@@ -155,9 +157,26 @@
                 return false;
             }
         }
+
         function goToMyMap() {
             if($rootScope.currentUserSignedIn){
                 $location.url("/user/"+$rootScope.currentUser._id+"/mymap");
+            }else{
+                return false;
+            }
+        }
+
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
             }else{
                 return false;
             }
@@ -177,6 +196,8 @@
         vm.addComment = addComment;
         vm.backToLeaderboard = backToLeaderboard;
         vm.toggleCheckbox = toggleCheckbox;
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         if(!userId1){
             userId1 = $rootScope.currentUser._id;
@@ -191,7 +212,7 @@
                         UserService.findUserById(userId2)
                             .success(function (user2) {
                                 vm.viewedUser = user2;
-                                console.log(vm.viewedUser.following.indexOf(user1._id))
+                                // console.log(vm.viewedUser.following.indexOf(user1._id))
                                 if(vm.viewedUser.following.indexOf(user1._id) != -1){
                                     vm.checkboxcheck = true;
                                 }else{
@@ -231,19 +252,19 @@
                         console.log(err);
                     })
                 vm.checkboxcheck = false;
-                console.log("setting false")
+                // console.log("setting false")
             }else{
                 var userIdToAdd = {userId: userId1};
                 UserService
                     .updateFollowingUser(userIdToAdd, userId2)
                     .success(function (status) {
-                        console.log(status);
+                        // console.log(status);
                     })
                     .error(function (err) {
                         console.log(err);
                     })
                 vm.checkboxcheck = true;
-                console.log("setting true")
+                // console.log("setting true")
             }
         }
 
@@ -301,6 +322,7 @@
                 return false;
             }
         }
+
         function goToMyMap() {
             if($rootScope.currentUserSignedIn){
                 $location.url("/user/"+$rootScope.currentUser._id+"/mymap");
@@ -310,6 +332,22 @@
         }
         
         function backToLeaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
+            }else{
+                return false;
+            }
+        }
+
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
             if($rootScope.currentUserSignedIn){
                 $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
             }else{

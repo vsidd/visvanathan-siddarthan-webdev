@@ -17,10 +17,8 @@
         vm.userprofile = userprofile;
         vm.goToMyMap = goToMyMap;
         vm.goToGlobalMap = goToGlobalMap;
-        // vm.login = login;
-
-        // var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        // var labelIndex = 0;
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         function initMap() {
             var neu = {lat: 42.340245, lng: -71.088354};
@@ -66,7 +64,7 @@
                     {'location': location},
                     function(results, status) {
                         if (status === 'OK') {
-                            console.log(results[1].formatted_address);
+                            // console.log(results[1].formatted_address);
                             saveLocation(results[1].formatted_address, location, marker);
                         }
                     });
@@ -122,6 +120,22 @@
         function userprofile() {
             $location.url("/user/"+$rootScope.currentUser._id+"/profile/");
         }
+
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
+            }else{
+                return false;
+            }
+        }
     }
 
     function ListMapController($location, UserService, $routeParams, LocationService, PokemonService, $rootScope) {
@@ -133,7 +147,8 @@
         vm.goToMyMap = goToMyMap;
         vm.goToGlobalMap = goToGlobalMap;
         vm.userprofile = userprofile;
-        // vm.pokemonList=[];
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         function initMap() {
             var neu = {lat: 42.340245, lng: -71.088354};
@@ -178,7 +193,6 @@
                 .error(function (err) {
 
                 })
-
         }
 
         function addSelectedPokemon(selectedPokemon) {
@@ -223,6 +237,22 @@
             $location.url("/user/"+$rootScope.currentUser._id+"/profile/");
         }
 
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
+            }else{
+                return false;
+            }
+        }
+
     }
 
 
@@ -234,7 +264,8 @@
         vm.moveToDeletePage = moveToDeletePage;
         vm.userprofile = userprofile;
         vm.goToMyMap = goToMyMap;
-        // vm.markerList = [];
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         function initMap() {
             var neu = {lat: 42.340245, lng: -71.088354};
@@ -276,7 +307,6 @@
                 .error(function (err) {
 
                 })
-
         }
 
 
@@ -317,6 +347,22 @@
             $location.url("/user/"+$rootScope.currentUser._id+"/profile/");
         }
 
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
+            }else{
+                return false;
+            }
+        }
+
     }
 
 
@@ -328,6 +374,8 @@
         vm.goToMyMap = goToMyMap;
         vm.userprofile = userprofile;
         vm.markerList = {};
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         function initMap() {
             var neu = {lat: 42.340245, lng: -71.088354};
@@ -406,9 +454,7 @@
                         }
                     }
             }
-
         }
-
 
         function logout() {
             UserService
@@ -441,6 +487,22 @@
 
         function userprofile() {
             $location.url("/user/"+$rootScope.currentUser._id+"/profile/");
+        }
+
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
+            }else{
+                return false;
+            }
         }
 
     }

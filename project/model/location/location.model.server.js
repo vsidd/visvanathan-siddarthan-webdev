@@ -85,8 +85,8 @@ module.exports = function () {
         return LocationModel
             .findById(locationId)
             .then(function (locationObj) {
-                console.log(locationObj);
-                console.log(locationObj._user[0]);
+                // console.log(locationObj);
+                // console.log(locationObj._user[0]);
                model.userModelPL
                     .findUserById(locationObj._user[0])
                     .then(function (userObj) {

@@ -18,6 +18,8 @@
         vm.goToGlobalMap = goToGlobalMap;
         vm.goToMyMap = goToMyMap;
         vm.userprofile = userprofile;
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         if(!userId){
             userId = $rootScope.currentUser._id;
@@ -73,6 +75,22 @@
             $location.url("/user/"+$rootScope.currentUser._id+"/profile/");
         }
 
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
+            }else{
+                return false;
+            }
+        }
+
     }
 
     function AdminUserController($routeParams, UserService, $location, $rootScope) {
@@ -88,6 +106,8 @@
         vm.selectUser = selectUser;
         vm.updateUser = updateUser;
         vm.backToAdminList = backToAdminList;
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         if(!userId){
             userId = $rootScope.currentUser._id;
@@ -163,6 +183,7 @@
                     console.log(err);
                 })
         }
+
         function findAllUsers() {
             UserService
                 .findAllUsers(userId)
@@ -196,6 +217,7 @@
         function backToAdminList() {
             $location.url("/admin/"+$rootScope.currentUser._id);
         }
+
         function goToGlobalMap() {
             if($rootScope.currentUserSignedIn){
                 $location.url("/user/"+$rootScope.currentUser._id+"/map");
@@ -203,6 +225,7 @@
                 return false;
             }
         }
+
         function goToMyMap() {
             if($rootScope.currentUserSignedIn){
                 $location.url("/user/"+$rootScope.currentUser._id+"/mymap");
@@ -213,6 +236,22 @@
 
         function userprofile() {
             $location.url("/user/"+$rootScope.currentUser._id+"/profile/");
+        }
+
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
+            }else{
+                return false;
+            }
         }
 
     }
@@ -230,6 +269,8 @@
         vm.selectPokemon = selectPokemon;
         vm.updatePokemon = updatePokemon;
         vm.backToAdminList = backToAdminList;
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         if(!userId){
             userId = $rootScope.currentUser._id;
@@ -380,6 +421,7 @@
                 return false;
             }
         }
+
         function goToMyMap() {
             if($rootScope.currentUserSignedIn){
                 $location.url("/user/"+$rootScope.currentUser._id+"/mymap");
@@ -390,6 +432,22 @@
 
         function userprofile() {
             $location.url("/user/"+$rootScope.currentUser._id+"/profile/");
+        }
+
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
+            }else{
+                return false;
+            }
         }
 
     }
@@ -407,6 +465,8 @@
         vm.updateLocation = updateLocation;
         vm.backToAdminList = backToAdminList;
         vm.userprofile = userprofile;
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         if(!userId){
             userId = $rootScope.currentUser._id;
@@ -467,6 +527,7 @@
                     console.log(err);
                 })
         }
+
         function findAllLocations() {
             LocationService
                 .findAllLocations()
@@ -500,6 +561,7 @@
         function backToAdminList() {
             $location.url("/admin/"+$rootScope.currentUser._id);
         }
+
         function goToGlobalMap() {
             if($rootScope.currentUserSignedIn){
                 $location.url("/user/"+$rootScope.currentUser._id+"/map");
@@ -507,6 +569,7 @@
                 return false;
             }
         }
+
         function goToMyMap() {
             if($rootScope.currentUserSignedIn){
                 $location.url("/user/"+$rootScope.currentUser._id+"/mymap");
@@ -517,6 +580,22 @@
 
         function userprofile() {
             $location.url("/user/"+$rootScope.currentUser._id+"/profile/");
+        }
+
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
+            }else{
+                return false;
+            }
         }
 
     }

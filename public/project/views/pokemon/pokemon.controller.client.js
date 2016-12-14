@@ -19,6 +19,8 @@
         vm.searchPokeApi = searchPokeApi;
         vm.newSearch = newSearch;
         vm.goToPokemon = goToPokemon;
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         vm.name = $routeParams.name;
         vm.weight = $routeParams.weight;
@@ -112,7 +114,7 @@
                                 vm.base_experience = pokemonDetail.base_experience;
                                 vm.height = pokemonDetail.height;
                                 vm.pokemonNumber = pokemonNumber;
-                                console.log(pokemonDetail);
+                                // console.log(pokemonDetail);
                             })
                             .error(function (err) {
                                 vm.error = "Thrid Party API returned error : " + err;
@@ -161,6 +163,22 @@
             $location.url("/user/"+$rootScope.currentUser._id+"/profile/");
         }
 
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
+            }else{
+                return false;
+            }
+        }
+
     }
 
 
@@ -183,6 +201,8 @@
         vm.userprofile = userprofile;
         vm.backToSearch = backToSearch;
         vm.addComment = addComment;
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         function init() {
             PokemonService
@@ -237,7 +257,6 @@
 
                 var today = "on "+m_names[curr_month]+" "+curr_date+"th, "+curr_year+" "+strTime;
 
-
                 var commentObj = {username: $rootScope.currentUser.username, comment: vm.comment, today: today};
                 PokemonService
                     .addComment(vm.pokemon._id, commentObj)
@@ -250,6 +269,7 @@
                     })
             }
         }
+
         function logout() {
             UserService
                 .logout()
@@ -283,6 +303,22 @@
             $location.url("/user/"+$rootScope.currentUser._id+"/profile/");
         }
 
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
+            }else{
+                return false;
+            }
+        }
+
     }
 
     function LeaderboardController($location, UserService, $routeParams, LocationService, PokemonService, $rootScope) {
@@ -293,6 +329,8 @@
         vm.goToMyMap = goToMyMap;
         vm.goToGlobalMap = goToGlobalMap;
         vm.userprofile = userprofile;
+        vm.searchPokemon = searchPokemon;
+        vm.leaderboard = leaderboard;
 
         function init() {
             UserService
@@ -308,7 +346,7 @@
                         return 0;
                     })
                     vm.userList = users;
-                    console.log(users);
+                    // console.log(users);
                 })
                 .error(function (err) {
 
@@ -348,6 +386,22 @@
 
         function userprofile() {
             $location.url("/user/"+$rootScope.currentUser._id+"/profile/");
+        }
+
+        function searchPokemon() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/pokemon/search");
+            }else{
+                return false;
+            }
+        }
+
+        function leaderboard() {
+            if($rootScope.currentUserSignedIn){
+                $location.url("/user/"+$rootScope.currentUser._id+"/leaderboard");
+            }else{
+                return false;
+            }
         }
 
     }
