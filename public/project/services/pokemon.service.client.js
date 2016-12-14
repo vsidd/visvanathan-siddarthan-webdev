@@ -34,7 +34,7 @@
         }
 
         function findFromPokeApi(pokemonNumber) {
-            var url = "http://pokeapi.co/api/v2/pokemon/"+pokemonNumber+"/"
+            var url = "https://pokeapi.co/api/v2/pokemon/"+pokemonNumber+"/"
             return $http.get(url);
         }
 
